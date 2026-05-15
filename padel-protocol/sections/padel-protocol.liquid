@@ -1,0 +1,928 @@
+{%- liquid
+  assign accent = section.settings.accent_color | default: '#C5F73F'
+-%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700;800&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ── Padel Protocol — scoped styles ─────────────────────────────────── */
+  .pp {
+    --pp-accent: {{ accent }};
+    --pp-accent-ink: #0A0B0A;
+    --pp-bg: #0A0B0A;
+    --pp-bg-2: #121311;
+    --pp-bg-3: #1A1C19;
+    --pp-fg: #EDE9DD;
+    --pp-fg-dim: #B4B1A5;
+    --pp-fg-muted: #6E6E68;
+    --pp-line: rgba(237,233,221,.10);
+    --pp-line-2: rgba(237,233,221,.18);
+    --pp-danger: #FF5C3C;
+    --pp-gutter: clamp(20px,5vw,72px);
+    --pp-maxw: 1280px;
+
+    background: var(--pp-bg);
+    color: var(--pp-fg);
+    font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  .pp ::selection { background: var(--pp-accent); color: var(--pp-accent-ink); }
+
+  /* body override */
+  body:has(.pp) { background: #0A0B0A; }
+
+  .pp-wrap { max-width: var(--pp-maxw); margin: 0 auto; padding: 0 var(--pp-gutter); }
+  .pp-rule { height: 1px; background: var(--pp-line); width: 100%; }
+
+  /* Typography */
+  .pp .display {
+    font-family: "Antonio", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: .92;
+    text-transform: uppercase;
+  }
+  .pp .eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--pp-fg-dim);
+  }
+  .pp .eyebrow .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--pp-accent); margin: 0 .6em 2px 0; vertical-align: middle;
+    box-shadow: 0 0 0 4px rgba(197,247,63,.12);
+  }
+
+  /* ── Status bar ─────────────────────────────────────────────────────── */
+  .pp-status {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,11,10,.78);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--pp-line);
+  }
+  .pp-status-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0;
+    font-size: 11px;
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--pp-fg-dim);
+  }
+  .pp-status-left { display: flex; align-items: center; gap: 14px; }
+  .pp-pulse {
+    position: relative; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--pp-accent); flex: 0 0 auto;
+  }
+  .pp-pulse::after {
+    content: ""; position: absolute; inset: -5px; border-radius: 50%;
+    border: 1px solid var(--pp-accent); opacity: .6;
+    animation: pp-pulse 2.2s ease-out infinite;
+  }
+  @keyframes pp-pulse {
+    0% { transform: scale(.6); opacity: .8; }
+    100% { transform: scale(1.7); opacity: 0; }
+  }
+  .pp-status-right { display: flex; align-items: center; gap: 18px; }
+  .pp-status-right span { opacity: .7; }
+  .pp-status-right .pp-live { color: var(--pp-accent); opacity: 1; }
+  @media (max-width: 720px) { .pp-status-right { display: none; } }
+
+  /* ── Hero ───────────────────────────────────────────────────────────── */
+  .pp-hero { padding: clamp(56px,9vw,120px) 0 clamp(40px,6vw,80px); }
+  .pp-hero-eyebrow { margin-bottom: clamp(28px,5vw,48px); display: flex; align-items: center; gap: 14px; }
+  .pp-hero-glyph {
+    width: 34px; height: 34px; border: 1px solid var(--pp-line-2); border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: "Antonio", sans-serif; font-weight: 700; font-size: 13px;
+    color: var(--pp-accent); letter-spacing: .05em;
+  }
+  .pp h1.pp-headline {
+    font-size: clamp(56px,10.5vw,168px);
+    max-width: 18ch;
+    margin-bottom: clamp(28px,4vw,40px);
+    font-family: "Antonio", sans-serif; font-weight: 700;
+    letter-spacing: -0.015em; line-height: .92; text-transform: uppercase;
+  }
+  .pp h1.pp-headline .stroke {
+    -webkit-text-stroke: 1.5px var(--pp-fg);
+    color: transparent;
+    transition: color .35s ease, -webkit-text-stroke-color .35s ease;
+  }
+  .pp h1.pp-headline .stroke:hover { color: var(--pp-accent); -webkit-text-stroke-color: var(--pp-accent); }
+  .pp-sub {
+    font-size: clamp(17px,1.7vw,22px); line-height: 1.45;
+    color: var(--pp-fg-dim); max-width: 46ch; font-weight: 400;
+  }
+  .pp-sub b { color: var(--pp-fg); font-weight: 500; }
+
+  .pp-hero-meta {
+    display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 1px; background: var(--pp-line);
+    margin-top: clamp(40px,6vw,72px);
+    border-top: 1px solid var(--pp-line); border-bottom: 1px solid var(--pp-line);
+  }
+  .pp-hero-meta > div {
+    background: var(--pp-bg); padding: 18px 0;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .pp-hero-meta .k {
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--pp-fg-muted);
+  }
+  .pp-hero-meta .v {
+    font-family: "Antonio", sans-serif; font-weight: 700;
+    font-size: clamp(20px,2.4vw,28px); color: var(--pp-fg);
+    text-transform: uppercase; letter-spacing: -.01em;
+  }
+  .pp-hero-meta .v.accent { color: var(--pp-accent); }
+  @media (max-width: 780px) { .pp-hero-meta { grid-template-columns: repeat(2,1fr); } }
+
+  /* ── Product ────────────────────────────────────────────────────────── */
+  .pp-product {
+    position: relative; padding: clamp(60px,10vw,140px) 0 clamp(40px,6vw,80px);
+    overflow: hidden;
+  }
+  .pp-product-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(197,247,63,.10), transparent 70%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(197,247,63,.06), transparent 70%);
+  }
+  .pp-product-stage {
+    position: relative; display: grid; place-items: center;
+    min-height: clamp(420px,60vh,720px);
+  }
+  .pp-product-bigword {
+    position: absolute; top: -2vw; left: 50%; transform: translateX(-50%);
+    font-family: "Antonio", sans-serif; font-weight: 800;
+    font-size: clamp(120px,24vw,360px);
+    line-height: .85; letter-spacing: -.03em; text-transform: uppercase;
+    color: transparent; -webkit-text-stroke: 1px rgba(237,233,221,.12);
+    pointer-events: none; white-space: nowrap; user-select: none;
+  }
+  .pp-product-bigword .accent { -webkit-text-stroke: 1px rgba(197,247,63,.55); }
+  .pp-product-img-wrap {
+    position: relative; z-index: 2;
+    width: clamp(260px,32vw,440px); aspect-ratio: 3/4;
+    display: grid; place-items: center;
+    will-change: transform;
+  }
+  .pp-product-img-wrap img {
+    width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 40px 60px rgba(0,0,0,.55)) drop-shadow(0 0 80px rgba(197,247,63,.10));
+    transition: transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .pp-product-stage:hover .pp-product-img-wrap img { transform: rotate(-1.5deg) scale(1.02); }
+  .pp-product-corners { position: absolute; inset: 8% 6%; pointer-events: none; z-index: 1; }
+  .pp-product-corners span { position: absolute; width: 18px; height: 18px; border: 1px solid var(--pp-line-2); }
+  .pp-product-corners span:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+  .pp-product-corners span:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+  .pp-product-corners span:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+  .pp-product-corners span:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+  .pp-product-tagline {
+    text-align: center; margin: clamp(36px,5vw,64px) auto 0; max-width: 62ch;
+    font-size: clamp(17px,1.6vw,21px); line-height: 1.5; color: var(--pp-fg-dim);
+    position: relative; z-index: 2;
+  }
+  .pp-product-tagline b { color: var(--pp-fg); font-weight: 500; }
+  .pp-product-tagline .pill {
+    display: inline-block; border: 1px solid var(--pp-accent); color: var(--pp-accent);
+    padding: 2px 8px; border-radius: 999px;
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase; margin: 0 4px; vertical-align: 1px;
+  }
+  .pp-specs-row {
+    display: flex; justify-content: center; gap: clamp(20px,4vw,56px);
+    margin-top: clamp(36px,5vw,56px); flex-wrap: wrap; position: relative; z-index: 2;
+  }
+  .pp-spec {
+    display: flex; align-items: center; gap: 10px; color: var(--pp-fg-dim);
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .pp-spec b { color: var(--pp-fg); font-weight: 500; }
+  .pp-spec .num { color: var(--pp-accent); }
+
+  /* ── Key points ─────────────────────────────────────────────────────── */
+  .pp-keypoints { padding: clamp(60px,9vw,120px) 0; }
+  .pp-kp-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap; margin-bottom: clamp(40px,6vw,72px);
+  }
+  .pp-kp-head h2 { font-size: clamp(34px,5.5vw,72px); max-width: 14ch; }
+  .pp-kp-head .right {
+    color: var(--pp-fg-muted); font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .pp-kp-grid {
+    display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 0; border-top: 1px solid var(--pp-line-2);
+  }
+  @media (max-width: 920px) { .pp-kp-grid { grid-template-columns: 1fr; } }
+  .pp-kp {
+    padding: clamp(28px,3.5vw,40px) clamp(24px,2.5vw,32px) clamp(40px,5vw,56px);
+    border-right: 1px solid var(--pp-line);
+    border-bottom: 1px solid var(--pp-line-2);
+    position: relative; transition: background .35s ease;
+  }
+  @media (max-width: 920px) { .pp-kp { border-right: 0; } }
+  .pp-kp:last-child { border-right: 0; }
+  .pp-kp:hover { background: linear-gradient(180deg, rgba(197,247,63,.04), transparent 70%); }
+  .pp-kp .n {
+    font-family: "Antonio", sans-serif; font-weight: 700;
+    font-size: clamp(64px,8vw,120px); line-height: .9;
+    color: var(--pp-accent); letter-spacing: -.02em;
+    margin-bottom: 24px; display: block;
+  }
+  .pp-kp h3 {
+    font-family: "Antonio", sans-serif; font-weight: 700;
+    text-transform: uppercase; font-size: clamp(22px,2.2vw,30px);
+    letter-spacing: -.005em; line-height: 1.05;
+    margin-bottom: 18px; max-width: 14ch;
+  }
+  .pp-kp p { color: var(--pp-fg-dim); font-size: 15px; line-height: 1.55; max-width: 42ch; }
+  .pp-kp p em {
+    color: var(--pp-accent); font-style: normal;
+    font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: .04em;
+  }
+  .pp-kp .tag {
+    position: absolute; top: clamp(28px,3.5vw,40px); right: clamp(24px,2.5vw,32px);
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--pp-fg-muted);
+  }
+
+  /* ── Formula ─────────────────────────────────────────────────────────── */
+  .pp-formula { padding: clamp(60px,9vw,120px) 0 clamp(60px,8vw,100px); position: relative; }
+  .pp-formula-head { margin-bottom: clamp(40px,5vw,64px); }
+  .pp-formula-head h2 { font-size: clamp(34px,5.5vw,72px); max-width: 14ch; margin-top: 12px; }
+  .pp-formula-pills {
+    display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 14px;
+  }
+  @media (max-width: 920px) { .pp-formula-pills { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px) { .pp-formula-pills { grid-template-columns: 1fr; } }
+  .pp-pill-card {
+    background: var(--pp-bg-2); border: 1px solid var(--pp-line);
+    padding: 22px 20px 24px; border-radius: 2px;
+    display: flex; flex-direction: column; gap: 8px;
+    cursor: default;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s;
+    position: relative; overflow: hidden;
+  }
+  .pp-pill-card::before {
+    content: ""; position: absolute; left: 0; top: 0;
+    height: 2px; width: 0; background: var(--pp-accent); transition: width .4s ease;
+  }
+  .pp-pill-card:hover::before { width: 100%; }
+  .pp-pill-card:hover { transform: translateY(-4px); border-color: var(--pp-line-2); }
+  .pp-pill-card .dose {
+    font-family: "Antonio", sans-serif; font-weight: 700;
+    font-size: clamp(28px,3.4vw,42px); text-transform: uppercase;
+    letter-spacing: -.01em; color: var(--pp-fg); line-height: 1;
+  }
+  .pp-pill-card .dose .unit { color: var(--pp-accent); font-size: .55em; margin-left: 2px; letter-spacing: 0; }
+  .pp-pill-card .name { color: var(--pp-fg-dim); font-size: 14px; line-height: 1.3; margin-top: 2px; }
+  .pp-pill-card .lab {
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--pp-fg-muted);
+    margin-top: auto; padding-top: 18px;
+  }
+
+  /* ── Offer ───────────────────────────────────────────────────────────── */
+  .pp-offer { padding: clamp(60px,9vw,120px) 0; }
+  .pp-offer-card {
+    background: var(--pp-accent); color: var(--pp-accent-ink);
+    border-radius: 2px; padding: clamp(36px,6vw,72px) clamp(28px,5vw,64px);
+    position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1.1fr .9fr;
+    gap: clamp(24px,4vw,56px); align-items: center;
+  }
+  @media (max-width: 780px) { .pp-offer-card { grid-template-columns: 1fr; } }
+  .pp-offer-card::before {
+    content: ""; position: absolute; top: -30%; right: -10%; width: 60%; aspect-ratio: 1;
+    border-radius: 50%; background: rgba(10,11,10,.06); pointer-events: none;
+  }
+  .pp-offer-card .label {
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: .18em; text-transform: uppercase; opacity: .7;
+  }
+  .pp-offer-card h2 {
+    font-family: "Antonio", sans-serif; font-weight: 700; text-transform: uppercase;
+    font-size: clamp(48px,7.5vw,108px); line-height: .88;
+    letter-spacing: -.015em; margin: 14px 0 0;
+  }
+  .pp-offer-card h2 .pct { font-size: 1.4em; }
+  .pp-offer-card .sub-off { margin-top: 18px; font-size: clamp(16px,1.5vw,19px); max-width: 32ch; line-height: 1.4; }
+  .pp-offer-card .stack { position: relative; z-index: 1; }
+  .pp-offer-meta {
+    position: relative; z-index: 1; display: flex; flex-direction: column;
+    gap: 0; border-top: 1px solid rgba(10,11,10,.18);
+  }
+  .pp-offer-meta .row {
+    display: flex; justify-content: space-between; padding: 14px 0;
+    border-bottom: 1px solid rgba(10,11,10,.18);
+    font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: .04em;
+  }
+  .pp-offer-meta .row b { font-weight: 500; }
+
+  /* ── Signup form ─────────────────────────────────────────────────────── */
+  .pp-signup { padding: clamp(40px,6vw,80px) 0 clamp(80px,10vw,140px); position: relative; }
+  .pp-signup-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: clamp(28px,5vw,80px); align-items: start;
+  }
+  @media (max-width: 920px) { .pp-signup-grid { grid-template-columns: 1fr; } }
+  .pp-signup h2 { font-size: clamp(30px,4.5vw,56px); max-width: 14ch; }
+  .pp-signup .lead { color: var(--pp-fg-dim); margin-top: 16px; font-size: 16px; line-height: 1.5; max-width: 40ch; }
+
+  .pp-form-card {
+    background: var(--pp-bg-2); border: 1px solid var(--pp-line);
+    padding: clamp(24px,3vw,40px); border-radius: 2px;
+    position: relative; overflow: hidden;
+  }
+  .pp-form-card::before {
+    content: ""; position: absolute; inset: 0; border: 1px solid transparent;
+    background: linear-gradient(180deg, rgba(197,247,63,.18), transparent 40%) border-box;
+    -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  }
+  .pp-form-card .stamp {
+    display: flex; align-items: center; gap: 10px;
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--pp-fg-muted);
+    margin-bottom: 18px;
+  }
+  .pp-form-card .stamp .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pp-accent); }
+
+  .pp-field {
+    display: flex; gap: 8px; border: 1px solid var(--pp-line-2);
+    background: var(--pp-bg-3); padding: 6px; border-radius: 2px; transition: border-color .2s;
+  }
+  .pp-field:focus-within { border-color: var(--pp-accent); }
+  .pp-field input {
+    flex: 1; background: transparent; border: 0; outline: 0; color: var(--pp-fg);
+    font: 500 16px/1.4 "Geist", sans-serif; padding: 14px 12px; letter-spacing: .005em;
+  }
+  .pp-field input::placeholder { color: var(--pp-fg-muted); }
+  .pp-field button {
+    appearance: none; border: 0; background: var(--pp-accent); color: var(--pp-accent-ink);
+    font-family: "Antonio", sans-serif; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; font-size: 16px; padding: 0 22px; border-radius: 2px; cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    transition: background .2s, transform .15s, gap .2s;
+    min-height: 48px; white-space: nowrap;
+  }
+  .pp-field button:hover { background: #D6FF6A; gap: 14px; }
+  .pp-field button:active { transform: translateY(1px); }
+  .pp-field button .arrow { font-family: "JetBrains Mono", monospace; font-weight: 400; }
+  .pp-field.err { border-color: var(--pp-danger); }
+  .pp-err-msg { color: var(--pp-danger); font-size: 12px; margin-top: 8px; font-family: "JetBrains Mono", monospace; letter-spacing: .04em; }
+
+  .pp-micro { color: var(--pp-fg-muted); font-size: 13px; line-height: 1.5; margin-top: 18px; max-width: 54ch; }
+  .pp-trust {
+    display: flex; gap: clamp(16px,3vw,36px); flex-wrap: wrap; align-items: center;
+    margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--pp-line);
+  }
+  .pp-trust .t {
+    display: flex; align-items: center; gap: 8px;
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--pp-fg-dim);
+  }
+  .pp-trust .t::before {
+    content: ""; width: 6px; height: 6px; background: var(--pp-accent);
+    border-radius: 50%; display: inline-block;
+  }
+
+  /* ── Confirmation overlay ─────────────────────────────────────────────── */
+  .pp-confirm {
+    position: fixed; inset: 0; z-index: 60; background: rgba(10,11,10,.86);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    display: grid; place-items: center; padding: 24px;
+    opacity: 0; pointer-events: none; transition: opacity .35s ease;
+  }
+  .pp-confirm.on { opacity: 1; pointer-events: auto; }
+  .pp-confirm-card {
+    width: min(560px,100%); background: var(--pp-bg-2); border: 1px solid var(--pp-line-2);
+    padding: clamp(28px,4vw,48px); transform: translateY(20px);
+    transition: transform .45s cubic-bezier(.2,.7,.2,1);
+    border-radius: 2px; position: relative;
+  }
+  .pp-confirm.on .pp-confirm-card { transform: translateY(0); }
+  .pp-confirm-card .check {
+    width: 54px; height: 54px; border-radius: 50%;
+    background: var(--pp-accent); color: var(--pp-accent-ink);
+    display: grid; place-items: center; font-size: 26px; font-weight: 700; margin-bottom: 24px;
+    box-shadow: 0 0 0 6px rgba(197,247,63,.18);
+  }
+  .pp-confirm-card h3 {
+    font-family: "Antonio", sans-serif; font-weight: 700; text-transform: uppercase;
+    font-size: clamp(28px,3.5vw,42px); letter-spacing: -.01em;
+    line-height: 1.05; margin-bottom: 18px;
+  }
+  .pp-confirm-card p { color: var(--pp-fg-dim); font-size: 15px; line-height: 1.55; margin-bottom: 14px; }
+  .pp-confirm-card .email-shown {
+    color: var(--pp-accent); font-family: "JetBrains Mono", monospace;
+    font-size: 13px; word-break: break-all;
+  }
+  .pp-confirm-card .close {
+    position: absolute; top: 14px; right: 14px; width: 32px; height: 32px;
+    border: 1px solid var(--pp-line); background: transparent; color: var(--pp-fg-dim);
+    cursor: pointer; border-radius: 2px;
+    font-family: "JetBrains Mono", monospace; font-size: 14px;
+  }
+  .pp-confirm-card .close:hover { background: var(--pp-bg-3); color: var(--pp-fg); }
+
+  /* ── Scroll reveal ───────────────────────────────────────────────────── */
+  .pp .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .pp .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+
+<div class="pp" id="pp-root">
+
+  {%- if section.settings.show_status_bar -%}
+  <div class="pp-status">
+    <div class="pp-wrap pp-status-row">
+      <div class="pp-status-left">
+        <span class="pp-pulse"></span>
+        <span>{{ section.settings.status_text | default: 'Inscriptions ouvertes' }}</span>
+        <span style="opacity:.4">·</span>
+        <span>Production limitée</span>
+      </div>
+      <div class="pp-status-right">
+        <span>Batch 001 / FR</span>
+        <span style="opacity:.4">·</span>
+        <span class="pp-live">● LIVE</span>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+
+  <!-- Hero -->
+  <section class="pp-hero">
+    <div class="pp-wrap">
+      <div class="pp-hero-eyebrow reveal">
+        <div class="pp-hero-glyph">P/P</div>
+        <span class="eyebrow"><span class="dot"></span>Padel Protocol · Liste d'attente</span>
+      </div>
+
+      <h1 class="display pp-headline reveal">
+        {%- if section.settings.hero_variant == 'stroke' -%}
+          {{ section.settings.hero_headline_line1 | default: 'Jouez au padel' }}<br>
+          {{ section.settings.hero_headline_line2_pre | default: 'sans' }} <span class="stroke">{{ section.settings.hero_headline_stroke | default: 'retenir' }}</span><br>
+          {{ section.settings.hero_headline_line3 | default: 'vos coups.' }}
+        {%- else -%}
+          {{ section.settings.hero_headline_line1 | default: 'Jouez au padel' }} {{ section.settings.hero_headline_line2_pre | default: 'sans' }} {{ section.settings.hero_headline_stroke | default: 'retenir' }} {{ section.settings.hero_headline_line3 | default: 'vos coups.' }}
+        {%- endif -%}
+      </h1>
+
+      <p class="pp-sub reveal">{{ section.settings.hero_subheadline | default: 'Conçu pour les joueurs de <b>plus de 35 ans</b> qui refusent de lever le pied à cause du coude.' }}</p>
+
+      <div class="pp-hero-meta reveal">
+        <div><span class="k">Format</span><span class="v">Shot 30 ml</span></div>
+        <div><span class="k">Rituel</span><span class="v">5 sec / jour</span></div>
+        <div><span class="k">Cible</span><span class="v">Coude · padel</span></div>
+        <div><span class="k">Statut</span><span class="v accent">Pré-lancement</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product -->
+  <section class="pp-product">
+    <div class="pp-product-bg"></div>
+    <div class="pp-wrap">
+      <div class="pp-product-stage">
+        {%- if section.settings.show_bigword -%}
+        <div class="pp-product-bigword" aria-hidden="true">
+          <span class="accent">SHOT</span> 001
+        </div>
+        {%- endif -%}
+        <div class="pp-product-corners" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="pp-product-img-wrap reveal" id="pp-img-wrap">
+          {%- if section.settings.product_image != blank -%}
+            {{ section.settings.product_image | image_url: width: 880 | image_tag: alt: 'Padel Protocol — shot 30 ml', loading: 'lazy' }}
+          {%- else -%}
+            <img
+              src="{{ section.settings.product_image_url | default: 'https://cdn.shopify.com/s/files/1/0958/9437/2685/files/Design_sans_titre_22.png?v=1778844859' }}"
+              alt="Padel Protocol — shot 30 ml"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+
+      <p class="pp-product-tagline reveal">
+        Le premier <b>shot quotidien d'inspiration clinique</b>, formulé spécifiquement
+        pour le <span class="pill">Tissu conjonctif</span>
+        du coude des joueurs de padel.
+      </p>
+
+      <div class="pp-specs-row reveal">
+        <div class="pp-spec"><span class="num">30 ml</span> · ready-to-drink</div>
+        <div class="pp-spec">1h <b>avant</b> session</div>
+        <div class="pp-spec">Sans poudre · sans gélule</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Points -->
+  <section class="pp-keypoints">
+    <div class="pp-wrap">
+      <div class="pp-kp-head reveal">
+        <h2 class="display">{{ section.settings.kp_headline | default: 'Trois points.<br>Zéro compromis.' }}</h2>
+        <span class="right">§ 01 — 03 / Protocole</span>
+      </div>
+      <div class="pp-kp-grid">
+        <article class="pp-kp reveal">
+          <span class="tag">Focus</span>
+          <span class="n">01</span>
+          <h3>Conçu pour un seul sport, un seul problème</h3>
+          <p>Pas un complément générique pour les articulations. Une formulation pensée pour le <strong style="color:var(--pp-fg)">coude soumis aux rotations répétées du padel</strong> — là où les autres marques restent en <em>"peau + articulations"</em>.</p>
+        </article>
+        <article class="pp-kp reveal" style="transition-delay:80ms">
+          <span class="tag">Dose</span>
+          <span class="n">02</span>
+          <h3>La dose utilisée par la recherche tendineuse</h3>
+          <p><strong style="color:var(--pp-fg)">10 g de collagène marin hydrolysé + 180 mg de vitamine C</strong> — la combinaison étudiée dans la littérature scientifique sur le chargement tendineux des athlètes <em>(Shaw 2017, AJCN)</em>.</p>
+        </article>
+        <article class="pp-kp reveal" style="transition-delay:160ms">
+          <span class="tag">Rituel</span>
+          <span class="n">03</span>
+          <h3>Cinq secondes par jour</h3>
+          <p>Un shot <strong style="color:var(--pp-fg)">30 ml prêt à boire</strong>, à prendre une heure avant votre session. Pas de poudre à mélanger, pas de gélules à enchaîner. <em>Le rituel le plus simple du marché.</em></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formula -->
+  <section class="pp-formula">
+    <div class="pp-wrap">
+      <div class="pp-formula-head reveal">
+        <span class="eyebrow"><span class="dot"></span>Formulation · Lot 001</span>
+        <h2 class="display">Cinq actifs.<br>Une seule cible.</h2>
+      </div>
+      <div class="pp-formula-pills">
+        <div class="pp-pill-card reveal">
+          <div class="dose">10<span class="unit">g</span></div>
+          <div class="name">Collagène marin hydrolysé</div>
+          <div class="lab">Type I · Peptan F</div>
+        </div>
+        <div class="pp-pill-card reveal" style="transition-delay:60ms">
+          <div class="dose">180<span class="unit">mg</span></div>
+          <div class="name">Vitamine C</div>
+          <div class="lab">Co-facteur synthèse</div>
+        </div>
+        <div class="pp-pill-card reveal" style="transition-delay:120ms">
+          <div class="dose">25<span class="unit">mg</span></div>
+          <div class="name">Acide hyaluronique</div>
+          <div class="lab">Bas poids moléculaire</div>
+        </div>
+        <div class="pp-pill-card reveal" style="transition-delay:180ms">
+          <div class="dose">10<span class="unit">mg</span></div>
+          <div class="name">Zinc</div>
+          <div class="lab">Bisglycinate</div>
+        </div>
+        <div class="pp-pill-card reveal" style="transition-delay:240ms">
+          <div class="dose">2<span class="unit">mg</span></div>
+          <div class="name">Manganèse</div>
+          <div class="lab">Bisglycinate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offer -->
+  <section class="pp-offer">
+    <div class="pp-wrap">
+      <div class="pp-offer-card reveal">
+        <div class="stack">
+          <span class="label">Offre première commande</span>
+          <h2><span class="pct">{{ section.settings.offer_discount | default: '−20%' }}</span><br>sur votre première commande.</h2>
+          <p class="sub-off">{{ section.settings.offer_description | default: "Premiers inscrits, premiers servis. Production volontairement limitée — l'offre disparaît avec le stock du lot 001." }}</p>
+        </div>
+        <div class="pp-offer-meta">
+          <div class="row"><span>Lot</span><b>001 — FR</b></div>
+          <div class="row"><span>Unités réservées</span><b>1 / personne</b></div>
+          <div class="row"><span>Validité</span><b>Lancement</b></div>
+          <div class="row"><span>Méthode</span><b>Code unique e-mail</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signup -->
+  <section class="pp-signup">
+    <div class="pp-wrap">
+      <div class="pp-signup-grid">
+        <div class="reveal">
+          <span class="eyebrow"><span class="dot"></span>Inscription · Liste d'attente</span>
+          <h2 class="display" style="margin-top:12px">{{ section.settings.signup_headline | default: 'Recevez votre réduction première commande.' }}</h2>
+          <p class="lead">{{ section.settings.signup_lead | default: "Un e-mail. Un code. Un lot limité. Inscrivez-vous maintenant pour débloquer vos −20%." }}</p>
+          <div class="pp-trust">
+            <div class="t">Formulation française</div>
+            <div class="t">Production limitée</div>
+            <div class="t">5 secondes par jour</div>
+          </div>
+        </div>
+
+        <div class="pp-form-card reveal">
+          <div class="stamp"><span class="dot"></span>Réservation · −20% Lot 001</div>
+          <form id="pp-form" novalidate>
+            <div class="pp-field" id="pp-field">
+              <input
+                type="email"
+                inputmode="email"
+                autocomplete="email"
+                placeholder="Entrez votre adresse e-mail"
+                id="pp-email"
+                name="contact[email]"
+              >
+              <button type="submit">
+                {{ section.settings.signup_button_text | default: 'Je débloque mes 20%' }} <span class="arrow">→</span>
+              </button>
+            </div>
+            <div class="pp-err-msg" id="pp-err" style="display:none">→ Adresse e-mail invalide. Vérifiez et réessayez.</div>
+            <p class="pp-micro">
+              Pas de spam. Juste un accès en avant-première au lancement, des conseils
+              spécifiques au padel et des offres réservées aux abonnés.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /pp-root -->
+
+<!-- Confirmation overlay (outside pp-root so fixed positioning works) -->
+<div class="pp-confirm" id="pp-confirm" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="pp-confirm-card">
+    <button class="close" id="pp-confirm-close" aria-label="Fermer">×</button>
+    <div class="check" aria-hidden="true">✓</div>
+    <h3>Vérifiez vos e-mails.</h3>
+    <p>
+      Un message de confirmation vient d'être envoyé à <span class="email-shown" id="pp-confirm-email"></span>.
+      Cliquez sur le lien à l'intérieur pour débloquer vos <strong style="color:var(--pp-fg)">−20% sur votre première commande</strong>.
+    </p>
+    <p>Pensez à vérifier vos spams si vous ne le voyez pas dans 5 minutes.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Scroll reveal ───────────────────────────────────────── */
+  var revealEls = document.querySelectorAll('.pp .reveal');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) e.target.classList.add('in');
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(function (el) { io.observe(el); });
+
+  /* ── Parallax on product image ───────────────────────────── */
+  var imgWrap = document.getElementById('pp-img-wrap');
+  if (imgWrap) {
+    var raf = 0;
+    var onScroll = function () {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () {
+        var r = imgWrap.getBoundingClientRect();
+        var center = r.top + r.height / 2;
+        var offset = (window.innerHeight / 2 - center) * 0.12;
+        imgWrap.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ── Email form ──────────────────────────────────────────── */
+  var form    = document.getElementById('pp-form');
+  var field   = document.getElementById('pp-field');
+  var emailEl = document.getElementById('pp-email');
+  var errEl   = document.getElementById('pp-err');
+  var confirm = document.getElementById('pp-confirm');
+  var confirmEmailEl = document.getElementById('pp-confirm-email');
+  var confirmClose   = document.getElementById('pp-confirm-close');
+
+  var RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function showConfirm(email) {
+    confirmEmailEl.textContent = email;
+    confirm.classList.add('on');
+    confirm.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hideConfirm() {
+    confirm.classList.remove('on');
+    confirm.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = emailEl.value.trim();
+      if (!RE_EMAIL.test(email)) {
+        field.classList.add('err');
+        errEl.style.display = 'block';
+        return;
+      }
+      field.classList.remove('err');
+      errEl.style.display = 'none';
+
+      /* Submit to Shopify contact form endpoint */
+      var data = new FormData();
+      data.append('form_type', 'contact');
+      data.append('utf8', '✓');
+      data.append('contact[email]', email);
+      data.append('contact[body]', 'Inscription liste d\'attente Padel Protocol');
+
+      fetch('/contact', { method: 'POST', body: data, headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function () { showConfirm(email); })
+        .catch(function () { showConfirm(email); }); /* show confirm even on network error for UX */
+    });
+
+    emailEl.addEventListener('input', function () {
+      if (field.classList.contains('err')) {
+        field.classList.remove('err');
+        errEl.style.display = 'none';
+      }
+    });
+  }
+
+  if (confirmClose) {
+    confirmClose.addEventListener('click', hideConfirm);
+  }
+  if (confirm) {
+    confirm.addEventListener('click', function (e) {
+      if (e.target === confirm) hideConfirm();
+    });
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && confirm.classList.contains('on')) hideConfirm();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Padel Protocol",
+  "tag": "div",
+  "class": "shopify-section--padel-protocol",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Couleur"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur accent",
+      "default": "#C5F73F"
+    },
+    {
+      "type": "header",
+      "content": "Status bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_status_bar",
+      "label": "Afficher la status bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "status_text",
+      "label": "Texte status bar",
+      "default": "Inscriptions ouvertes"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "select",
+      "id": "hero_variant",
+      "label": "Style du titre",
+      "options": [
+        { "value": "stroke", "label": "Outline (stroke)" },
+        { "value": "solid", "label": "Plein (solid)" }
+      ],
+      "default": "stroke"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline_line1",
+      "label": "Titre — ligne 1",
+      "default": "Jouez au padel"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline_line2_pre",
+      "label": "Titre — ligne 2 (avant le mot outline)",
+      "default": "sans"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline_stroke",
+      "label": "Titre — mot en outline",
+      "default": "retenir"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline_line3",
+      "label": "Titre — ligne 3",
+      "default": "vos coups."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheadline",
+      "label": "Sous-titre",
+      "default": "Conçu pour les joueurs de <b>plus de 35 ans</b> qui refusent de lever le pied à cause du coude."
+    },
+    {
+      "type": "header",
+      "content": "Produit"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Photo du produit"
+    },
+    {
+      "type": "url",
+      "id": "product_image_url",
+      "label": "URL image produit (si non uploadée)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bigword",
+      "label": "Afficher le grand mot décoratif",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Offre"
+    },
+    {
+      "type": "text",
+      "id": "offer_discount",
+      "label": "Réduction affichée",
+      "default": "−20%"
+    },
+    {
+      "type": "textarea",
+      "id": "offer_description",
+      "label": "Description de l'offre",
+      "default": "Premiers inscrits, premiers servis. Production volontairement limitée — l'offre disparaît avec le stock du lot 001."
+    },
+    {
+      "type": "header",
+      "content": "Inscription"
+    },
+    {
+      "type": "text",
+      "id": "signup_headline",
+      "label": "Titre inscription",
+      "default": "Recevez votre réduction première commande."
+    },
+    {
+      "type": "textarea",
+      "id": "signup_lead",
+      "label": "Texte d'accroche",
+      "default": "Un e-mail. Un code. Un lot limité. Inscrivez-vous maintenant pour débloquer vos −20%."
+    },
+    {
+      "type": "text",
+      "id": "signup_button_text",
+      "label": "Texte du bouton",
+      "default": "Je débloque mes 20%"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Padel Protocol",
+      "settings": {
+        "accent_color": "#C5F73F",
+        "show_status_bar": true,
+        "hero_variant": "stroke",
+        "show_bigword": true
+      }
+    }
+  ]
+}
+{% endschema %}

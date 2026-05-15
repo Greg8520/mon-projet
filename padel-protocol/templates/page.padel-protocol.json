@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "padel_protocol_main": {
+      "type": "padel-protocol",
+      "settings": {
+        "accent_color": "#C5F73F",
+        "show_status_bar": true,
+        "status_text": "Inscriptions ouvertes",
+        "hero_variant": "stroke",
+        "hero_headline_line1": "Jouez au padel",
+        "hero_headline_line2_pre": "sans",
+        "hero_headline_stroke": "retenir",
+        "hero_headline_line3": "vos coups.",
+        "hero_subheadline": "Conçu pour les joueurs de <b>plus de 35 ans</b> qui refusent de lever le pied à cause du coude.",
+        "show_bigword": true,
+        "offer_discount": "−20%",
+        "offer_description": "Premiers inscrits, premiers servis. Production volontairement limitée — l'offre disparaît avec le stock du lot 001.",
+        "signup_headline": "Recevez votre réduction première commande.",
+        "signup_lead": "Un e-mail. Un code. Un lot limité. Inscrivez-vous maintenant pour débloquer vos −20%.",
+        "signup_button_text": "Je débloque mes 20%"
+      }
+    }
+  },
+  "order": ["padel_protocol_main"]
+}
