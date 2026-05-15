@@ -637,7 +637,7 @@
 
         <div class="pp-form-card reveal">
           <div class="stamp"><span class="dot"></span>Réservation · −20% Lot 001</div>
-          <form id="pp-form" novalidate>
+          <form id="pp-form" class="pp-opt-form" novalidate>
             <div class="pp-field" id="pp-field">
               <input
                 type="email"
@@ -708,73 +708,120 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  /* ── Email form ──────────────────────────────────────────── */
-  var form    = document.getElementById('pp-form');
-  var field   = document.getElementById('pp-field');
-  var emailEl = document.getElementById('pp-email');
-  var errEl   = document.getElementById('pp-err');
-  var confirm = document.getElementById('pp-confirm');
-  var confirmEmailEl = document.getElementById('pp-confirm-email');
-  var confirmClose   = document.getElementById('pp-confirm-close');
-
-  var RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  /* ── Confirmation overlay (shared) ──────────────────────── */
+  var overlay       = document.getElementById('pp-confirm');
+  var overlayEmail  = document.getElementById('pp-confirm-email');
+  var overlayClose  = document.getElementById('pp-confirm-close');
 
   function showConfirm(email) {
-    confirmEmailEl.textContent = email;
-    confirm.classList.add('on');
-    confirm.setAttribute('aria-hidden', 'false');
+    if (!overlay) return;
+    overlayEmail.textContent = email;
+    overlay.classList.add('on');
+    overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
   function hideConfirm() {
-    confirm.classList.remove('on');
-    confirm.setAttribute('aria-hidden', 'true');
+    if (!overlay) return;
+    overlay.classList.remove('on');
+    overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
-  if (form) {
+  if (overlayClose) overlayClose.addEventListener('click', hideConfirm);
+  if (overlay) overlay.addEventListener('click', function (e) { if (e.target === overlay) hideConfirm(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay && overlay.classList.contains('on')) hideConfirm(); });
+
+  /* ── Klaviyo single opt-in ───────────────────────────────── */
+  var KLAVIYO_URL = 'https://a.klaviyo.com/client/subscriptions/?company_id=QTWcFU';
+  var LIST_ID     = 'VaBB62';
+  var RE_EMAIL    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function klaviyoSubscribe(email) {
+    return fetch(KLAVIYO_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/vnd.api+json',
+        'revision': '2024-10-15'
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'subscription',
+          attributes: {
+            custom_source: 'Landing Opt-In Padel Protocol',
+            profile: {
+              data: {
+                type: 'profile',
+                attributes: { email: email }
+              }
+            }
+          },
+          relationships: {
+            list: { data: { type: 'list', id: LIST_ID } }
+          }
+        }
+      })
+    });
+  }
+
+  /* ── Wire each opt-in form independently ─────────────────── */
+  function initOptForm(form) {
+    var field        = form.querySelector('.pp-field');
+    var emailInput   = form.querySelector('input[type="email"]');
+    var errEl        = form.querySelector('.pp-err-msg');
+    var btn          = form.querySelector('button[type="submit"]');
+    if (!emailInput || !btn) return;
+
+    var btnOrigHTML = btn.innerHTML;
+
+    function setError(msg) {
+      if (field) field.classList.add('err');
+      if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+    }
+
+    function clearError() {
+      if (field) field.classList.remove('err');
+      if (errEl) { errEl.textContent = ''; errEl.style.display = 'none'; }
+    }
+
+    function setLoading(on) {
+      btn.disabled = on;
+      btn.innerHTML = on ? 'Envoi…' : btnOrigHTML;
+    }
+
+    emailInput.addEventListener('input', clearError);
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var email = emailEl.value.trim();
+      var email = emailInput.value.trim();
+
       if (!RE_EMAIL.test(email)) {
-        field.classList.add('err');
-        errEl.style.display = 'block';
+        setError('→ Adresse e-mail invalide. Vérifiez et réessayez.');
         return;
       }
-      field.classList.remove('err');
-      errEl.style.display = 'none';
 
-      /* Submit to Shopify contact form endpoint */
-      var data = new FormData();
-      data.append('form_type', 'contact');
-      data.append('utf8', '✓');
-      data.append('contact[email]', email);
-      data.append('contact[body]', 'Inscription liste d\'attente Padel Protocol');
+      clearError();
+      setLoading(true);
 
-      fetch('/contact', { method: 'POST', body: data, headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-        .then(function () { showConfirm(email); })
-        .catch(function () { showConfirm(email); }); /* show confirm even on network error for UX */
-    });
-
-    emailEl.addEventListener('input', function () {
-      if (field.classList.contains('err')) {
-        field.classList.remove('err');
-        errEl.style.display = 'none';
-      }
-    });
-  }
-
-  if (confirmClose) {
-    confirmClose.addEventListener('click', hideConfirm);
-  }
-  if (confirm) {
-    confirm.addEventListener('click', function (e) {
-      if (e.target === confirm) hideConfirm();
+      klaviyoSubscribe(email)
+        .then(function (res) {
+          /* Klaviyo returns 202 on success; also accept 200/204 for robustness */
+          if (res.status === 202 || res.status === 200 || res.status === 204) {
+            showConfirm(email);
+          } else {
+            throw new Error('HTTP ' + res.status);
+          }
+        })
+        .catch(function () {
+          setError('→ Une erreur est survenue. Réessayez dans quelques secondes.');
+        })
+        .finally(function () {
+          setLoading(false);
+        });
     });
   }
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && confirm.classList.contains('on')) hideConfirm();
-  });
+
+  document.querySelectorAll('.pp-opt-form').forEach(initOptForm);
 })();
 </script>
 
