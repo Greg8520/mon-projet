@@ -96,7 +96,7 @@
   @media (max-width: 720px) { .pp-status-right { display: none; } }
 
   /* ── Hero ───────────────────────────────────────────────────────────── */
-  .pp-hero { padding: clamp(56px,9vw,120px) 0 clamp(40px,6vw,80px); }
+  .pp-hero { padding: clamp(56px,9vw,120px) 0 0; }
   .pp-hero-eyebrow { margin-bottom: clamp(28px,5vw,48px); display: flex; align-items: center; gap: 14px; }
   .pp-hero-glyph {
     width: 34px; height: 34px; border: 1px solid var(--pp-line-2); border-radius: 50%;
@@ -385,6 +385,12 @@
   .pp-field button .arrow { font-family: "JetBrains Mono", monospace; font-weight: 400; }
   .pp-field.err { border-color: var(--pp-danger); }
   .pp-err-msg { color: var(--pp-danger); font-size: 12px; margin-top: 8px; font-family: "JetBrains Mono", monospace; letter-spacing: .04em; }
+  @media (max-width: 540px) {
+    .pp-field { flex-direction: column; gap: 0; }
+    .pp-field input { padding: 14px 12px; }
+    .pp-field button { width: 100%; justify-content: center; font-size: 14px; padding: 0 16px; min-height: 44px; gap: 8px; border-radius: 0 0 2px 2px; }
+    .pp-field button:hover { gap: 12px; }
+  }
 
   .pp-micro { color: var(--pp-fg-muted); font-size: 13px; line-height: 1.5; margin-top: 18px; max-width: 54ch; }
   .pp-trust {
@@ -483,22 +489,7 @@
         {%- endif -%}
       </h1>
 
-      <p class="pp-sub reveal">{{ section.settings.hero_subheadline | default: 'Conçu pour les joueurs de <b>plus de 35 ans</b> qui refusent de lever le pied à cause du coude.' }}</p>
-
-      <div class="pp-hero-meta reveal">
-        <div><span class="k">Format</span><span class="v">Shot 30 ml</span></div>
-        <div><span class="k">Rituel</span><span class="v">5 sec / jour</span></div>
-        <div><span class="k">Cible</span><span class="v">Coude · padel</span></div>
-        <div><span class="k">Statut</span><span class="v accent">Pré-lancement</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Product -->
-  <section class="pp-product">
-    <div class="pp-product-bg"></div>
-    <div class="pp-wrap">
-      <div class="pp-product-stage">
+      <div class="pp-product-stage reveal" style="margin: clamp(32px,5vw,56px) 0;">
         {%- if section.settings.show_bigword -%}
         <div class="pp-product-bigword" aria-hidden="true">
           <span class="accent">SHOT</span> 001
@@ -507,7 +498,7 @@
         <div class="pp-product-corners" aria-hidden="true">
           <span></span><span></span><span></span><span></span>
         </div>
-        <div class="pp-product-img-wrap reveal" id="pp-img-wrap">
+        <div class="pp-product-img-wrap" id="pp-img-wrap">
           {%- if section.settings.product_image != blank -%}
             {{ section.settings.product_image | image_url: width: 880 | image_tag: alt: 'Padel Protocol — shot 30 ml', loading: 'lazy' }}
           {%- else -%}
@@ -520,6 +511,21 @@
         </div>
       </div>
 
+      <p class="pp-sub reveal">{{ section.settings.hero_subheadline | default: 'Conçu pour les joueurs de <b>plus de 35 ans</b> qui refusent de lever le pied à cause du coude.' }}</p>
+
+      <div class="pp-hero-meta reveal">
+        <div><span class="k">Format</span><span class="v">Shot 30 ml</span></div>
+        <div><span class="k">Rituel</span><span class="v">5 sec / jour</span></div>
+        <div><span class="k">Cible</span><span class="v">Coude · padel</span></div>
+        <div><span class="k">Statut</span><span class="v accent">Pré-lancement</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product details -->
+  <section class="pp-product">
+    <div class="pp-product-bg"></div>
+    <div class="pp-wrap">
       <p class="pp-product-tagline reveal">
         Le premier <b>shot quotidien d'inspiration clinique</b>, formulé spécifiquement
         pour le <span class="pill">Tissu conjonctif</span>
