@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "padel_daily_main": {
+      "type": "padel-daily",
+      "settings": {
+        "accent_color": "#C5F73F",
+        "show_status_bar": true,
+        "status_text": "Inscriptions ouvertes",
+        "hero_variant": "stroke",
+        "hero_headline_line1": "Continuez à jouer",
+        "hero_headline_line2_pre": "au",
+        "hero_headline_stroke": "padel",
+        "hero_headline_line3": "aussi souvent",
+        "hero_headline_line4": "que vous le voulez.",
+        "hero_subheadline": "Le <b>collagène marin en poudre</b>, au goût naturel d'orange, conçu pour les joueurs de padel qui enchaînent les sessions, les tournois et les matchs entre amis.",
+        "show_bigword": true,
+        "show_new_tag": true,
+        "offer_discount": "−20%",
+        "offer_description": "Premiers inscrits, premiers servis. Production volontairement limitée — l'offre disparaît avec le stock du lot 001.",
+        "signup_headline": "Recevez votre réduction première commande.",
+        "signup_lead": "Un e-mail. Un code. Un lot limité. Inscrivez-vous maintenant pour débloquer vos −20%.",
+        "signup_button_text": "Je débloque mes 20%"
+      }
+    }
+  },
+  "order": ["padel_daily_main"]
+}
