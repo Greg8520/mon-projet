@@ -1,5 +1,5 @@
 {%- liquid
-  assign accent = section.settings.accent_color | default: '#C5F73F'
+  assign accent = section.settings.accent_color | default: "#C5F73F"
 -%}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -451,7 +451,7 @@
     <div class="pd-wrap pd-status-row">
       <div class="pd-status-left">
         <span class="pd-pulse"></span>
-        <span>{{ section.settings.status_text | default: 'Inscriptions ouvertes' }}</span>
+        <span>{{ section.settings.status_text | default: "Inscriptions ouvertes" }}</span>
         <span style="opacity:.4">·</span>
         <span>Production limitée</span>
       </div>
@@ -474,12 +474,12 @@
 
       <h1 class="display pd-headline reveal">
         {%- if section.settings.hero_variant == 'stroke' -%}
-          {{ section.settings.hero_headline_line1 | default: 'Continuez à jouer' }}<br>
-          {{ section.settings.hero_headline_line2_pre | default: 'au' }} <span class="stroke">{{ section.settings.hero_headline_stroke | default: 'padel' }}</span><br>
-          {{ section.settings.hero_headline_line3 | default: 'aussi souvent' }}<br>
-          {{ section.settings.hero_headline_line4 | default: 'que vous le voulez.' }}
+          {{ section.settings.hero_headline_line1 | default: "Continuez à jouer" }}<br>
+          {{ section.settings.hero_headline_line2_pre | default: "au" }} <span class="stroke">{{ section.settings.hero_headline_stroke | default: "padel" }}</span><br>
+          {{ section.settings.hero_headline_line3 | default: "aussi souvent" }}<br>
+          {{ section.settings.hero_headline_line4 | default: "que vous le voulez." }}
         {%- else -%}
-          {{ section.settings.hero_headline_line1 | default: 'Continuez à jouer' }} {{ section.settings.hero_headline_line2_pre | default: 'au' }} {{ section.settings.hero_headline_stroke | default: 'padel' }} {{ section.settings.hero_headline_line3 | default: 'aussi souvent' }} {{ section.settings.hero_headline_line4 | default: 'que vous le voulez.' }}
+          {{ section.settings.hero_headline_line1 | default: "Continuez à jouer" }} {{ section.settings.hero_headline_line2_pre | default: "au" }} {{ section.settings.hero_headline_stroke | default: "padel" }} {{ section.settings.hero_headline_line3 | default: "aussi souvent" }} {{ section.settings.hero_headline_line4 | default: "que vous le voulez." }}
         {%- endif -%}
       </h1>
 
@@ -508,7 +508,7 @@
             {{ section.settings.product_image | image_url: width: 880 | image_tag: alt: 'Padel Daily — collagène marin en poudre', loading: 'lazy' }}
           {%- else -%}
             <img
-              src="{{ section.settings.product_image_url | default: 'https://cdn.shopify.com/s/files/1/0958/9437/2685/files/Design_sans_titre_24.webp?v=1778929672' }}"
+              src="{{ section.settings.product_image_url | default: "https://cdn.shopify.com/s/files/1/0958/9437/2685/files/Design_sans_titre_24.webp?v=1778929672" }}"
               alt="Padel Daily — collagène marin en poudre"
               loading="lazy"
             >
@@ -540,7 +540,7 @@
   <section class="pd-keypoints">
     <div class="pd-wrap">
       <div class="pd-kp-head reveal">
-        <h2 class="display">{{ section.settings.kp_headline | default: 'Trois points.<br>Zéro compromis.' }}</h2>
+        <h2 class="display">{{ section.settings.kp_headline | default: "Trois points.<br>Zéro compromis." }}</h2>
         <span class="right">§ 01 — 03 / Protocole</span>
       </div>
       <div class="pd-kp-grid">
@@ -609,7 +609,7 @@
       <div class="pd-offer-card reveal">
         <div class="stack">
           <span class="label">Offre première commande</span>
-          <h2><span class="pct">{{ section.settings.offer_discount | default: '−20%' }}</span><br>sur votre première commande.</h2>
+          <h2><span class="pct">{{ section.settings.offer_discount | default: "−20%" }}</span><br>sur votre première commande.</h2>
           <p class="sub-off">{{ section.settings.offer_description | default: "Premiers inscrits, premiers servis. Production volontairement limitée — l'offre disparaît avec le stock du lot 001." }}</p>
         </div>
         <div class="pd-offer-meta">
@@ -628,7 +628,7 @@
       <div class="pd-signup-grid">
         <div class="reveal">
           <span class="eyebrow"><span class="dot"></span>Inscription · Liste d'attente</span>
-          <h2 class="display" style="margin-top:12px">{{ section.settings.signup_headline | default: 'Recevez votre réduction première commande.' }}</h2>
+          <h2 class="display" style="margin-top:12px">{{ section.settings.signup_headline | default: "Recevez votre réduction première commande." }}</h2>
           <p class="lead">{{ section.settings.signup_lead | default: "Un e-mail. Un code. Un lot limité. Inscrivez-vous maintenant pour débloquer vos −20%." }}</p>
           <div class="pd-trust">
             <div class="t">Fabriqué au Royaume-Uni</div>
@@ -650,7 +650,7 @@
                 name="contact[email]"
               >
               <button type="submit">
-                {{ section.settings.signup_button_text | default: 'Je débloque mes 20%' }} <span class="arrow">→</span>
+                {{ section.settings.signup_button_text | default: "Je débloque mes 20%" }} <span class="arrow">→</span>
               </button>
             </div>
             <div class="pd-err-msg" id="pd-err" style="display:none">→ Adresse e-mail invalide. Vérifiez et réessayez.</div>
