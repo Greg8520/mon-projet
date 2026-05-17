@@ -217,6 +217,15 @@
   .pp-spec b { color: var(--pp-fg); font-weight: 500; }
   .pp-spec .num { color: var(--pp-accent); }
 
+  /* Product tagline */
+  .pp-product-tagline {
+    text-align: center; margin-top: clamp(24px,3vw,40px);
+    color: var(--pp-fg-dim); font-size: clamp(15px,1.4vw,18px);
+    line-height: 1.5; max-width: 58ch; margin-left: auto; margin-right: auto;
+    position: relative; z-index: 2;
+  }
+  .pp-product-tagline b { color: var(--pp-fg); font-weight: 500; }
+
   /* ── Key points ─────────────────────────────────────────────────────── */
   .pp-keypoints { padding: clamp(60px,9vw,120px) 0; }
   .pp-kp-head {
@@ -484,7 +493,7 @@
         <span class="pp-pulse"></span>
         <span>{{ section.settings.status_text | default: 'Inscriptions ouvertes' }}</span>
         <span style="opacity:.4">·</span>
-        <span>Production limitée</span>
+        <span>Production limitée — Lot 001</span>
       </div>
       <div class="pp-status-right">
         <span>Batch 001 / FR</span>
@@ -513,7 +522,7 @@
         {%- endif -%}
       </h1>
 
-      <p class="pp-sub reveal">{{ section.settings.hero_subheadline | default: 'Une <b>formulation française à inspiration clinique</b>, conçue pour les joueurs de padel qui enchaînent les sessions, les tournois et les matchs entre amis.' }}</p>
+      <p class="pp-sub reveal">{{ section.settings.hero_subheadline | default: 'Une <b>formulation française à inspiration clinique</b>, pensée pour accompagner les articulations sollicitées par la pratique régulière du padel.' }}</p>
     </div>
   </section>
 
@@ -551,6 +560,8 @@
         <div class="pp-spec">1h <b>avant</b> session</div>
         <div class="pp-spec">Sans poudre · sans gélule</div>
       </div>
+
+      <p class="pp-product-tagline reveal">Le premier <b>shot français</b> conçu pour compenser la dégradation du collagène liée à la pratique intensive du padel.</p>
     </div>
   </section>
 
@@ -560,7 +571,7 @@
       <div class="pp-hero-meta reveal">
         <div><span class="k">Format</span><span class="v">Shot 30 ml</span></div>
         <div><span class="k">Rituel</span><span class="v">5 sec / jour</span></div>
-        <div><span class="k">Cible</span><span class="v">Coude · padel</span></div>
+        <div><span class="k">Prise</span><span class="v">1h avant session</span></div>
         <div><span class="k">Statut</span><span class="v accent">Pré-lancement</span></div>
       </div>
     </div>
@@ -578,19 +589,19 @@
           <span class="tag">Focus</span>
           <span class="n">01</span>
           <h3>Conçu pour un seul sport</h3>
-          <p>Pas un complément générique. Une <strong style="color:var(--pp-fg)">formulation française dédiée au padel</strong> et à ses gestes — <em>le smash, la sortie de vitre, le revers chopé.</em></p>
+          <p>Pas un collagène générique <em>"peau + articulations"</em> pensé pour tout le monde. Une <strong style="color:var(--pp-fg)">formulation dédiée aux joueurs de padel</strong> et aux gestes répétés de la raquette — smash, sortie de vitre, revers chopé.</p>
         </article>
         <article class="pp-kp reveal" style="transition-delay:80ms">
-          <span class="tag">Clinique</span>
+          <span class="tag">Dosage</span>
           <span class="n">02</span>
-          <h3>À inspiration clinique</h3>
-          <p><strong style="color:var(--pp-fg)">10 g de collagène marin hydrolysé et 180 mg de vitamine C</strong> — la combinaison étudiée dans la littérature scientifique sur la performance des athlètes <em>(Shaw 2017, American Journal of Clinical Nutrition)</em>. Renforcée par le manganèse, le zinc et l'acide hyaluronique.</p>
+          <h3>Dosé à la hauteur des études</h3>
+          <p>Formulation française <strong style="color:var(--pp-fg)">dosée à 10 g de collagène marin hydrolysé de type I (Peptan®) et 180 mg de vitamine C</strong> — la dose étudiée chez les sportifs dans la littérature scientifique <em>(Shaw 2017, American Journal of Clinical Nutrition)</em>. Renforcée par le zinc et le manganèse.</p>
         </article>
         <article class="pp-kp reveal" style="transition-delay:160ms">
           <span class="tag">Rituel</span>
           <span class="n">03</span>
           <h3>Cinq secondes par jour</h3>
-          <p>Un shot <strong style="color:var(--pp-fg)">30 ml prêt à boire</strong>, à prendre avant la session. Pas de poudre à mélanger, pas de gélules à enchaîner. <em>Le format le plus simple du marché.</em></p>
+          <p>Un shot <strong style="color:var(--pp-fg)">30 ml prêt à boire</strong>, à prendre avant la session. Pas de poudre à mélanger, pas de gélules à enchaîner. <em>Le rituel le plus simple du marché.</em></p>
         </article>
       </div>
     </div>
@@ -601,18 +612,18 @@
     <div class="pp-wrap">
       <div class="pp-formula-head reveal">
         <span class="eyebrow"><span class="dot"></span>Formulation · Lot 001</span>
-        <h2 class="display">Cinq actifs.<br>Une seule cible.</h2>
+        <h2 class="display">Cinq actifs.<br>Une seule pratique.</h2>
       </div>
       <div class="pp-formula-pills">
         <div class="pp-pill-card reveal">
           <div class="dose">10<span class="unit">g</span></div>
           <div class="name">Collagène marin hydrolysé</div>
-          <div class="lab">Type I · Peptan F</div>
+          <div class="lab">Type I · Peptan®</div>
         </div>
         <div class="pp-pill-card reveal" style="transition-delay:60ms">
           <div class="dose">180<span class="unit">mg</span></div>
           <div class="name">Vitamine C</div>
-          <div class="lab">Co-facteur synthèse</div>
+          <div class="lab">Formation normale du collagène</div>
         </div>
         <div class="pp-pill-card reveal" style="transition-delay:120ms">
           <div class="dose">25<span class="unit">mg</span></div>
@@ -627,7 +638,7 @@
         <div class="pp-pill-card reveal" style="transition-delay:240ms">
           <div class="dose">2<span class="unit">mg</span></div>
           <div class="name">Manganèse</div>
-          <div class="lab">Bisglycinate</div>
+          <div class="lab">Tissus conjonctifs</div>
         </div>
       </div>
     </div>
@@ -659,11 +670,11 @@
         <div class="reveal">
           <span class="eyebrow"><span class="dot"></span>Inscription · Liste d'attente</span>
           <h2 class="display" style="margin-top:12px">{{ section.settings.signup_headline | default: 'Recevez votre réduction première commande.' }}</h2>
-          <p class="lead">{{ section.settings.signup_lead | default: "Un e-mail. Un code. Un lot limité. Inscrivez-vous maintenant pour débloquer vos −20%." }}</p>
+          <p class="lead">{{ section.settings.signup_lead | default: "Un e-mail. Un code. Un lot limité." }}</p>
           <div class="pp-trust">
             <div class="t">Formulation française</div>
+            <div class="t">Type I Peptan®</div>
             <div class="t">Production limitée</div>
-            <div class="t">5 secondes par jour</div>
           </div>
         </div>
 
@@ -685,8 +696,7 @@
             </div>
             <div class="pp-err-msg" id="pp-err" style="display:none">→ Adresse e-mail invalide. Vérifiez et réessayez.</div>
             <p class="pp-micro">
-              Pas de spam. Juste un accès en avant-première au lancement, des conseils
-              spécifiques au padel et des offres réservées aux abonnés.
+              Pas de spam. Juste votre code, l'accès en avant-première et des conseils spécifiques au padel.
             </p>
           </form>
         </div>
@@ -698,9 +708,9 @@
   <footer class="pp-foot">
     <div class="pp-wrap">
       <p class="pp-foot-claims">
-        La vitamine C contribue à la formation normale de collagène pour la fonction normale du cartilage et des os.
+        La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale des cartilages et des os.
         Le manganèse contribue à la formation normale des tissus conjonctifs.
-        Le zinc contribue à une synthèse normale des protéines.
+        Le zinc contribue au métabolisme normal des macronutriments.
         Padel Protocol™ est un complément alimentaire. Il ne se substitue pas à une alimentation variée et équilibrée
         et à un mode de vie sain. À conserver hors de portée des jeunes enfants.
       </p>
@@ -949,7 +959,7 @@
       "type": "textarea",
       "id": "hero_subheadline",
       "label": "Sous-titre",
-      "default": "Une <b>formulation française à inspiration clinique</b>, conçue pour les joueurs de padel qui enchaînent les sessions, les tournois et les matchs entre amis."
+      "default": "Une <b>formulation française à inspiration clinique</b>, pensée pour accompagner les articulations sollicitées par la pratique régulière du padel."
     },
     {
       "type": "header",
@@ -1007,7 +1017,7 @@
       "type": "textarea",
       "id": "signup_lead",
       "label": "Texte d'accroche",
-      "default": "Un e-mail. Un code. Un lot limité. Inscrivez-vous maintenant pour débloquer vos −20%."
+      "default": "Un e-mail. Un code. Un lot limité."
     },
     {
       "type": "text",
