@@ -1,9 +1,13 @@
 {
   "sections": {
-    "mynd_landing": {
-      "type": "mynd-landing",
+    "mynd_top": {
+      "type": "mynd-landing-top",
+      "settings": {}
+    },
+    "mynd_bottom": {
+      "type": "mynd-landing-bottom",
       "settings": {}
     }
   },
-  "order": ["mynd_landing"]
+  "order": ["mynd_top", "mynd_bottom"]
 }
