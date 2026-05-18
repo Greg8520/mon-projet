@@ -41,7 +41,8 @@
 <script type="text/babel">
 const { useState, useEffect } = React;
 
-const VARIANT_IDS = { once: 53931664572749, pack3: 53931664605517 };
+const VARIANT_IDS = { once: 53931664572749, sub: 53931664572749, pack3: 53931664605517 };
+const SELLING_PLANS = { sub: 79754101069 };
 
 const PLANS = [
   { id:'once',  label:'Achat unique',       sub:'30 sachets · 1 mois',                      price:59,  suffix:'',     perDay:'1,97€/jour', tag:null },
@@ -49,12 +50,14 @@ const PLANS = [
   { id:'pack3', label:'Pack 3 mois',        sub:'3 paquets · économise 48€',                price:129, suffix:'',     perDay:'1,43€/jour', tag:'Recommandé' },
 ];
 
-function cartAdd(variantId, qty, setLoading) {
+function cartAdd(plan, setLoading) {
   setLoading(true);
+  const body = { id: VARIANT_IDS[plan], quantity: 1 };
+  if (SELLING_PLANS[plan]) body.selling_plan = SELLING_PLANS[plan];
   fetch('/cart/add.js', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ id: variantId, quantity: qty }),
+    body: JSON.stringify(body),
   }).then(r => r.json()).then(data => {
     if (data.id) { window.location.href = '/cart'; }
     else { alert(data.description || 'Erreur, veuillez réessayer.'); setLoading(false); }
@@ -74,16 +77,13 @@ const Stars = ({ n = 5, size = 14 }) => (
 
 function HeroBuy() {
   const [plan, setPlan] = useState('sub');
-  const [qty, setQty] = useState(1);
   const [openAcc, setOpenAcc] = useState(null);
   const [loading, setLoading] = useState(false);
   const selected = PLANS.find(p => p.id === plan);
   const thumbs = ['thumb-grad-a','thumb-grad-b','thumb-grad-c','thumb-grad-d'];
 
   function handleBuy() {
-    const vid = VARIANT_IDS[plan];
-    if (!vid) { alert("L'abonnement arrive bientôt — choisissez Achat unique ou Pack 3 mois."); return; }
-    cartAdd(vid, qty, setLoading);
+    cartAdd(plan, setLoading);
   }
 
   return (
@@ -143,17 +143,8 @@ function HeroBuy() {
           </div>
         </div>
 
-        <div className="qty-line">
-          <span className="qty-label">Quantité</span>
-          <div className="qty-stepper">
-            <button onClick={() => setQty(q => Math.max(1, q-1))} aria-label="−">−</button>
-            <input value={qty} readOnly />
-            <button onClick={() => setQty(q => q+1)} aria-label="+">+</button>
-          </div>
-        </div>
-
-        <button className="btn" onClick={handleBuy} disabled={loading}>
-          {loading ? 'Ajout en cours…' : `Démarrer mon protocole — ${selected.price * qty}€${selected.suffix}`}
+<button className="btn" onClick={handleBuy} disabled={loading}>
+          {loading ? 'Ajout en cours…' : `Démarrer mon protocole — ${selected.price}€${selected.suffix}`}
         </button>
 
         <ul className="reassurance">
@@ -479,7 +470,7 @@ function FinalCtaSection() {
           <span className="eyebrow">Prêt à démarrer ?</span>
           <h2 className="display">Démarre ton<br/>protocole<br/>aujourd'hui.</h2>
           <button className="btn btn-final" disabled={loading}
-            onClick={() => cartAdd(VARIANT_IDS.once, 1, setLoading)}>
+            onClick={() => cartAdd('once', setLoading)}>
             {loading ? 'Ajout en cours…' : 'Démarrer mon protocole — 59€'}
           </button>
           <ul className="finalcta-checks">
@@ -576,7 +567,6 @@ function App() {
       <GuaranteeSection />
       <ForYouSection />
       <FinalCtaSection />
-      <SiteFooter />
     </>
   );
 }
