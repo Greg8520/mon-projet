@@ -1,0 +1,586 @@
+<!-- Promo bar -->
+<div class="promobar">
+  <div class="promo-track">
+    <span>· LIVRAISON SOUS 5 JOURS ·</span>
+    <span>· FABRIQUÉ EN ALLEMAGNE · NORMES GMP ·</span>
+    <span>· GARANTIE 60 JOURS · PRODUIT OUVERT ·</span>
+    <span>· VEGAN · SANS SUCRE · SANS GLUTEN ·</span>
+    <span>· LIVRAISON SOUS 5 JOURS ·</span>
+    <span>· FABRIQUÉ EN ALLEMAGNE · NORMES GMP ·</span>
+    <span>· GARANTIE 60 JOURS · PRODUIT OUVERT ·</span>
+    <span>· VEGAN · SANS SUCRE · SANS GLUTEN ·</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <nav class="nav-left">
+    <a href="#">Boutique</a>
+    <a href="#">Le Protocole</a>
+    <a href="#">Science</a>
+  </nav>
+  <a class="brand" href="/">MYND</a>
+  <nav class="nav-right">
+    <a href="/account" aria-label="Compte">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+    </a>
+    <a href="/cart" aria-label="Panier">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.4 12.3a2 2 0 0 1-2 1.7H8.4a2 2 0 0 1-2-1.7L5 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+    </a>
+  </nav>
+</header>
+
+<!-- React root -->
+<div id="mynd-root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+
+{% raw %}
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const VARIANT_IDS = { once: 53931664572749, pack3: 53931664605517 };
+
+const PLANS = [
+  { id:'once',  label:'Achat unique',       sub:'30 sachets · 1 mois',                      price:59,  suffix:'',     perDay:'1,97€/jour', tag:null },
+  { id:'sub',   label:'Abonnement mensuel', sub:'−17% · livraison offerte · annulable en 30s', price:49, suffix:'/mois', perDay:'1,63€/jour', tag:'Le plus choisi' },
+  { id:'pack3', label:'Pack 3 mois',        sub:'3 paquets · économise 48€',                price:129, suffix:'',     perDay:'1,43€/jour', tag:'Recommandé' },
+];
+
+function cartAdd(variantId, qty, setLoading) {
+  setLoading(true);
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ id: variantId, quantity: qty }),
+  }).then(r => r.json()).then(data => {
+    if (data.id) { window.location.href = '/cart'; }
+    else { alert(data.description || 'Erreur, veuillez réessayer.'); setLoading(false); }
+  }).catch(() => { alert('Erreur réseau.'); setLoading(false); });
+}
+
+const Stars = ({ n = 5, size = 14 }) => (
+  <span className="stars">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <svg key={i} width={size} height={size} viewBox="0 0 24 24"
+        fill={i < n ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.4">
+        <path d="M12 2.5l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17.6 5.9 21l1.5-6.8L2.2 9.5l6.9-.7L12 2.5z" />
+      </svg>
+    ))}
+  </span>
+);
+
+function HeroBuy() {
+  const [plan, setPlan] = useState('sub');
+  const [qty, setQty] = useState(1);
+  const [openAcc, setOpenAcc] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const selected = PLANS.find(p => p.id === plan);
+  const thumbs = ['thumb-grad-a','thumb-grad-b','thumb-grad-c','thumb-grad-d'];
+
+  function handleBuy() {
+    const vid = VARIANT_IDS[plan];
+    if (!vid) { alert("L'abonnement arrive bientôt — choisissez Achat unique ou Pack 3 mois."); return; }
+    cartAdd(vid, qty, setLoading);
+  }
+
+  return (
+    <section className="hero">
+      <div className="gallery">
+        <div className="gallery-main">
+          <div className="gallery-badge">
+            <span>Dual-Fuel</span>
+            <strong>Protocol™</strong>
+            <span>Quotidien</span>
+          </div>
+        </div>
+        <div className="gallery-thumbs">
+          {thumbs.map((c, i) => (
+            <button key={i} className={`thumb ${c} ${i === 0 ? 'is-active' : ''}`} aria-label={`Vue ${i+1}`} />
+          ))}
+        </div>
+      </div>
+
+      <div className="buy">
+        <div className="subhead">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+          <span>Complexe cognitif · Dual-Fuel</span>
+        </div>
+        <h1 className="display">MYND</h1>
+        <div className="rating-line">
+          <Stars n={5} />
+          <a href="#reviews">812 avis vérifiés</a>
+        </div>
+        <p className="lede">
+          Le seul complexe cognitif à combiner deux mécanismes d'action complémentaires dans un seul sachet journalier.
+          Lion's Mane + Shilajit + Vitamines B. Pour un cerveau qui pense clairement <em>et</em> qui a l'énergie pour exécuter.
+        </p>
+
+        <div className="bundle">
+          <div className="bundle-head">
+            <h3>Ton protocole, à ton rythme</h3>
+            <span className="bundle-flag">Garantie 60 jours</span>
+          </div>
+          <div className="plan-stack">
+            {PLANS.map(p => (
+              <button key={p.id} className="plan-row" aria-pressed={plan === p.id} onClick={() => setPlan(p.id)}>
+                <span className="radio" />
+                <div className="plan-text">
+                  <div className="plan-title">
+                    {p.label}
+                    {p.tag && <span className={`plan-tag${p.id === 'sub' ? ' tag-cta' : ''}`}>{p.tag}</span>}
+                  </div>
+                  <div className="plan-sub">{p.sub}</div>
+                </div>
+                <div className="plan-price">
+                  <div className="price">{p.price}€<span className="suffix">{p.suffix}</span></div>
+                  <div className="per-day">{p.perDay}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="qty-line">
+          <span className="qty-label">Quantité</span>
+          <div className="qty-stepper">
+            <button onClick={() => setQty(q => Math.max(1, q-1))} aria-label="−">−</button>
+            <input value={qty} readOnly />
+            <button onClick={() => setQty(q => q+1)} aria-label="+">+</button>
+          </div>
+        </div>
+
+        <button className="btn" onClick={handleBuy} disabled={loading}>
+          {loading ? 'Ajout en cours…' : `Démarrer mon protocole — ${selected.price * qty}€${selected.suffix}`}
+        </button>
+
+        <ul className="reassurance">
+          <li>✓ Livraison sous 2 jours ouvrés</li>
+          <li>✓ Garantie 60 jours · produit ouvert</li>
+          <li>✓ Annulation abonnement en 30 secondes</li>
+          <li>✓ Testé en laboratoire indépendant</li>
+        </ul>
+
+        {[
+          { key:'a', title:'Composition complète', body: <>
+            <p><strong>MyndBuild (gummie rouge) :</strong> Lion's Mane extrait sélectionné, Vitamine B6.</p>
+            <p><strong>MyndFuel (gummie noir) :</strong> Shilajit extrait premium, complexe B-vitamines.</p>
+            <p style={{color:'var(--ink-soft)'}}>Base vegan : pectine, sirop de tapioca, arômes naturels. Sans gélatine, sans sucre ajouté, sans gluten.</p>
+          </> },
+          { key:'b', title:"Mode d'emploi", body: <>
+            <p>1 sachet par jour — 2 gummies (1 rouge MyndBuild + 1 noir MyndFuel), le matin avec ou sans repas.</p>
+            <p>Pour des résultats optimaux : prise régulière sur 2 à 3 mois minimum.</p>
+          </> },
+          { key:'c', title:'Origine & certifications', body: <>
+            <p>Fabriqué en Allemagne selon les normes GMP. Chaque lot testé par un laboratoire indépendant.</p>
+            <p>Vegan · Sans sucre ajouté · Sans gluten.</p>
+          </> },
+        ].map((acc, i) => (
+          <div key={acc.key} className="acc" style={i > 0 ? {marginTop:-1} : {}}>
+            <button className="acc-head" onClick={() => setOpenAcc(openAcc === acc.key ? null : acc.key)}>
+              <span>{acc.title}</span><span>{openAcc === acc.key ? '−' : '+'}</span>
+            </button>
+            {openAcc === acc.key && <div className="acc-body">{acc.body}</div>}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProtocolSection() {
+  return (
+    <section className="protocol">
+      <header className="protocol-head">
+        <span className="eyebrow">Le Dual-Fuel Protocol™</span>
+        <h2 className="display">Deux mécanismes,<br/>un seul sachet.</h2>
+        <p>MYND est le seul complexe cognitif à combiner deux mécanismes d'action complémentaires dans un sachet journalier — un cerveau qui pense clairement <em>et</em> qui a l'énergie pour exécuter.</p>
+      </header>
+      <div className="pillars">
+        <article className="pillar pillar-build">
+          <span className="pillar-dot" aria-hidden="true"></span>
+          <span className="pillar-label">MyndBuild</span>
+          <h3>Soutien cognitif</h3>
+          <p className="pillar-ingr">Lion's Mane · Vitamine B6</p>
+          <p>Le Lion's Mane stimule la production de NGF — le facteur de croissance nerveuse qui soutient la plasticité neuronale. Clarté mentale plus stable, mémoire plus accessible, concentration qui dure.</p>
+          <p>La Vitamine B6 soutient le fonctionnement normal du système nerveux et contribue à réduire la fatigue mentale.</p>
+          <div className="pillar-foot">
+            <span className="gummy-chip gummy-red" aria-hidden="true"></span>
+            <span>1 gummie rouge par jour</span>
+          </div>
+        </article>
+        <div className="plus-sign" aria-hidden="true">＋</div>
+        <article className="pillar pillar-fuel">
+          <span className="pillar-dot dot-dark" aria-hidden="true"></span>
+          <span className="pillar-label">MyndFuel</span>
+          <h3>Énergie cellulaire</h3>
+          <p className="pillar-ingr">Shilajit · Complexe Vitamines B</p>
+          <p>Le Shilajit, résine minérale des Himalayas, est naturellement riche en acide fulvique — un transporteur qui améliore l'absorption au niveau cellulaire. Production d'énergie mitochondriale, sans pic, sans crash.</p>
+          <p>Le complexe B-vitamines contribue au métabolisme énergétique normal et à la réduction de la fatigue.</p>
+          <div className="pillar-foot">
+            <span className="gummy-chip gummy-black" aria-hidden="true"></span>
+            <span>1 gummie noire par jour</span>
+          </div>
+        </article>
+      </div>
+      <div className="pillars-equation">
+        <span>=</span>
+        <p>Un cerveau qui pense clairement <strong>ET</strong> qui a l'énergie pour exécuter.</p>
+      </div>
+    </section>
+  );
+}
+
+function FormulaSection() {
+  return (
+    <section className="formula">
+      <header className="formula-head">
+        <span className="eyebrow">La formule</span>
+        <h2 className="display">Comparée, ligne à ligne.</h2>
+      </header>
+      <div className="formula-table">
+        <div className="ft-row ft-head">
+          <div></div>
+          <div className="ft-col-build"><span className="gummy-chip gummy-red" aria-hidden="true"></span>MyndBuild</div>
+          <div className="ft-col-fuel"><span className="gummy-chip gummy-black" aria-hidden="true"></span>MyndFuel</div>
+        </div>
+        {[
+          ['Ingrédient principal','Lion\'s Mane extrait sélectionné','Shilajit extrait premium'],
+          ['Apport','Vitamine B6','Complexe B-vitamines'],
+          ['Action','Soutien cognitif','Énergie cellulaire'],
+          ['Format','1 gummie rouge','1 gummie noire'],
+        ].map(([key, build, fuel], i) => (
+          <div key={i} className="ft-row">
+            <div className="ft-key">{key}</div>
+            <div>{build}</div>
+            <div>{fuel}</div>
+          </div>
+        ))}
+      </div>
+      <ul className="formula-trust">
+        <li>✓ Vegan</li>
+        <li>✓ Sans sucre ajouté</li>
+        <li>✓ Sans gluten</li>
+        <li>✓ Testé en laboratoire indépendant</li>
+        <li>✓ Fabriqué en Allemagne · normes GMP</li>
+      </ul>
+    </section>
+  );
+}
+
+function FeelSection() {
+  const steps = [
+    { tag:'Semaine 1–2', title:'Les premiers signaux',    body:"Les premiers effets apparaissent. Moins de brouillard mental en milieu de journée. Les transitions entre les tâches deviennent plus fluides." },
+    { tag:'Semaine 3–4', title:"La clarté s'installe",   body:"Tu entres plus facilement en état de concentration profonde. Le creux de 14h disparaît progressivement." },
+    { tag:'Mois 2–3',    title:'Le nouveau niveau',      body:"La mémoire de travail s'améliore. Les décisions deviennent plus nettes. Tu remarques que tu finis ce que tu commences." },
+  ];
+  return (
+    <section className="feel">
+      <header className="feel-head">
+        <span className="eyebrow">Ce que tu vas ressentir</span>
+        <h2 className="display">Une courbe,<br/>pas un pic.</h2>
+      </header>
+      <div className="feel-grid">
+        {steps.map((s, i) => (
+          <article key={i} className={`feel-card feel-${i}`}>
+            <span className="feel-num">{String(i+1).padStart(2,'0')}</span>
+            <span className="feel-tag">{s.tag}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </article>
+        ))}
+      </div>
+      <div className="feel-curve" aria-hidden="true">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" width="100%" height="120">
+          <defs>
+            <linearGradient id="curveGrad" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stopColor="#b8d4f5"/>
+              <stop offset="35%" stopColor="#c8b6e5"/>
+              <stop offset="70%" stopColor="#e8b6cf"/>
+              <stop offset="100%" stopColor="#d9b87a"/>
+            </linearGradient>
+          </defs>
+          <path d="M 0,95 C 200,90 380,80 520,60 C 680,38 820,28 1000,20 L 1200,15" stroke="url(#curveGrad)" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          <circle cx="200" cy="85" r="6" fill="#fff" stroke="#1a1726" strokeWidth="2"/>
+          <circle cx="580" cy="55" r="6" fill="#fff" stroke="#1a1726" strokeWidth="2"/>
+          <circle cx="1000" cy="20" r="6" fill="#fff" stroke="#1a1726" strokeWidth="2"/>
+        </svg>
+      </div>
+    </section>
+  );
+}
+
+function PacksSection() {
+  const packs = [
+    { n:1, label:'1 mois',  sub:'Initiation',    stats:'30 sachets · 2 gummies/jour', body:"Légère amélioration de la concentration et de la clarté mentale. Le cerveau commence à recevoir le soutien dont il manquait.", pile:1 },
+    { n:2, label:'2 mois',  sub:'Progression',   stats:'60 sachets · 2 gummies/jour', body:"Meilleure mémoire, concentration accrue, réduction du brouillard mental. Les effets deviennent constants et prévisibles.", pile:2 },
+    { n:3, label:'3 mois',  sub:'Optimisation',  stats:'90 sachets · 2 gummies/jour', body:"Optimisation des fonctions cognitives et amélioration mesurable de la productivité. Le nouveau niveau de référence de ton cerveau.", pile:3, recommended:true },
+  ];
+  return (
+    <section className="packs">
+      <header className="packs-head">
+        <span className="eyebrow">Durée recommandée</span>
+        <h2 className="display">Combien de temps<br/>pour des résultats optimaux ?</h2>
+        <p>Les compléments cognitifs naturels fonctionnent en profondeur — pas en surface. Leur efficacité augmente avec la régularité.</p>
+      </header>
+      <div className="packs-grid">
+        {packs.map((p, i) => (
+          <article key={i} className={`pack-card${p.recommended ? ' is-recommended' : ''}`}>
+            {p.recommended && <span className="pack-flag">Durée recommandée</span>}
+            <div className="pack-stack" data-pile={p.pile}>
+              {Array.from({length: p.pile}).map((_, k) => (
+                <span key={k} className="pack-box" style={{'--k': k}}></span>
+              ))}
+            </div>
+            <div className="pack-meta">
+              <span className="pack-n">{p.n}</span>
+              <span className="pack-label">{p.label}<br/><em>{p.sub}</em></span>
+            </div>
+            <div className="pack-stats">{p.stats}</div>
+            <p>{p.body}</p>
+          </article>
+        ))}
+      </div>
+      <p className="packs-foot">
+        La plupart de nos clients constatent les premiers effets dès <strong>J7</strong>. Les résultats optimaux sont atteints à partir du <strong>2<sup>e</sup> mois</strong>.
+      </p>
+    </section>
+  );
+}
+
+function TestimonialsSection() {
+  const items = [
+    { quote:"J'ai testé à peu près tout — café aux champignons, gélules, poudres. MYND est le premier produit où je sens vraiment la différence sur ma concentration en réunion. Plus de brouillard à 14h.", name:'Thomas M.', role:"Fondateur d'une agence digitale", city:'Lyon' },
+    { quote:"En tant que CEO je peux pas me permettre d'être à 70%. Depuis MYND je finis mes journées avec encore de l'énergie. Et mes décisions sont plus nettes.", name:'Sarah K.', role:'CEO e-commerce', city:'Paris' },
+    { quote:"J'étais sceptique comme tout entrepreneur qui a déjà essayé 50 trucs. 3 semaines plus tard je suis abonné.", name:'Romain D.', role:'Consultant indépendant', city:'Bordeaux' },
+  ];
+  return (
+    <section className="testimonials" id="reviews">
+      <header className="testimonials-head">
+        <span className="eyebrow">Témoignages clients</span>
+        <h2 className="display">Ils ont retrouvé<br/>leur clarté.</h2>
+      </header>
+      <div className="testimonials-grid">
+        {items.map((t, i) => (
+          <figure key={i} className={`tcard tcard-${i}`}>
+            <Stars n={5} size={14} />
+            <blockquote>« {t.quote} »</blockquote>
+            <figcaption>
+              <span className="tname">{t.name}</span>
+              <span className="trole">{t.role} · {t.city}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  const [open, setOpen] = useState(0);
+  const faqs = [
+    { q:"Quand dois-je prendre mes 2 gummies ?",              a:"Le matin, avec ou sans repas. Un sachet par jour, à heure fixe pour maximiser les effets. Certains clients préfèrent MyndBuild le matin et MyndFuel à midi — à toi de tester." },
+    { q:"Est-ce que ça contient de la caféine ?",             a:"Non. Zéro caféine. MYND fonctionne sans stimulant — l'énergie vient de l'optimisation cellulaire, pas d'un pic artificiel." },
+    { q:"Combien de temps avant de ressentir les effets ?",   a:"Les premiers effets apparaissent généralement entre J5 et J14. Les effets complets se développent sur 2 à 3 mois de prise régulière." },
+    { q:"Est-ce compatible avec mon café du matin ?",         a:"Oui, complètement. MYND n'est pas une alternative au café — c'est un complément à ta routine existante." },
+    { q:"Puis-je annuler mon abonnement facilement ?",        a:"Un seul clic dans ton espace client. Aucun formulaire, aucun email, aucune explication requise. Annulation effective immédiatement." },
+    { q:"Le produit est-il testé ?",                          a:"Oui. Chaque lot est testé par un laboratoire indépendant certifié. Le certificat d'analyse est disponible sur demande." },
+  ];
+  return (
+    <section className="faq-section">
+      <header className="faq-head">
+        <span className="eyebrow">FAQ</span>
+        <h2 className="display">Questions fréquentes</h2>
+      </header>
+      <div className="faq-list">
+        {faqs.map((it, i) => (
+          <button key={i} className={`faq-item${open === i ? ' open' : ''}`} onClick={() => setOpen(open === i ? -1 : i)}>
+            <div className="faq-row">
+              <span className="faq-q">{it.q}</span>
+              <span className="plus">{open === i ? '−' : '+'}</span>
+            </div>
+            {open === i && <div className="faq-answer">{it.a}</div>}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function GuaranteeSection() {
+  return (
+    <section className="guarantee">
+      <div className="guarantee-card">
+        <div className="g-seal" aria-hidden="true">
+          <svg viewBox="0 0 120 120" width="120" height="120">
+            <defs>
+              <linearGradient id="sealGrad" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stopColor="#c8b6e5"/>
+                <stop offset="50%" stopColor="#e8b6cf"/>
+                <stop offset="100%" stopColor="#b8d4d6"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="56" fill="url(#sealGrad)"/>
+            <circle cx="60" cy="60" r="44" fill="none" stroke="#1a1726" strokeWidth="1.4" strokeDasharray="3 4"/>
+            <text x="60" y="54" textAnchor="middle" fontFamily="Instrument Serif, serif" fontSize="36" fill="#1a1726">60</text>
+            <text x="60" y="76" textAnchor="middle" fontFamily="Archivo, sans-serif" fontWeight="700" fontSize="11" letterSpacing="2" fill="#1a1726">JOURS</text>
+          </svg>
+        </div>
+        <div className="g-body">
+          <span className="eyebrow">La garantie MYND</span>
+          <h2 className="display">60 jours.<br/>Produit ouvert.<br/>Zéro question.</h2>
+          <p>Si après 60 jours de prise régulière tu ne constates aucune amélioration, on te rembourse intégralement. Même si le paquet est entamé. Même si tu as pris la moitié.</p>
+          <p className="g-lead">On garantit le résultat, pas juste l'expérience d'achat.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ForYouSection() {
+  const yes = [
+    "Tu as des journées à haute intensité cognitive",
+    "Tu veux performer sans dépendre de la caféine",
+    "Tu as déjà essayé des compléments sans résultat convaincant",
+    "Tu cherches un protocole simple — 2 gummies, 1 sachet, chaque matin",
+  ];
+  return (
+    <section className="foryou">
+      <header className="foryou-head">
+        <span className="eyebrow">L'auto-diagnostic</span>
+        <h2 className="display">MYND est fait pour toi si…</h2>
+      </header>
+      <ul className="foryou-list">
+        {yes.map((y, i) => (
+          <li key={i}>
+            <span className="check" aria-hidden="true">✓</span>
+            <span>{y}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="foryou-not">
+        MYND <strong>n'est pas fait pour toi</strong> si tu cherches un effet immédiat en 24h. Les compléments naturels demandent de la régularité — c'est leur force, pas leur limite.
+      </p>
+    </section>
+  );
+}
+
+function FinalCtaSection() {
+  const [loading, setLoading] = useState(false);
+  return (
+    <section className="finalcta">
+      <div className="finalcta-card">
+        <div className="finalcta-vis">
+          <div style={{width:200,height:280,borderRadius:24,background:'conic-gradient(from 220deg, #e9d2eb, #b8d6da, #f0d5e2, #efe1c9, #e9d2eb)',filter:'drop-shadow(0 30px 50px rgba(80,50,120,.25))',transform:'rotate(-4deg)'}}></div>
+        </div>
+        <div className="finalcta-body">
+          <span className="eyebrow">Prêt à démarrer ?</span>
+          <h2 className="display">Démarre ton<br/>protocole<br/>aujourd'hui.</h2>
+          <button className="btn btn-final" disabled={loading}
+            onClick={() => cartAdd(VARIANT_IDS.once, 1, setLoading)}>
+            {loading ? 'Ajout en cours…' : 'Démarrer mon protocole — 59€'}
+          </button>
+          <ul className="finalcta-checks">
+            <li>✓ Livraison sous 5 jours ouvrés</li>
+            <li>✓ Garantie 60 jours · produit ouvert</li>
+            <li>✓ Annulation abonnement 30 secondes</li>
+            <li>✓ Testé laboratoire indépendant · Fabriqué en Allemagne · Vegan · Sans sucre</li>
+          </ul>
+          <p className="finalcta-fine">
+            Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée. Déconseillé aux femmes enceintes et allaitantes.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div className="footer-wrap">
+        <div className="footer-brand">MYND</div>
+        <div className="footer-signup">
+          <div>
+            <h4>Inscris-toi aux offres &amp; accès exclusifs</h4>
+            <form className="email-row" onSubmit={e => e.preventDefault()}>
+              <input type="email" placeholder="Ton email" />
+              <button type="submit">Envoyer</button>
+            </form>
+          </div>
+          <div className="footer-card">
+            <span className="top">Email</span>
+            <span className="val">bonjour@drinkmynd.com</span>
+          </div>
+          <div className="footer-card">
+            <span className="top">Instagram</span>
+            <span className="val">@drinkmynd</span>
+          </div>
+        </div>
+        <div className="footer-cols">
+          <div>
+            <h5>Navigation</h5>
+            <ul><li>Boutique</li><li>Le protocole</li><li>Science</li><li>Espace client</li><li>Programme parrainage</li></ul>
+          </div>
+          <div>
+            <h5>Le shop</h5>
+            <ul><li>Achat unique — 59€</li><li>Abonnement — 49€/mois</li><li>Pack 3 mois — 129€</li><li>Carte cadeau</li></ul>
+          </div>
+          <div>
+            <h5>Infos</h5>
+            <ul><li>Garantie 60 jours</li><li>Livraison &amp; retours</li><li>CGV</li><li>Politique de confidentialité</li><li>Mentions légales</li></ul>
+          </div>
+          <div>
+            <h5>Fabriqué en Allemagne</h5>
+            <address>MYND<br/>Normes GMP<br/>Testé en laboratoire indépendant<br/>Vegan · Sans sucre · Sans gluten</address>
+          </div>
+        </div>
+        <div className="footer-fine">
+          <div className="pay">
+            {['VISA','MASTERCARD','PAYPAL','APPLE PAY','G PAY','SOFORT'].map(c => <span key={c} className="card">{c}</span>)}
+          </div>
+          Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée et à un mode de vie sain. Ne pas dépasser la dose journalière recommandée. À conserver hors de portée des enfants. Déconseillé aux femmes enceintes ou allaitantes. Les compléments alimentaires ne sont pas des médicaments.
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function App() {
+  useEffect(() => {
+    const r = document.documentElement;
+    r.style.setProperty('--bg','#f4f1ec');
+    r.style.setProperty('--paper','#ffffff');
+    r.style.setProperty('--ink','#1a1726');
+    r.style.setProperty('--ink-soft','#6c6478');
+    r.style.setProperty('--line','#e7e2d8');
+    r.style.setProperty('--lav-1','#efe6f5');
+    r.style.setProperty('--lav-2','#e1d5ee');
+    r.style.setProperty('--pink-1','#f5e3ea');
+    r.style.setProperty('--pink-2','#ecd7e0');
+    r.style.setProperty('--accent','#4a2f7a');
+    r.style.setProperty('--cta','#c5f04a');
+    r.style.setProperty('--cta-ink','#1a1726');
+  }, []);
+  return (
+    <>
+      <HeroBuy />
+      <ProtocolSection />
+      <FormulaSection />
+      <FeelSection />
+      <PacksSection />
+      <TestimonialsSection />
+      <FaqSection />
+      <GuaranteeSection />
+      <ForYouSection />
+      <FinalCtaSection />
+      <SiteFooter />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('mynd-root')).render(<App />);
+</script>
+{% endraw %}
