@@ -1,0 +1,2466 @@
+<!-- MYND Landing Page — Shopify Liquid Section -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@300;400;500;600;700&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --iridescent: linear-gradient(135deg, #F0D8F0 0%, #D8E8F8 28%, #D8F0E8 50%, #F8E8D0 72%, #E8D8F8 100%);
+    --reflet: linear-gradient(90deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.28) 22%, rgba(255,255,255,0) 45%);
+    --bg-primary: #f5f2ff;
+    --dark: #1a1a2e;
+    --purple: #7c5cba;
+    --font-heading: 'Instrument Serif', serif;
+    --font-body: 'Archivo', sans-serif;
+    --font-label: 'Archivo Narrow', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: #fff; color: var(--dark); overflow-x: hidden; }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes floatC {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10px, -20px); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- ANNOUNCEMENT BAR ---- */
+  .mynd-announcement {
+    background: var(--dark);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    position: relative;
+    z-index: 200;
+  }
+
+  /* ---- NAV ---- */
+  .mynd-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(245, 242, 255, 0.92);
+    backdrop-filter: blur(0px);
+    transition: backdrop-filter 0.3s, background 0.3s, box-shadow 0.3s;
+    border-bottom: 1px solid rgba(124, 92, 186, 0.1);
+  }
+  .mynd-nav.scrolled {
+    backdrop-filter: blur(16px);
+    background: rgba(245, 242, 255, 0.85);
+    box-shadow: 0 2px 24px rgba(124,92,186,0.08);
+  }
+  .mynd-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+  }
+  .mynd-nav-logo {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .mynd-nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .mynd-nav-links a {
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+  }
+  .mynd-nav-links a:hover { opacity: 1; }
+  .mynd-nav-cta {
+    background: var(--purple);
+    color: #fff !important;
+    opacity: 1 !important;
+    padding: 9px 20px;
+    border-radius: 100px;
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .mynd-nav-cta:hover { background: #6a4fa8; transform: translateY(-1px); }
+  @media (max-width: 768px) {
+    .mynd-nav-links { display: none; }
+    .mynd-nav-inner { padding: 14px 20px; }
+  }
+
+  /* ---- NAV SPACER ---- */
+  .mynd-nav-spacer { height: 60px; }
+
+  /* ---- HERO ---- */
+  .mynd-hero {
+    background: var(--iridescent);
+    padding: 80px 32px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mynd-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .mynd-hero-badge {
+    display: inline-block;
+    background: rgba(124, 92, 186, 0.12);
+    border: 1px solid rgba(124, 92, 186, 0.3);
+    color: var(--purple);
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .mynd-hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 400;
+    line-height: 1.12;
+    color: var(--dark);
+    margin-bottom: 22px;
+  }
+  .mynd-hero h1 em { font-style: italic; }
+  .mynd-hero-body {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(26,26,46,0.75);
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .mynd-hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .btn-primary {
+    background: var(--purple);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-family: var(--font-label);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #6a4fa8; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--dark);
+    border: 1.5px solid rgba(26,26,46,0.3);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-family: var(--font-label);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--purple); transform: translateY(-1px); }
+  .mynd-hero-trust {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .mynd-trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mynd-trust-value {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .mynd-trust-label {
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: rgba(26,26,46,0.55);
+    letter-spacing: 0.04em;
+  }
+  .mynd-hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 420px;
+  }
+  .mynd-hero-img {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    border-radius: 24px;
+    position: relative;
+    z-index: 2;
+    object-fit: cover;
+  }
+  .mynd-hero-placeholder {
+    width: 320px;
+    height: 420px;
+    background: var(--iridescent);
+    border-radius: 24px;
+    border: 2px solid rgba(255,255,255,0.6);
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--purple);
+    opacity: 0.7;
+  }
+  .mynd-float-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--iridescent);
+    opacity: 0.55;
+    animation: floatC 7s ease-in-out infinite;
+  }
+  .mynd-float-circle.c1 { width: 180px; height: 180px; top: -30px; right: -30px; animation-delay: 0s; }
+  .mynd-float-circle.c2 { width: 120px; height: 120px; bottom: 40px; left: -20px; animation-delay: 2.5s; }
+  .mynd-float-circle.c3 { width: 80px; height: 80px; top: 50%; right: 20px; animation-delay: 4.5s; }
+  @media (max-width: 900px) {
+    .mynd-hero-inner { grid-template-columns: 1fr; }
+    .mynd-hero-visual { min-height: 280px; }
+  }
+
+  /* ---- MARQUEE ---- */
+  .mynd-marquee-section {
+    background: var(--dark);
+    padding: 18px 0;
+    overflow: hidden;
+  }
+  .mynd-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .mynd-marquee-group {
+    display: flex;
+    gap: 0;
+  }
+  .mynd-marquee-item {
+    color: #fff;
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0 32px;
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+  .mynd-marquee-item span { color: rgba(240,216,240,0.7); margin-right: 6px; }
+
+  /* ---- LIFESTYLE STRIP ---- */
+  .mynd-lifestyle {
+    padding: 48px 32px;
+    background: #fff;
+  }
+  .mynd-lifestyle-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .mynd-lifestyle-cell {
+    aspect-ratio: 1 / 1.1;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--iridescent);
+  }
+  .mynd-lifestyle-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .mynd-lifestyle-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---- TESTIMONIALS ---- */
+  .mynd-testimonials {
+    background: var(--bg-primary);
+    padding: 80px 32px;
+  }
+  .mynd-testimonials-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .mynd-testimonials-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 4vw, 48px);
+    color: var(--dark);
+    font-weight: 400;
+  }
+  .mynd-testimonials-header h2 em { font-style: italic; }
+  .mynd-carousel-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .mynd-carousel-slides {
+    overflow: hidden;
+    border-radius: 24px;
+  }
+  .mynd-carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .mynd-slide {
+    min-width: 100%;
+    background: var(--dark);
+    border-radius: 24px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+    color: #fff;
+  }
+  .mynd-slide-quote {
+    font-family: var(--font-heading);
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 400;
+    line-height: 1.35;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .mynd-slide-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.7);
+  }
+  .mynd-slide-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+  .mynd-avatar-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--iridescent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--dark);
+    font-weight: 600;
+  }
+  .mynd-avatar-name {
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .mynd-avatar-role {
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+  }
+  .mynd-carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .mynd-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(124,92,186,0.3);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    padding: 0;
+  }
+  .mynd-dot.active { background: var(--purple); transform: scale(1.3); }
+  .mynd-arrow {
+    background: rgba(124,92,186,0.1);
+    border: 1px solid rgba(124,92,186,0.2);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--purple);
+    transition: background 0.2s;
+  }
+  .mynd-arrow:hover { background: rgba(124,92,186,0.2); }
+  @media (max-width: 700px) {
+    .mynd-slide { grid-template-columns: 1fr; padding: 32px 24px; }
+    .mynd-slide-avatar { flex-direction: row; text-align: left; }
+  }
+
+  /* ---- EXPECTATIONS ---- */
+  .mynd-expectations {
+    background: #fff;
+    padding: 80px 32px;
+  }
+  .mynd-expectations-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .mynd-expectations-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 4vw, 50px);
+    font-weight: 400;
+    color: var(--dark);
+  }
+  .mynd-expectations-header h2 em { font-style: italic; }
+  .mynd-scene {
+    max-width: 1100px;
+    margin: 0 auto 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .mynd-scene.flip .mynd-scene-text { order: 2; }
+  .mynd-scene.flip .mynd-scene-visual { order: 1; }
+  .mynd-scene-metric {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    color: var(--dark);
+  }
+  .mynd-scene h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .mynd-scene h3 em { font-style: italic; }
+  .mynd-scene p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(26,26,46,0.7);
+  }
+  .mynd-scene-card {
+    background: var(--iridescent);
+    border-radius: 24px;
+    padding: 40px;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .mynd-scene-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--reflet);
+    border-radius: 24px;
+    pointer-events: none;
+  }
+  /* SVG / data viz inside cards */
+  .mynd-viz { width: 100%; position: relative; z-index: 1; }
+  .mynd-todo-list { list-style: none; width: 100%; }
+  .mynd-todo-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--dark);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(26,26,46,0.08);
+  }
+  .mynd-todo-check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .mynd-bar-chart { width: 100%; }
+  .mynd-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    color: var(--dark);
+  }
+  .mynd-bar-label { width: 60px; }
+  .mynd-bar-bg {
+    flex: 1;
+    height: 10px;
+    background: rgba(26,26,46,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .mynd-bar-fill {
+    height: 100%;
+    background: var(--purple);
+    border-radius: 5px;
+    transition: width 0.8s;
+  }
+  @media (max-width: 768px) {
+    .mynd-scene { grid-template-columns: 1fr; gap: 32px; }
+    .mynd-scene.flip .mynd-scene-text { order: 0; }
+    .mynd-scene.flip .mynd-scene-visual { order: 1; }
+  }
+
+  /* ---- PROTOCOL ---- */
+  .mynd-protocol {
+    background: var(--dark);
+    padding: 80px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mynd-protocol-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .mynd-protocol-blob.b1 { width: 400px; height: 400px; background: #F0D8F0; top: -100px; left: -100px; }
+  .mynd-protocol-blob.b2 { width: 350px; height: 350px; background: #D8E8F8; bottom: -80px; right: -80px; }
+  .mynd-protocol-header {
+    text-align: center;
+    margin-bottom: 56px;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-protocol-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .mynd-protocol-header h2 em { font-style: italic; color: rgba(240,216,240,0.85); }
+  .mynd-dual-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 860px;
+    margin: 0 auto 48px;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-dual-card {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 36px 32px;
+    color: #fff;
+  }
+  .mynd-dual-card-tag {
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(240,216,240,0.65);
+    margin-bottom: 12px;
+  }
+  .mynd-dual-card h3 {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .mynd-dual-card-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .mynd-ingredient-pill {
+    background: rgba(240,216,240,0.15);
+    border: 1px solid rgba(240,216,240,0.2);
+    color: rgba(255,255,255,0.85);
+    font-family: var(--font-label);
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .mynd-dual-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+  }
+  .mynd-plus-divider {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    color: rgba(240,216,240,0.5);
+    padding: 0 24px;
+    flex-shrink: 0;
+  }
+  .mynd-result-banner {
+    background: var(--iridescent);
+    border-radius: 20px;
+    padding: 28px 40px;
+    text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-result-banner p {
+    font-family: var(--font-heading);
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--dark);
+    font-style: italic;
+    line-height: 1.4;
+  }
+  @media (max-width: 700px) {
+    .mynd-dual-cards { flex-direction: column; gap: 16px; }
+    .mynd-plus-divider { padding: 8px 0; }
+  }
+
+  /* ---- FORMULA ---- */
+  .mynd-formula {
+    background: var(--bg-primary);
+    padding: 80px 32px;
+  }
+  .mynd-formula-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .mynd-formula-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .mynd-formula-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 400;
+    color: var(--dark);
+    line-height: 1.15;
+  }
+  .mynd-formula-header h2 em { font-style: italic; }
+  .mynd-ingredients-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .mynd-ing-card {
+    background: var(--iridescent);
+    border-radius: 18px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mynd-ing-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--reflet);
+    pointer-events: none;
+  }
+  .mynd-ing-name {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-ing-role {
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: rgba(26,26,46,0.6);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    margin-bottom: 40px;
+    list-style: none;
+  }
+  .mynd-checklist li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 14px;
+    color: rgba(26,26,46,0.8);
+  }
+  .mynd-check-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(124,92,186,0.15);
+    border: 1px solid rgba(124,92,186,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--purple);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .mynd-lab-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  .mynd-lab-badge {
+    background: rgba(124,92,186,0.08);
+    border: 1px solid rgba(124,92,186,0.2);
+    color: var(--purple);
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+  }
+  .mynd-accordion {
+    border: 1px solid rgba(124,92,186,0.15);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    background: #fff;
+  }
+  .mynd-accordion-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    cursor: pointer;
+    text-align: left;
+  }
+  .mynd-accordion-icon {
+    font-size: 18px;
+    color: var(--purple);
+    transition: transform 0.3s;
+  }
+  .mynd-accordion.open .mynd-accordion-icon { transform: rotate(45deg); }
+  .mynd-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(26,26,46,0.7);
+    padding: 0 20px;
+  }
+  .mynd-accordion.open .mynd-accordion-body { max-height: 300px; padding-bottom: 16px; }
+
+  /* ---- RESULTS TIMELINE ---- */
+  .mynd-results {
+    background: #fff;
+    padding: 80px 32px;
+  }
+  .mynd-results-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .mynd-results-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 400;
+    color: var(--dark);
+  }
+  .mynd-results-header h2 em { font-style: italic; }
+  .mynd-timeline {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .mynd-phases {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mynd-phase-btn {
+    flex: 1;
+    min-width: 100px;
+    background: rgba(124,92,186,0.06);
+    border: 1.5px solid rgba(124,92,186,0.12);
+    border-radius: 16px;
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .mynd-phase-btn:hover { background: rgba(124,92,186,0.12); }
+  .mynd-phase-btn.active {
+    background: var(--purple);
+    border-color: var(--purple);
+  }
+  .mynd-phase-btn.active .mynd-phase-day,
+  .mynd-phase-btn.active .mynd-phase-label { color: #fff; }
+  .mynd-phase-day {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .mynd-phase-label {
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: rgba(26,26,46,0.55);
+    letter-spacing: 0.03em;
+  }
+  .mynd-phase-rec {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--iridescent);
+    border: 1px solid rgba(124,92,186,0.2);
+    color: var(--dark);
+    font-family: var(--font-label);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .mynd-timeline-display {
+    background: var(--bg-primary);
+    border-radius: 24px;
+    padding: 48px;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+  }
+  .mynd-timeline-day {
+    font-family: var(--font-heading);
+    font-size: 80px;
+    line-height: 1;
+    color: var(--purple);
+    opacity: 0.15;
+    position: relative;
+  }
+  .mynd-timeline-day-num {
+    font-family: var(--font-heading);
+    font-size: 80px;
+    line-height: 1;
+    color: var(--purple);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .mynd-timeline-title {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .mynd-timeline-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(26,26,46,0.7);
+    max-width: 520px;
+    margin: 0 auto 28px;
+  }
+  .mynd-progress-bar-bg {
+    height: 6px;
+    background: rgba(124,92,186,0.1);
+    border-radius: 3px;
+    max-width: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .mynd-progress-bar-fill {
+    height: 100%;
+    background: var(--purple);
+    border-radius: 3px;
+    transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ---- PRICING ---- */
+  .mynd-pricing {
+    background: var(--bg-primary);
+    padding: 80px 32px;
+  }
+  .mynd-pricing-inner {
+    max-width: 1060px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .mynd-pricing-visual {
+    position: relative;
+  }
+  .mynd-pricing-img-frame {
+    background: var(--iridescent);
+    border-radius: 24px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mynd-pricing-img-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--reflet);
+    pointer-events: none;
+  }
+  .mynd-pricing-img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-pricing-overlay {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 2;
+  }
+  .mynd-pricing-overlay-text {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--dark);
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(8px);
+    padding: 8px 16px;
+    border-radius: 100px;
+  }
+  .mynd-pricing-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--iridescent);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--purple);
+    opacity: 0.7;
+  }
+  .mynd-guarantee-badge {
+    background: var(--iridescent);
+    border-radius: 100px;
+    padding: 7px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 18px;
+  }
+  .mynd-pricing h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .mynd-stars {
+    color: #f5a623;
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mynd-stars span {
+    font-family: var(--font-label);
+    font-size: 13px;
+    color: rgba(26,26,46,0.55);
+  }
+  .mynd-pricing-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(26,26,46,0.7);
+    margin-bottom: 28px;
+  }
+  .mynd-qty-toggle {
+    display: flex;
+    background: rgba(124,92,186,0.06);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 6px;
+    gap: 4px;
+  }
+  .mynd-qty-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    border-radius: 9px;
+    padding: 8px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(26,26,46,0.5);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-align: center;
+  }
+  .mynd-qty-tab.active {
+    background: #fff;
+    color: var(--dark);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+  .mynd-qty-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .mynd-qty-opt {
+    border: 1.5px solid rgba(124,92,186,0.15);
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: #fff;
+  }
+  .mynd-qty-opt:hover { border-color: rgba(124,92,186,0.35); }
+  .mynd-qty-opt.selected { border-color: var(--purple); background: rgba(124,92,186,0.04); }
+  .mynd-qty-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mynd-qty-radio {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(124,92,186,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .mynd-qty-opt.selected .mynd-qty-radio {
+    border-color: var(--purple);
+    background: var(--purple);
+  }
+  .mynd-qty-opt.selected .mynd-qty-radio::after {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .mynd-qty-label {
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+  }
+  .mynd-qty-sublabel {
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: rgba(26,26,46,0.5);
+  }
+  .mynd-qty-price {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    color: var(--dark);
+    text-align: right;
+  }
+  .mynd-qty-price-orig {
+    font-size: 13px;
+    color: rgba(26,26,46,0.35);
+    text-decoration: line-through;
+  }
+  .mynd-sub-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 14px 18px;
+    background: rgba(240,216,240,0.2);
+    border: 1px solid rgba(124,92,186,0.15);
+    border-radius: 14px;
+    cursor: pointer;
+  }
+  .mynd-toggle-switch {
+    width: 38px; height: 22px;
+    border-radius: 11px;
+    background: rgba(124,92,186,0.2);
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .mynd-toggle-switch.on { background: var(--purple); }
+  .mynd-toggle-knob {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .mynd-toggle-switch.on .mynd-toggle-knob { transform: translateX(16px); }
+  .mynd-sub-toggle-label {
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    flex: 1;
+  }
+  .mynd-sub-badge {
+    background: var(--purple);
+    color: #fff;
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .mynd-commander-btn {
+    display: block;
+    width: 100%;
+    background: var(--purple);
+    color: #fff;
+    text-align: center;
+    padding: 16px;
+    border-radius: 14px;
+    font-family: var(--font-label);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.2s;
+    margin-bottom: 20px;
+  }
+  .mynd-commander-btn:hover { background: #6a4fa8; transform: translateY(-1px); }
+  .mynd-trust-row {
+    display: flex;
+    gap: 20px;
+  }
+  .mynd-trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: rgba(26,26,46,0.6);
+  }
+  .mynd-trust-badge svg { color: var(--purple); }
+  @media (max-width: 768px) {
+    .mynd-pricing-inner { grid-template-columns: 1fr; }
+  }
+
+  /* ---- COMPARISON ---- */
+  .mynd-comparison {
+    background: #fff;
+    padding: 80px 32px;
+  }
+  .mynd-comparison-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .mynd-comparison-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 400;
+    color: var(--dark);
+  }
+  .mynd-comparison-header h2 em { font-style: italic; }
+  .mynd-comparison-table {
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(124,92,186,0.1);
+  }
+  .mynd-comp-head {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    background: var(--dark);
+    color: #fff;
+  }
+  .mynd-comp-head-cell {
+    padding: 16px 12px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .mynd-comp-head-cell.mynd-col { color: rgba(240,216,240,0.9); }
+  .mynd-comp-head-cell:first-child { text-align: left; }
+  .mynd-comp-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid rgba(124,92,186,0.07);
+    background: #fff;
+  }
+  .mynd-comp-row:last-child { border-bottom: none; }
+  .mynd-comp-row:nth-child(even) { background: rgba(124,92,186,0.02); }
+  .mynd-comp-cell {
+    padding: 16px 12px;
+    font-family: var(--font-label);
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mynd-comp-cell:first-child {
+    text-align: left;
+    justify-content: flex-start;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 13px;
+  }
+  .mynd-comp-cell.mynd-col { background: rgba(124,92,186,0.06); }
+  .sym-yes { color: #22c55e; font-size: 18px; font-weight: 700; }
+  .sym-no { color: #ef4444; font-size: 18px; }
+  .sym-maybe { color: #f59e0b; font-size: 18px; }
+
+  /* ---- MANIFESTO ---- */
+  .mynd-manifesto {
+    background: var(--dark);
+    padding: 100px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mynd-manifesto-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .mynd-manifesto-blob.b1 { width: 500px; height: 500px; background: #F0D8F0; top: -150px; right: -100px; }
+  .mynd-manifesto-blob.b2 { width: 400px; height: 400px; background: #D8F0E8; bottom: -100px; left: -100px; }
+  .mynd-manifesto-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-manifesto-quote {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 4.5vw, 54px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+  .mynd-manifesto-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .mynd-manifesto-col {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.65);
+  }
+  .mynd-manifesto-sign {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 20px;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+  }
+  @media (max-width: 700px) {
+    .mynd-manifesto-cols { grid-template-columns: 1fr; }
+  }
+
+  /* ---- FAQ ---- */
+  .mynd-faq {
+    background: var(--bg-primary);
+    padding: 80px 32px;
+  }
+  .mynd-faq-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .mynd-faq-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 400;
+    color: var(--dark);
+  }
+  .mynd-faq-header h2 em { font-style: italic; }
+  .mynd-faq-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .mynd-faq-item {
+    background: #fff;
+    border: 1px solid rgba(124,92,186,0.12);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: grid-column 0.3s;
+  }
+  .mynd-faq-item.open {
+    grid-column: 1 / -1;
+  }
+  .mynd-faq-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    cursor: pointer;
+    text-align: left;
+    gap: 12px;
+  }
+  .mynd-faq-icon {
+    font-size: 20px;
+    color: var(--purple);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .mynd-faq-item.open .mynd-faq-icon { transform: rotate(45deg); }
+  .mynd-faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(26,26,46,0.7);
+    padding: 0 22px;
+  }
+  .mynd-faq-item.open .mynd-faq-body { max-height: 300px; padding-bottom: 18px; }
+  @media (max-width: 600px) {
+    .mynd-faq-grid { grid-template-columns: 1fr; }
+    .mynd-faq-item.open { grid-column: auto; }
+  }
+
+  /* ---- GUARANTEE ---- */
+  .mynd-guarantee {
+    background: #fff;
+    padding: 80px 32px;
+  }
+  .mynd-guarantee-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--iridescent);
+    border-radius: 32px;
+    padding: 64px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .mynd-guarantee-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--reflet);
+    pointer-events: none;
+  }
+  .mynd-guarantee-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  .mynd-guarantee-card h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 400;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-guarantee-card h2 em { font-style: italic; }
+  .mynd-guarantee-card p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(26,26,46,0.7);
+    max-width: 460px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---- FINAL CTA + FOOTER ---- */
+  .mynd-final-cta {
+    background: var(--dark);
+    padding: 100px 32px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .mynd-wordmark {
+    font-family: var(--font-heading);
+    font-size: clamp(80px, 15vw, 180px);
+    font-weight: 400;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+  .mynd-final-content {
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-final-tagline {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    margin-bottom: 36px;
+    line-height: 1.3;
+  }
+  .mynd-final-btn {
+    background: var(--purple);
+    color: #fff;
+    padding: 18px 40px;
+    border-radius: 100px;
+    font-family: var(--font-label);
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s;
+    margin-bottom: 80px;
+  }
+  .mynd-final-btn:hover { background: #6a4fa8; transform: translateY(-2px); }
+  .mynd-footer {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .mynd-footer-copy {
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 10px;
+  }
+  .mynd-footer-disclaimer {
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ---- PROTOCOL ID ---- */
+  #protocole { scroll-margin-top: 70px; }
+  #formule { scroll-margin-top: 70px; }
+  #resultats { scroll-margin-top: 70px; }
+  #tarifs { scroll-margin-top: 70px; }
+  #faq { scroll-margin-top: 70px; }
+</style>
+
+<!-- 1. ANNOUNCEMENT BAR -->
+<div class="mynd-announcement">
+  {{ section.settings.announcement | default: 'Free shipping · Garantie 60 jours · Sans caféine' }}
+</div>
+
+<!-- 2. NAV -->
+<nav class="mynd-nav" id="mynd-nav">
+  <div class="mynd-nav-inner">
+    <a href="#top" class="mynd-nav-logo">MYND</a>
+    <ul class="mynd-nav-links">
+      <li><a href="#formule">Formule</a></li>
+      <li><a href="#resultats">Résultats</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#tarifs" class="mynd-nav-cta">Commander →</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="mynd-nav-spacer"></div>
+
+<!-- 3. HERO -->
+<section class="mynd-hero" id="top">
+  <div class="mynd-hero-inner">
+    <div class="mynd-hero-left">
+      <div class="mynd-hero-badge">Dual-Fuel</div>
+      <h1><em>4–6h de concentration profonde.</em><br>Chaque jour.</h1>
+      <p class="mynd-hero-body">La première formule nootropique à double action : soutien cognitif et énergie cellulaire réunis dans une gélule. Conçue pour les esprits exigeants qui refusent de choisir entre performance et équilibre.</p>
+      <div class="mynd-hero-ctas">
+        <a href="#tarifs" class="btn-primary">Commander MYND</a>
+        <a href="#resultats" class="btn-outline">Découvrir MYND</a>
+      </div>
+      <div class="mynd-hero-trust">
+        <div class="mynd-trust-item">
+          <span class="mynd-trust-value">+200</span>
+          <span class="mynd-trust-label">beta-testeurs</span>
+        </div>
+        <div class="mynd-trust-item">
+          <span class="mynd-trust-value">4.9★</span>
+          <span class="mynd-trust-label">600 avis</span>
+        </div>
+        <div class="mynd-trust-item">
+          <span class="mynd-trust-value">J7</span>
+          <span class="mynd-trust-label">premiers effets</span>
+        </div>
+        <div class="mynd-trust-item">
+          <span class="mynd-trust-value">60j</span>
+          <span class="mynd-trust-label">garantie</span>
+        </div>
+      </div>
+    </div>
+    <div class="mynd-hero-visual">
+      <div class="mynd-float-circle c1"></div>
+      <div class="mynd-float-circle c2"></div>
+      <div class="mynd-float-circle c3"></div>
+      {% if section.settings.hero_image %}
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 800 }}"
+          alt="MYND — Formule Dual-Fuel"
+          class="mynd-hero-img"
+          loading="eager"
+        >
+      {% else %}
+        <div class="mynd-hero-placeholder">MYND</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- 4. MARQUEE -->
+<div class="mynd-marquee-section">
+  <div class="mynd-marquee-track">
+    {% assign marquee_items = "Lion's Mane,Shilajit,Vitamines B,Vegan,Sans caféine,Sans sucre,Fabriqué en Allemagne,GMP,Testé en labo" | split: "," %}
+    {% for g in (1..3) %}
+    <div class="mynd-marquee-group">
+      {% for item in marquee_items %}
+      <div class="mynd-marquee-item"><span>✦</span>{{ item }}</div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- 5. LIFESTYLE STRIP -->
+<section class="mynd-lifestyle">
+  <div class="mynd-lifestyle-grid">
+    {% for i in (1..4) %}
+      {% assign img_key = 'lifestyle_' | append: i %}
+      {% assign img_val = section.settings[img_key] %}
+      <div class="mynd-lifestyle-cell">
+        {% if img_val %}
+          <img src="{{ img_val | image_url: width: 600 }}" alt="MYND lifestyle {{ i }}" loading="lazy">
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- 6. TESTIMONIALS -->
+<section class="mynd-testimonials">
+  <div class="mynd-testimonials-header">
+    <h2>Ils ont testé. <em>Ils ne reviennent plus en arrière.</em></h2>
+  </div>
+  <div class="mynd-carousel-wrap">
+    <div class="mynd-carousel-slides">
+      <div class="mynd-carousel-track" id="mynd-carousel-track">
+        <!-- Slide 1 -->
+        <div class="mynd-slide">
+          <div>
+            <div class="mynd-slide-quote">"Après 3 semaines, mes matinées ont changé du tout au tout. Je suis concentré avant même mon premier café."</div>
+            <p class="mynd-slide-body">Je travaille en freelance et la procrastination était mon ennemi numéro un. MYND a vraiment fait la différence sur ma capacité à démarrer et à rester dans le flux.</p>
+          </div>
+          <div class="mynd-slide-avatar">
+            <div class="mynd-avatar-circle">T</div>
+            <div>
+              <div class="mynd-avatar-name">Thomas M.</div>
+              <div class="mynd-avatar-role">Développeur freelance, Paris</div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="mynd-slide">
+          <div>
+            <div class="mynd-slide-quote">"Pas de crash l'après-midi. C'est la première fois que je traverse mes journées sans ce coup de fatigue de 15h."</div>
+            <p class="mynd-slide-body">J'ai essayé beaucoup de compléments. MYND est le premier qui tient ses promesses sans effets secondaires désagréables. L'énergie est douce et soutenue.</p>
+          </div>
+          <div class="mynd-slide-avatar">
+            <div class="mynd-avatar-circle">P</div>
+            <div>
+              <div class="mynd-avatar-name">Philippe R.</div>
+              <div class="mynd-avatar-role">Directeur Marketing, Lyon</div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="mynd-slide">
+          <div>
+            <div class="mynd-slide-quote">"Je pensais que c'était impossible de rester focus après 18h avec deux enfants à la maison. MYND a changé ça."</div>
+            <p class="mynd-slide-body">La qualité de ma présence le soir a vraiment évolué. Je suis là, je profite, sans cette fatigue mentale qui me coupait de tout dès la sortie du bureau.</p>
+          </div>
+          <div class="mynd-slide-avatar">
+            <div class="mynd-avatar-circle">D</div>
+            <div>
+              <div class="mynd-avatar-name">Diana L.</div>
+              <div class="mynd-avatar-role">Avocate, Bordeaux</div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="mynd-slide">
+          <div>
+            <div class="mynd-slide-quote">"Au bout de 30 jours, mon équipe m'a demandé ce que j'avais changé. Juste MYND."</div>
+            <p class="mynd-slide-body">Mon niveau de base a monté. Ce n'est pas un boost temporaire — c'est une amélioration durable de ma clarté mentale et de ma capacité d'exécution.</p>
+          </div>
+          <div class="mynd-slide-avatar">
+            <div class="mynd-avatar-circle">R</div>
+            <div>
+              <div class="mynd-avatar-name">Romain D.</div>
+              <div class="mynd-avatar-role">Entrepreneur, Nantes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mynd-carousel-nav">
+      <button class="mynd-arrow" id="mynd-prev" aria-label="Précédent">‹</button>
+      <button class="mynd-dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="mynd-dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="mynd-dot" data-slide="2" aria-label="Slide 3"></button>
+      <button class="mynd-dot" data-slide="3" aria-label="Slide 4"></button>
+      <button class="mynd-arrow" id="mynd-next" aria-label="Suivant">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- 7. EXPECTATIONS -->
+<section class="mynd-expectations">
+  <div class="mynd-expectations-header">
+    <h2>À quoi t'attendre <em>vraiment.</em></h2>
+  </div>
+
+  <!-- Scene 1: Procrastination -->
+  <div class="mynd-scene">
+    <div class="mynd-scene-text">
+      <div class="mynd-scene-metric" style="background: #F0D8F0;">−68% Procrastination</div>
+      <h3>Dis adieu à la procrastination.</h3>
+      <p>MYND agit sur les mécanismes neurochimiques de la mise en action. Tu commences sans te battre contre toi-même. La tâche démarre, le reste suit.</p>
+    </div>
+    <div class="mynd-scene-visual">
+      <div class="mynd-scene-card">
+        <div class="mynd-viz">
+          <ul class="mynd-todo-list">
+            <li><div class="mynd-todo-check">✓</div>Rapport trimestriel</li>
+            <li><div class="mynd-todo-check">✓</div>Appel client 14h</li>
+            <li><div class="mynd-todo-check">✓</div>Revue stratégique</li>
+            <li><div class="mynd-todo-check">✓</div>Email équipe</li>
+            <li style="opacity:0.45;"><div class="mynd-todo-check" style="background:rgba(26,26,46,0.15);">○</div>Deep work 2h</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 2: Flow -->
+  <div class="mynd-scene flip">
+    <div class="mynd-scene-text">
+      <div class="mynd-scene-metric" style="background: #D8E8F8;">×3 Jours de flow</div>
+      <h3>Ton meilleur niveau devient ton standard.</h3>
+      <p>Pas un pic occasionnel. Une élévation du niveau de base. MYND soutient la plasticité neuronale pour que les jours de flow deviennent la norme, pas l'exception.</p>
+    </div>
+    <div class="mynd-scene-visual">
+      <div class="mynd-scene-card">
+        <div class="mynd-viz">
+          <div class="mynd-bar-chart">
+            <div class="mynd-bar-row">
+              <span class="mynd-bar-label">Sem. 1</span>
+              <div class="mynd-bar-bg"><div class="mynd-bar-fill" style="width:25%"></div></div>
+              <span style="font-size:12px;color:var(--dark);">1 jour</span>
+            </div>
+            <div class="mynd-bar-row">
+              <span class="mynd-bar-label">Sem. 2</span>
+              <div class="mynd-bar-bg"><div class="mynd-bar-fill" style="width:50%"></div></div>
+              <span style="font-size:12px;color:var(--dark);">2 jours</span>
+            </div>
+            <div class="mynd-bar-row">
+              <span class="mynd-bar-label">Sem. 3</span>
+              <div class="mynd-bar-bg"><div class="mynd-bar-fill" style="width:75%"></div></div>
+              <span style="font-size:12px;color:var(--dark);">3 jours</span>
+            </div>
+            <div class="mynd-bar-row">
+              <span class="mynd-bar-label">Sem. 4</span>
+              <div class="mynd-bar-bg"><div class="mynd-bar-fill" style="width:100%"></div></div>
+              <span style="font-size:12px;color:var(--dark);">4 jours</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 3: Afternoon energy -->
+  <div class="mynd-scene">
+    <div class="mynd-scene-text">
+      <div class="mynd-scene-metric" style="background: #D8F0E8;">16h Aussi net qu'à 9h</div>
+      <h3>Traverse tes après-midis.</h3>
+      <p>Le Shilajit et le Complexe B soutiennent la production d'énergie mitochondriale tout au long de la journée. Finies les baisses de régime post-déjeuner.</p>
+    </div>
+    <div class="mynd-scene-visual">
+      <div class="mynd-scene-card">
+        <div class="mynd-viz">
+          <svg viewBox="0 0 220 100" style="width:100%; display:block;">
+            <defs>
+              <linearGradient id="energyCurve" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7c5cba" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#7c5cba" stop-opacity="0.03"/>
+              </linearGradient>
+            </defs>
+            <!-- Without MYND: drops at midday -->
+            <path d="M10,20 C40,18 60,16 80,50 C100,80 120,75 140,60 C160,48 190,55 210,65" stroke="rgba(26,26,46,0.2)" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+            <!-- With MYND: stays high -->
+            <path d="M10,20 C40,18 70,20 100,22 C130,24 160,22 210,20" stroke="#7c5cba" stroke-width="2.5" fill="url(#energyCurve)"/>
+            <text x="10" y="95" font-size="8" fill="rgba(26,26,46,0.5)" font-family="Archivo Narrow,sans-serif">9h</text>
+            <text x="100" y="95" font-size="8" fill="rgba(26,26,46,0.5)" font-family="Archivo Narrow,sans-serif">14h</text>
+            <text x="195" y="95" font-size="8" fill="rgba(26,26,46,0.5)" font-family="Archivo Narrow,sans-serif">19h</text>
+            <text x="120" y="15" font-size="8" fill="#7c5cba" font-family="Archivo Narrow,sans-serif" font-weight="700">Avec MYND</text>
+            <text x="120" y="58" font-size="8" fill="rgba(26,26,46,0.4)" font-family="Archivo Narrow,sans-serif">Sans MYND</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 4: No crash -->
+  <div class="mynd-scene flip">
+    <div class="mynd-scene-text">
+      <div class="mynd-scene-metric" style="background: #F8E8D0;">0 Crash·Anxiété·Dépendance</div>
+      <h3>Sans nervosité, sans crash, sans dépendance.</h3>
+      <p>Zéro caféine, zéro stimulant. L'action de MYND est progressive et naturelle. Aucune tolérance ne se développe — l'efficacité reste intacte dans la durée.</p>
+    </div>
+    <div class="mynd-scene-visual">
+      <div class="mynd-scene-card">
+        <div class="mynd-viz" style="display:flex;flex-direction:column;gap:12px;">
+          {% assign compare_items = "Crash énergétique,Nervosité / anxiété,Dépendance,Insomnie,Maux de tête" | split: "," %}
+          {% for ci in compare_items %}
+          <div style="display:flex;align-items:center;justify-content:space-between;font-family:'Archivo Narrow',sans-serif;font-size:13px;color:var(--dark);background:rgba(255,255,255,0.55);border-radius:10px;padding:8px 14px;">
+            <span>{{ ci }}</span>
+            <span style="color:#22c55e;font-weight:700;">✗ Absent</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 5: Evening presence -->
+  <div class="mynd-scene">
+    <div class="mynd-scene-text">
+      <div class="mynd-scene-metric" style="background: #E8D8F8;">+4h Présence après 18h</div>
+      <h3>Une énergie calme qui soutient ta vie, pas juste ton travail.</h3>
+      <p>MYND ne s'arrête pas à 18h. L'énergie cellulaire soutenue te permet d'être pleinement présent pour ce qui compte en dehors du travail.</p>
+    </div>
+    <div class="mynd-scene-visual">
+      <div class="mynd-scene-card">
+        <div class="mynd-viz" style="display:flex;flex-direction:column;gap:10px;">
+          {% assign schedule_items = "9h – Démarrage immédiat,11h – Pic de concentration,14h – Pas de crash,16h – Toujours à fond,18h – Encore présent,20h – Énergie pour la vie" | split: "," %}
+          {% for si in schedule_items %}
+          <div style="display:flex;align-items:center;gap:10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dark);">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--purple);flex-shrink:0;"></div>
+            {{ si }}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. PROTOCOL -->
+<section class="mynd-protocol" id="protocole">
+  <div class="mynd-protocol-blob b1"></div>
+  <div class="mynd-protocol-blob b2"></div>
+  <div class="mynd-protocol-header">
+    <h2>Pourquoi MYND fonctionne<br><em>là où les autres échouent.</em></h2>
+  </div>
+  <div class="mynd-dual-cards">
+    <div class="mynd-dual-card">
+      <div class="mynd-dual-card-tag">Module 01</div>
+      <h3>MyndBuild</h3>
+      <div class="mynd-dual-card-ingredients">
+        <span class="mynd-ingredient-pill">Lion's Mane</span>
+        <span class="mynd-ingredient-pill">Vitamine B6</span>
+      </div>
+      <p>Stimule la production de facteur de croissance nerveuse (NGF) pour renforcer les connexions neuronales. Soutien cognitif structurel, pas conjoncturel.</p>
+    </div>
+    <div class="mynd-plus-divider">+</div>
+    <div class="mynd-dual-card">
+      <div class="mynd-dual-card-tag">Module 02</div>
+      <h3>MyndFuel</h3>
+      <div class="mynd-dual-card-ingredients">
+        <span class="mynd-ingredient-pill">Shilajit</span>
+        <span class="mynd-ingredient-pill">Complexe B</span>
+      </div>
+      <p>Optimise le transport d'électrons dans la chaîne mitochondriale pour une production d'ATP soutenue. Énergie cellulaire propre et durable.</p>
+    </div>
+  </div>
+  <div class="mynd-result-banner">
+    <p>"Un cerveau qui pense clairement ET qui a l'énergie d'exécuter."</p>
+  </div>
+</section>
+
+<!-- 9. FORMULA -->
+<section class="mynd-formula" id="formule">
+  <div class="mynd-formula-inner">
+    <div class="mynd-formula-header">
+      <h2>Rien de superflu.<br><em>Que de l'essentiel.</em></h2>
+    </div>
+    <div class="mynd-ingredients-grid">
+      <div class="mynd-ing-card">
+        <div class="mynd-ing-name">Lion's Mane</div>
+        <div class="mynd-ing-role">Plasticité neuronale</div>
+      </div>
+      <div class="mynd-ing-card">
+        <div class="mynd-ing-name">Shilajit</div>
+        <div class="mynd-ing-role">Énergie mitochondriale</div>
+      </div>
+      <div class="mynd-ing-card">
+        <div class="mynd-ing-name">Vitamine B6</div>
+        <div class="mynd-ing-role">Système nerveux</div>
+      </div>
+      <div class="mynd-ing-card">
+        <div class="mynd-ing-name">Complexe B</div>
+        <div class="mynd-ing-role">Métabolisme énergétique</div>
+      </div>
+    </div>
+    <ul class="mynd-checklist">
+      <li><span class="mynd-check-icon">✓</span>100% naturel</li>
+      <li><span class="mynd-check-icon">✓</span>Vegan certifié</li>
+      <li><span class="mynd-check-icon">✓</span>Sans caféine</li>
+      <li><span class="mynd-check-icon">✓</span>Sans sucre ajouté</li>
+      <li><span class="mynd-check-icon">✓</span>Sans OGM</li>
+      <li><span class="mynd-check-icon">✓</span>Fabriqué en Allemagne</li>
+      <li><span class="mynd-check-icon">✓</span>Testé en laboratoire</li>
+      <li><span class="mynd-check-icon">✓</span>Dosages cliniques</li>
+    </ul>
+    <div class="mynd-lab-badges">
+      <span class="mynd-lab-badge">AOAC 995.16</span>
+      <span class="mynd-lab-badge">GMP</span>
+      <span class="mynd-lab-badge">ISO 22000</span>
+      <span class="mynd-lab-badge">EC 1881/2006</span>
+    </div>
+    <div class="mynd-accordion" id="acc-1">
+      <button class="mynd-accordion-btn" data-acc="acc-1">
+        <span>Voir les rapports de laboratoire — Lion's Mane & Shilajit</span>
+        <span class="mynd-accordion-icon">+</span>
+      </button>
+      <div class="mynd-accordion-body">
+        Nos matières premières sont testées selon le protocole AOAC 995.16 par des laboratoires indépendants accrédités ISO 17025. Les analyses confirment l'absence de métaux lourds (conforme EC 1881/2006), de pesticides et de contaminants microbiens. Les certificats d'analyse (CoA) sont disponibles sur demande à l'adresse contact@mynd.co.
+      </div>
+    </div>
+    <div class="mynd-accordion" id="acc-2">
+      <button class="mynd-accordion-btn" data-acc="acc-2">
+        <span>Voir les rapports de laboratoire — Vitamines B</span>
+        <span class="mynd-accordion-icon">+</span>
+      </button>
+      <div class="mynd-accordion-body">
+        Le Complexe B de MYND utilise des formes actives et biodisponibles (méthylcobalamine B12, pyridoxal-5-phosphate B6, méthylfolate B9). Chaque lot est soumis à des tests de dissolution et de pureté. Conformité GMP certifiée. Tous nos fournisseurs sont qualifiés selon ISO 22000. Rapports disponibles sur demande.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. RESULTS TIMELINE -->
+<section class="mynd-results" id="resultats">
+  <div class="mynd-results-header">
+    <h2>Des résultats <em>qui s'installent.</em></h2>
+  </div>
+  <div class="mynd-timeline">
+    <div class="mynd-phases">
+      <button class="mynd-phase-btn active" data-phase="0">
+        <span class="mynd-phase-day">Jour 1</span>
+        <span class="mynd-phase-label">Démarrage</span>
+      </button>
+      <button class="mynd-phase-btn" data-phase="1">
+        <span class="mynd-phase-day">Jour 7</span>
+        <span class="mynd-phase-label">Premiers signaux</span>
+      </button>
+      <button class="mynd-phase-btn" data-phase="2">
+        <span class="mynd-phase-day">Jour 30</span>
+        <span class="mynd-phase-label">Initiation</span>
+      </button>
+      <button class="mynd-phase-btn" data-phase="3">
+        <span class="mynd-phase-day">Jour 60</span>
+        <span class="mynd-phase-label">Progression</span>
+      </button>
+      <button class="mynd-phase-btn" data-phase="4" style="position:relative;">
+        <div class="mynd-phase-rec">Recommandé</div>
+        <span class="mynd-phase-day">Jour 90</span>
+        <span class="mynd-phase-label">Optimisation</span>
+      </button>
+    </div>
+    <div class="mynd-timeline-display" id="mynd-timeline-display">
+      <span class="mynd-timeline-day-num" id="tl-day">J1</span>
+      <div class="mynd-timeline-title" id="tl-title">Démarrage du protocole</div>
+      <p class="mynd-timeline-body" id="tl-body">Ton corps commence à assimiler les actifs. La biodisponibilité du Shilajit assure un démarrage rapide du soutien énergétique mitochondrial dès les premières prises.</p>
+      <div class="mynd-progress-bar-bg">
+        <div class="mynd-progress-bar-fill" id="tl-progress" style="width: 5%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. PRICING -->
+<section class="mynd-pricing" id="tarifs">
+  <div class="mynd-pricing-inner">
+    <div class="mynd-pricing-visual">
+      {% if section.settings.hero_image %}
+        <div class="mynd-pricing-img-frame">
+          <img src="{{ section.settings.hero_image | image_url: width: 600 }}" alt="MYND produit">
+          <div class="mynd-pricing-overlay">
+            <span class="mynd-pricing-overlay-text">Calme focus.</span>
+          </div>
+        </div>
+      {% else %}
+        <div class="mynd-pricing-img-frame">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:48px;color:var(--purple);opacity:0.5;position:relative;z-index:1;">MYND</div>
+          <div class="mynd-pricing-overlay">
+            <span class="mynd-pricing-overlay-text">Calme focus.</span>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    <div class="mynd-pricing-right">
+      <div class="mynd-guarantee-badge">🛡 Garantie 60 jours — satisfait ou remboursé</div>
+      <h2>MYND — Formule Dual-Fuel cognitive.</h2>
+      <div class="mynd-stars">★★★★★ <span>4.9 / 5 · 600 avis</span></div>
+      <p class="mynd-pricing-desc">La première formule nootropique à double action pour une concentration profonde et une énergie cellulaire soutenue. Formulée à des dosages cliniques, testée en laboratoire, fabriquée en Allemagne.</p>
+
+      <div class="mynd-qty-toggle">
+        <button class="mynd-qty-tab active" data-mode="one-time">Paiement unique</button>
+        <button class="mynd-qty-tab" data-mode="subscription">Abonnement <span style="color:var(--purple);font-size:10px;">−20%</span></button>
+      </div>
+
+      <div class="mynd-qty-options" id="mynd-qty-opts">
+        <div class="mynd-qty-opt" data-qty="30" data-price-once="59" data-price-sub="47">
+          <div class="mynd-qty-left">
+            <div class="mynd-qty-radio"></div>
+            <div>
+              <div class="mynd-qty-label">30 gélules — 1 mois</div>
+              <div class="mynd-qty-sublabel">Idéal pour débuter</div>
+            </div>
+          </div>
+          <div class="mynd-qty-price">
+            <div>59€</div>
+            <div class="mynd-qty-price-orig"></div>
+          </div>
+        </div>
+        <div class="mynd-qty-opt selected" data-qty="60" data-price-once="99" data-price-sub="79">
+          <div class="mynd-qty-left">
+            <div class="mynd-qty-radio"></div>
+            <div>
+              <div class="mynd-qty-label">60 gélules — 2 mois</div>
+              <div class="mynd-qty-sublabel">Le plus populaire ✦</div>
+            </div>
+          </div>
+          <div class="mynd-qty-price">
+            <div id="price-60">99€</div>
+            <div class="mynd-qty-price-orig" id="orig-60"></div>
+          </div>
+        </div>
+        <div class="mynd-qty-opt" data-qty="90" data-price-once="129" data-price-sub="103">
+          <div class="mynd-qty-left">
+            <div class="mynd-qty-radio"></div>
+            <div>
+              <div class="mynd-qty-label">90 gélules — 3 mois</div>
+              <div class="mynd-qty-sublabel">Meilleure valeur</div>
+            </div>
+          </div>
+          <div class="mynd-qty-price">
+            <div>129€</div>
+            <div class="mynd-qty-price-orig"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mynd-sub-toggle" id="mynd-sub-toggle">
+        <div class="mynd-toggle-switch" id="mynd-toggle-sw"></div>
+        <div class="mynd-sub-toggle-label">Activer l'abonnement mensuel</div>
+        <span class="mynd-sub-badge">−20%</span>
+      </div>
+
+      <a href="{{ section.settings.product_url | default: '#tarifs' }}" class="mynd-commander-btn" id="mynd-commander-btn">
+        Commander — <span id="mynd-total-price">99€</span>
+      </a>
+
+      <div class="mynd-trust-row">
+        <div class="mynd-trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Livraison offerte dès 50€
+        </div>
+        <div class="mynd-trust-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Paiement sécurisé
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. COMPARISON -->
+<section class="mynd-comparison">
+  <div class="mynd-comparison-header">
+    <h2>Pourquoi MYND <em>et pas autre chose ?</em></h2>
+  </div>
+  <div class="mynd-comparison-table">
+    <div class="mynd-comp-head">
+      <div class="mynd-comp-head-cell"></div>
+      <div class="mynd-comp-head-cell">Café</div>
+      <div class="mynd-comp-head-cell">Energy drinks</div>
+      <div class="mynd-comp-head-cell">Nootropiques classiques</div>
+      <div class="mynd-comp-head-cell mynd-col">MYND</div>
+    </div>
+    <div class="mynd-comp-row">
+      <div class="mynd-comp-cell">Énergie sans crash</div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-maybe">~</span></div>
+      <div class="mynd-comp-cell mynd-col"><span class="sym-yes">✓</span></div>
+    </div>
+    <div class="mynd-comp-row">
+      <div class="mynd-comp-cell">Sans nervosité</div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-maybe">~</span></div>
+      <div class="mynd-comp-cell mynd-col"><span class="sym-yes">✓</span></div>
+    </div>
+    <div class="mynd-comp-row">
+      <div class="mynd-comp-cell">Soutien cognitif long terme</div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-maybe">~</span></div>
+      <div class="mynd-comp-cell mynd-col"><span class="sym-yes">✓</span></div>
+    </div>
+    <div class="mynd-comp-row">
+      <div class="mynd-comp-cell">Sans dépendance</div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-no">✗</span></div>
+      <div class="mynd-comp-cell"><span class="sym-yes">✓</span></div>
+      <div class="mynd-comp-cell mynd-col"><span class="sym-yes">✓</span></div>
+    </div>
+    <div class="mynd-comp-row">
+      <div class="mynd-comp-cell">Format nomade</div>
+      <div class="mynd-comp-cell"><span class="sym-maybe">~</span></div>
+      <div class="mynd-comp-cell"><span class="sym-maybe">~</span></div>
+      <div class="mynd-comp-cell"><span class="sym-yes">✓</span></div>
+      <div class="mynd-comp-cell mynd-col"><span class="sym-yes">✓</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. MANIFESTO -->
+<section class="mynd-manifesto">
+  <div class="mynd-manifesto-blob b1"></div>
+  <div class="mynd-manifesto-blob b2"></div>
+  <div class="mynd-manifesto-inner">
+    <div class="mynd-manifesto-quote">
+      "Tu ne devrais pas avoir à choisir entre<br>l'épuisement et la performance."
+    </div>
+    <div class="mynd-manifesto-cols">
+      <div class="mynd-manifesto-col">
+        <p>Nous avons conçu MYND pour les personnes qui refusent le compromis. Celles qui veulent performer sans se vider, être présentes sans être épuisées, accomplir sans sacrifier leur santé.</p>
+        <br>
+        <p>La science est là. Les ingrédients existent. Il ne manquait qu'une formule qui les combine intelligemment, au bon dosage, sans compromis sur la qualité.</p>
+      </div>
+      <div class="mynd-manifesto-col">
+        <p>MYND est née de la frustration de ses fondateurs face aux compléments du marché : soit stimulants et addictifs, soit inefficaces. Nous avons voulu faire mieux.</p>
+        <br>
+        <p>Chaque ingrédient a été sélectionné pour son effet synergique. Chaque dosage a été validé par la recherche. Chaque lot est testé avant d'arriver chez toi.</p>
+      </div>
+    </div>
+    <div class="mynd-manifesto-sign">— Manitive™</div>
+  </div>
+</section>
+
+<!-- 14. FAQ -->
+<section class="mynd-faq" id="faq">
+  <div class="mynd-faq-header">
+    <h2>Questions <em>fréquentes.</em></h2>
+  </div>
+  <div class="mynd-faq-grid" id="mynd-faq-grid">
+    <div class="mynd-faq-item" id="faq-0">
+      <button class="mynd-faq-btn" data-faq="faq-0">
+        <span>Qu'est-ce qui rend MYND différent ?</span>
+        <span class="mynd-faq-icon">+</span>
+      </button>
+      <div class="mynd-faq-body">
+        MYND est la seule formule à combiner soutien cognitif structurel (Lion's Mane + B6) et énergie cellulaire (Shilajit + Complexe B) dans une approche Dual-Fuel. La plupart des nootropiques adressent soit la cognition, soit l'énergie. MYND adresse les deux simultanément, avec des dosages cliniques et sans stimulants.
+      </div>
+    </div>
+    <div class="mynd-faq-item" id="faq-1">
+      <button class="mynd-faq-btn" data-faq="faq-1">
+        <span>Est-ce sûr en prise quotidienne ?</span>
+        <span class="mynd-faq-icon">+</span>
+      </button>
+      <div class="mynd-faq-body">
+        Oui. Tous les ingrédients de MYND ont un profil de sécurité établi par des années de recherche clinique. MYND ne contient aucun stimulant, aucune substance contrôlée. La formule est vegan, sans allergènes majeurs, et conforme aux réglementations européennes (EC 1881/2006). Comme pour tout complément, consultez un professionnel de santé en cas de grossesse ou de traitement médicamenteux.
+      </div>
+    </div>
+    <div class="mynd-faq-item" id="faq-2">
+      <button class="mynd-faq-btn" data-faq="faq-2">
+        <span>Quand vais-je ressentir les effets ?</span>
+        <span class="mynd-faq-icon">+</span>
+      </button>
+      <div class="mynd-faq-body">
+        Les premiers effets se manifestent généralement entre J3 et J7 : meilleure clarté mentale, réduction de la fatigue cognitive. Les effets cognitifs profonds (mémoire de travail, plasticité neuronale) s'installent progressivement sur 30 à 90 jours. Un protocole de 90 jours est recommandé pour une optimisation complète.
+      </div>
+    </div>
+    <div class="mynd-faq-item" id="faq-3">
+      <button class="mynd-faq-btn" data-faq="faq-3">
+        <span>Comment prendre MYND ?</span>
+        <span class="mynd-faq-icon">+</span>
+      </button>
+      <div class="mynd-faq-body">
+        2 gélules le matin, de préférence avec le repas pour optimiser l'absorption des vitamines liposolubles. Ne pas dépasser 2 gélules par jour. Pour une efficacité maximale, maintenez une prise régulière sans interruption. MYND est compatible avec le café (bien que sans caféine lui-même).
+      </div>
+    </div>
+    <div class="mynd-faq-item" id="faq-4">
+      <button class="mynd-faq-btn" data-faq="faq-4">
+        <span>Et si je n'aime pas ?</span>
+        <span class="mynd-faq-icon">+</span>
+      </button>
+      <div class="mynd-faq-body">
+        Nous offrons une garantie satisfait ou remboursé de 60 jours, même si le flacon est ouvert et entamé. Aucune question, aucune justification requise. Il suffit de nous envoyer un email à contact@mynd.co avec votre numéro de commande. Le remboursement est effectué sous 3 à 5 jours ouvrés.
+      </div>
+    </div>
+    <div class="mynd-faq-item" id="faq-5">
+      <button class="mynd-faq-btn" data-faq="faq-5">
+        <span>Quand vais-je recevoir ma commande ?</span>
+        <span class="mynd-faq-icon">+</span>
+      </button>
+      <div class="mynd-faq-body">
+        Les commandes passées avant 14h sont expédiées le jour même (du lundi au vendredi). Délai de livraison estimé : 2 à 4 jours ouvrés en France métropolitaine, 4 à 7 jours pour l'Europe. La livraison est offerte sans minimum d'achat. Vous recevrez un email de confirmation avec le numéro de suivi dès l'expédition.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15. GUARANTEE -->
+<section class="mynd-guarantee">
+  <div class="mynd-guarantee-card">
+    <div class="mynd-guarantee-icon">🛡</div>
+    <h2><em>60 jours.</em><br>Produit ouvert.<br><em>Zéro question.</em></h2>
+    <p>Si MYND ne te convainc pas totalement dans les 60 jours suivant ta commande — même si le flacon est entamé — nous te remboursons intégralement. Sans condition. Sans formulaire. Un email suffit.</p>
+  </div>
+</section>
+
+<!-- 16. FINAL CTA + FOOTER -->
+<section class="mynd-final-cta">
+  <div class="mynd-wordmark">MYND</div>
+  <div class="mynd-final-content">
+    <div class="mynd-final-tagline">
+      La clarté mentale<br>n'est pas un luxe.
+    </div>
+    <a href="#tarifs" class="mynd-final-btn">Commander MYND →</a>
+    <div class="mynd-footer">
+      <div class="mynd-footer-copy">© 2025 MYND by Manitive™ — Tous droits réservés</div>
+      <div class="mynd-footer-disclaimer">
+        Ces déclarations n'ont pas été évaluées par l'EFSA. Ce produit n'est pas destiné à diagnostiquer, traiter, guérir ou prévenir une maladie. Les compléments alimentaires ne remplacent pas une alimentation variée et équilibrée et un mode de vie sain. Tenir hors de portée des enfants. Consulter un médecin avant toute utilisation en cas de grossesse, d'allaitement ou de traitement médical.
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  // ---- NAV SCROLL BLUR ----
+  var nav = document.getElementById('mynd-nav');
+  if (nav) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
+
+  // ---- TESTIMONIAL CAROUSEL ----
+  var track = document.getElementById('mynd-carousel-track');
+  var dots = document.querySelectorAll('.mynd-dot');
+  var prevBtn = document.getElementById('mynd-prev');
+  var nextBtn = document.getElementById('mynd-next');
+  var currentSlide = 0;
+  var totalSlides = 4;
+  var autoAdvanceTimer = null;
+
+  function goToSlide(n) {
+    currentSlide = ((n % totalSlides) + totalSlides) % totalSlides;
+    if (track) track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === currentSlide);
+    });
+  }
+
+  function startAutoAdvance() {
+    clearInterval(autoAdvanceTimer);
+    autoAdvanceTimer = setInterval(function() {
+      goToSlide(currentSlide + 1);
+    }, 5500);
+  }
+
+  if (track) {
+    dots.forEach(function(d) {
+      d.addEventListener('click', function() {
+        goToSlide(parseInt(this.dataset.slide));
+        startAutoAdvance();
+      });
+    });
+    if (prevBtn) prevBtn.addEventListener('click', function() { goToSlide(currentSlide - 1); startAutoAdvance(); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goToSlide(currentSlide + 1); startAutoAdvance(); });
+    startAutoAdvance();
+  }
+
+  // ---- TIMELINE ----
+  var phases = [
+    { day: 'J1', title: 'Démarrage du protocole', body: 'Ton corps commence à assimiler les actifs. La biodisponibilité du Shilajit assure un démarrage rapide du soutien énergétique mitochondrial dès les premières prises.', progress: 5 },
+    { day: 'J7', title: 'Premiers signaux de clarté', body: 'Les premiers effets commencent à se manifester : meilleure clarté au réveil, réduction de la brume mentale, plus grande facilité à démarrer les tâches.', progress: 25 },
+    { day: 'J30', title: 'Initiation de la plasticité neuronale', body: 'Le Lion's Mane stimule activement la production de NGF. La mémoire de travail s'améliore, les états de flow sont plus fréquents et plus durables.', progress: 50 },
+    { day: 'J60', title: 'Progression structurelle', body: 'Les bénéfices cognitifs s'ancrent en profondeur. L'énergie est stable tout au long de la journée. Les après-midis ne sont plus synonymes de fatigue.', progress: 80 },
+    { day: 'J90', title: 'Optimisation complète', body: 'L'état cognitif optimal est atteint. Ton nouveau niveau de base correspond à ce que tu avais connu lors de tes meilleures journées. MYND devient ton standard.', progress: 100 }
+  ];
+
+  var tlDay = document.getElementById('tl-day');
+  var tlTitle = document.getElementById('tl-title');
+  var tlBody = document.getElementById('tl-body');
+  var tlProgress = document.getElementById('tl-progress');
+  var phaseBtns = document.querySelectorAll('.mynd-phase-btn');
+
+  phaseBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var idx = parseInt(this.dataset.phase);
+      phaseBtns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      var p = phases[idx];
+      if (tlDay) tlDay.textContent = p.day;
+      if (tlTitle) tlTitle.textContent = p.title;
+      if (tlBody) tlBody.textContent = p.body;
+      if (tlProgress) tlProgress.style.width = p.progress + '%';
+      var display = document.getElementById('mynd-timeline-display');
+      if (display) {
+        display.style.animation = 'none';
+        display.offsetHeight; // reflow
+        display.style.animation = 'fadeIn 0.4s ease';
+      }
+    });
+  });
+
+  // ---- ACCORDION (Formula) ----
+  document.querySelectorAll('.mynd-accordion-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = this.dataset.acc;
+      var acc = document.getElementById(id);
+      if (acc) {
+        acc.classList.toggle('open');
+      }
+    });
+  });
+
+  // ---- FAQ ACCORDION ----
+  document.querySelectorAll('.mynd-faq-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = this.dataset.faq;
+      var item = document.getElementById(id);
+      var grid = document.getElementById('mynd-faq-grid');
+      if (item) {
+        var wasOpen = item.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.mynd-faq-item').forEach(function(fi) {
+          fi.classList.remove('open');
+        });
+        // Reflow grid to handle column span changes
+        if (!wasOpen) {
+          item.classList.add('open');
+        }
+      }
+    });
+  });
+
+  // ---- PRICING ----
+  var isSubscription = false;
+  var selectedQty = 60;
+
+  var qtyOpts = document.querySelectorAll('.mynd-qty-opt');
+  var qtyTabs = document.querySelectorAll('.mynd-qty-tab');
+  var subToggle = document.getElementById('mynd-sub-toggle');
+  var toggleSw = document.getElementById('mynd-toggle-sw');
+  var totalPriceEl = document.getElementById('mynd-total-price');
+
+  function getPriceForOpt(opt, sub) {
+    var once = parseInt(opt.dataset.priceOnce);
+    var s = parseInt(opt.dataset.priceSub);
+    return sub ? s : once;
+  }
+
+  function updatePrices() {
+    qtyOpts.forEach(function(opt) {
+      var priceDiv = opt.querySelector('.mynd-qty-price > div:first-child');
+      var origDiv = opt.querySelector('.mynd-qty-price-orig');
+      var once = parseInt(opt.dataset.priceOnce);
+      var sub = parseInt(opt.dataset.priceSub);
+      if (isSubscription) {
+        if (priceDiv) priceDiv.textContent = sub + '€';
+        if (origDiv) origDiv.textContent = once + '€';
+      } else {
+        if (priceDiv) priceDiv.textContent = once + '€';
+        if (origDiv) origDiv.textContent = '';
+      }
+    });
+    var selected = document.querySelector('.mynd-qty-opt.selected');
+    if (selected && totalPriceEl) {
+      var price = isSubscription ? parseInt(selected.dataset.priceSub) : parseInt(selected.dataset.priceOnce);
+      totalPriceEl.textContent = price + '€';
+    }
+  }
+
+  qtyOpts.forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      qtyOpts.forEach(function(o) { o.classList.remove('selected'); });
+      this.classList.add('selected');
+      updatePrices();
+    });
+  });
+
+  qtyTabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      qtyTabs.forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      isSubscription = (this.dataset.mode === 'subscription');
+      if (toggleSw) toggleSw.classList.toggle('on', isSubscription);
+      updatePrices();
+    });
+  });
+
+  if (subToggle) {
+    subToggle.addEventListener('click', function() {
+      isSubscription = !isSubscription;
+      if (toggleSw) toggleSw.classList.toggle('on', isSubscription);
+      qtyTabs.forEach(function(t) {
+        t.classList.toggle('active', t.dataset.mode === (isSubscription ? 'subscription' : 'one-time'));
+      });
+      updatePrices();
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MYND Landing",
+  "settings": [
+    { "type": "image_picker", "id": "hero_image", "label": "Hero product image" },
+    { "type": "image_picker", "id": "lifestyle_1", "label": "Lifestyle photo 1" },
+    { "type": "image_picker", "id": "lifestyle_2", "label": "Lifestyle photo 2" },
+    { "type": "image_picker", "id": "lifestyle_3", "label": "Lifestyle photo 3" },
+    { "type": "image_picker", "id": "lifestyle_4", "label": "Lifestyle photo 4" },
+    { "type": "url", "id": "product_url", "label": "Product URL (Commander button)" },
+    { "type": "text", "id": "announcement", "label": "Announcement bar text", "default": "Free shipping · Garantie 60 jours · Sans caféine" }
+  ],
+  "presets": [{ "name": "MYND Landing" }]
+}
+{% endschema %}
