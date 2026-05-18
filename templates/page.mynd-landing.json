@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "mynd_landing": {
+      "type": "mynd-landing",
+      "settings": {}
+    }
+  },
+  "order": ["mynd_landing"]
+}
