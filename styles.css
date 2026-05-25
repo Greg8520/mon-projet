@@ -2355,13 +2355,15 @@ body {
 
   /* ----- HERO ----- */
   #mynd-lp .hero {
-    padding: 4rem 6.4rem 3.2rem;
+    padding: 4rem 6.4rem 3.2rem !important;
+    max-height: 640px !important;
+    overflow: hidden !important;
   }
   #mynd-lp .hero-canvas {
-    max-width: 560px;
-    max-height: 480px;
-    margin: 0 auto;
-    aspect-ratio: 5 / 4;
+    max-width: 560px !important;
+    max-height: 520px !important;
+    margin: 0 auto !important;
+    aspect-ratio: 5 / 4 !important;
     border-radius: 2rem;
   }
 
