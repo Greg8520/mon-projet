@@ -19,23 +19,35 @@
   <section class="hero" data-screen-label="01 Hero">
     <div class="hero-canvas">
       <span class="hero-tag">Fondé en Allemagne</span>
-      {%- if section.settings.hero_image != blank -%}
-        <img src="{{ section.settings.hero_image | image_url: width: 900 }}"
-             alt="{{ section.settings.hero_image.alt | escape }}"
-             width="{{ section.settings.hero_image.width }}"
-             height="{{ section.settings.hero_image.height }}"
-             loading="eager"
-             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-      {%- endif -%}
-      <div class="hero-arrows">
-        <button class="hero-arrow" aria-label="Précédent">‹</button>
-        <button class="hero-arrow" aria-label="Suivant">›</button>
+
+      {%- assign hero_images = section.settings.hero_image_1 | default: blank -%}
+      {%- assign hero_imgs = '' | split: '' -%}
+      {%- for i in (1..4) -%}
+        {%- assign key = 'hero_image_' | append: i -%}
+        {%- assign img = section.settings[key] -%}
+        {%- if img != blank -%}
+          {%- assign hero_imgs = hero_imgs | push: img -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- for img in hero_imgs -%}
+        <img src="{{ img | image_url: width: 900 }}"
+             alt="{{ img.alt | escape }}"
+             loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+             class="hero-slide-img{% if forloop.first %} active{% endif %}"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{% if forloop.first %}1{% else %}0{% endif %};transition:opacity 0.4s ease;">
+      {%- endfor -%}
+      <div class="hero-arrows" id="hero-arrows">
+        <button class="hero-arrow" id="hero-prev" aria-label="Précédent">‹</button>
+        <button class="hero-arrow" id="hero-next" aria-label="Suivant">›</button>
       </div>
-      <div class="hero-dots">
-        <span class="hero-dot active"></span>
-        <span class="hero-dot"></span>
-        <span class="hero-dot"></span>
-        <span class="hero-dot"></span>
+      <div class="hero-dots" id="hero-dots">
+        {%- for i in (1..4) -%}
+          {%- assign key = 'hero_image_' | append: i -%}
+          {%- if section.settings[key] != blank -%}
+            <span class="hero-dot{% if forloop.first %} active{% endif %}"></span>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
       <a href="#raisons" class="hero-badge">Découvrir le protocole</a>
     </div>
@@ -393,31 +405,29 @@
     <div class="pdp-carousel">
       <div class="pdp-slides">
         <div class="pdp-slide active" data-slide="0">
-          <div class="pdp-slide-bg s-product">
-            {%- if section.settings.pdp_image != blank -%}
-              <img src="{{ section.settings.pdp_image | image_url: width: 900 }}"
-                   alt="{{ section.settings.pdp_image.alt | escape }}"
-                   width="{{ section.settings.pdp_image.width }}"
-                   height="{{ section.settings.pdp_image.height }}"
-                   loading="lazy"
-                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            {%- endif -%}
+          <div class="pdp-slide-bg s-product"
+            {%- if section.settings.pdp_image_1 != blank %} style="background-image:url('{{ section.settings.pdp_image_1 | image_url: width: 900 }}');background-size:cover;background-position:center;"{%- endif %}>
           </div>
           <div class="pdp-slide-label">Le produit</div>
         </div>
         <div class="pdp-slide" data-slide="1">
-          <div class="pdp-slide-bg s-results">
+          <div class="pdp-slide-bg s-results"
+            {%- if section.settings.pdp_image_2 != blank %} style="background-image:url('{{ section.settings.pdp_image_2 | image_url: width: 900 }}');background-size:cover;background-position:center;"{%- endif %}>
+            {%- if section.settings.pdp_image_2 == blank -%}
             <div class="pdp-overlay">
               <div class="pdp-stat-row">
                 <div><span class="big">200+</span><span class="sm">Adoptants</span></div>
                 <div><span class="big">★ 4.8</span><span class="sm">Avis vérifiés</span></div>
               </div>
             </div>
+            {%- endif -%}
           </div>
           <div class="pdp-slide-label">Résultats</div>
         </div>
         <div class="pdp-slide" data-slide="2">
-          <div class="pdp-slide-bg s-inside">
+          <div class="pdp-slide-bg s-inside"
+            {%- if section.settings.pdp_image_3 != blank %} style="background-image:url('{{ section.settings.pdp_image_3 | image_url: width: 900 }}');background-size:cover;background-position:center;"{%- endif %}>
+            {%- if section.settings.pdp_image_3 == blank -%}
             <div class="pdp-overlay center">
               <div class="pdp-gummies">
                 <span class="g red"></span>
@@ -425,27 +435,36 @@
               </div>
               <div class="pdp-overlay-cap">Build + Fuel · 2 gummies</div>
             </div>
+            {%- endif -%}
           </div>
           <div class="pdp-slide-label">Ce qu'il y a dedans</div>
         </div>
         <div class="pdp-slide" data-slide="3">
-          <div class="pdp-slide-bg s-comp">
+          <div class="pdp-slide-bg s-comp"
+            {%- if section.settings.pdp_image_4 != blank %} style="background-image:url('{{ section.settings.pdp_image_4 | image_url: width: 900 }}');background-size:cover;background-position:center;"{%- endif %}>
+            {%- if section.settings.pdp_image_4 == blank -%}
             <div class="pdp-overlay center">
               <div class="pdp-versus"><span>MYND</span><em>vs</em><span>Le reste</span></div>
             </div>
+            {%- endif -%}
           </div>
           <div class="pdp-slide-label">Comparatif</div>
         </div>
         <div class="pdp-slide" data-slide="4">
-          <div class="pdp-slide-bg s-lifestyle"></div>
+          <div class="pdp-slide-bg s-lifestyle"
+            {%- if section.settings.pdp_image_5 != blank %} style="background-image:url('{{ section.settings.pdp_image_5 | image_url: width: 900 }}');background-size:cover;background-position:center;"{%- endif %}>
+          </div>
           <div class="pdp-slide-label">Le rituel</div>
         </div>
         <div class="pdp-slide" data-slide="5">
-          <div class="pdp-slide-bg s-howto">
+          <div class="pdp-slide-bg s-howto"
+            {%- if section.settings.pdp_image_6 != blank %} style="background-image:url('{{ section.settings.pdp_image_6 | image_url: width: 900 }}');background-size:cover;background-position:center;"{%- endif %}>
+            {%- if section.settings.pdp_image_6 == blank -%}
             <div class="pdp-overlay center">
               <div class="pdp-steps-illo">1 · 2 · 3</div>
               <div class="pdp-overlay-cap">3 étapes simples</div>
             </div>
+            {%- endif -%}
           </div>
           <div class="pdp-slide-label">Comment le prendre</div>
         </div>
@@ -908,6 +927,27 @@
 </div>
 
 <script>
+  // Hero carousel
+  (function() {
+    const imgs = document.querySelectorAll('.hero-slide-img');
+    const dots = document.querySelectorAll('#hero-dots .hero-dot');
+    if (imgs.length <= 1) {
+      document.getElementById('hero-arrows').style.display = 'none';
+      return;
+    }
+    let idx = 0;
+    function heroGoto(i) {
+      imgs[idx].style.opacity = '0'; imgs[idx].classList.remove('active');
+      dots[idx] && dots[idx].classList.remove('active');
+      idx = (i + imgs.length) % imgs.length;
+      imgs[idx].style.opacity = '1'; imgs[idx].classList.add('active');
+      dots[idx] && dots[idx].classList.add('active');
+    }
+    document.getElementById('hero-prev').addEventListener('click', () => heroGoto(idx - 1));
+    document.getElementById('hero-next').addEventListener('click', () => heroGoto(idx + 1));
+    dots.forEach((d, i) => d.addEventListener('click', () => heroGoto(i)));
+  })();
+
   // Accordions
   document.querySelectorAll('.acc-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1072,25 +1112,20 @@
 {
   "name": "MYND Landing",
   "settings": [
-    {
-      "type": "header",
-      "content": "Images"
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero — photo produit principale"
-    },
-    {
-      "type": "image_picker",
-      "id": "pdp_image",
-      "label": "Box produit — photo carrousel (slide 1)"
-    },
-    {
-      "type": "image_picker",
-      "id": "raison04_image",
-      "label": "Raison 04 — photo certification / labo"
-    }
+    { "type": "header", "content": "Hero — 4 images (carousel)" },
+    { "type": "image_picker", "id": "hero_image_1", "label": "Hero image 1" },
+    { "type": "image_picker", "id": "hero_image_2", "label": "Hero image 2" },
+    { "type": "image_picker", "id": "hero_image_3", "label": "Hero image 3" },
+    { "type": "image_picker", "id": "hero_image_4", "label": "Hero image 4" },
+    { "type": "header", "content": "Box produit — 6 slides" },
+    { "type": "image_picker", "id": "pdp_image_1", "label": "Slide 1 — Produit" },
+    { "type": "image_picker", "id": "pdp_image_2", "label": "Slide 2 — Résultats" },
+    { "type": "image_picker", "id": "pdp_image_3", "label": "Slide 3 — Ce qu'il y a dedans" },
+    { "type": "image_picker", "id": "pdp_image_4", "label": "Slide 4 — Comparatif" },
+    { "type": "image_picker", "id": "pdp_image_5", "label": "Slide 5 — Lifestyle" },
+    { "type": "image_picker", "id": "pdp_image_6", "label": "Slide 6 — Comment le prendre" },
+    { "type": "header", "content": "Raison 04" },
+    { "type": "image_picker", "id": "raison04_image", "label": "Raison 04 — photo certification / labo" }
   ]
 }
 {% endschema %}
