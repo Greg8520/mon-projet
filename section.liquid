@@ -19,7 +19,14 @@
   <section class="hero" data-screen-label="01 Hero">
     <div class="hero-canvas">
       <span class="hero-tag">Fondé en Allemagne</span>
-      <image-slot id="hero-product" shape="rounded" radius="0" placeholder="Déposez votre photo produit MYND ici" style="position:absolute;inset:0;width:100%;height:100%;background:transparent;"></image-slot>
+      {%- if section.settings.hero_image != blank -%}
+        <img src="{{ section.settings.hero_image | image_url: width: 900 }}"
+             alt="{{ section.settings.hero_image.alt | escape }}"
+             width="{{ section.settings.hero_image.width }}"
+             height="{{ section.settings.hero_image.height }}"
+             loading="eager"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      {%- endif -%}
       <div class="hero-arrows">
         <button class="hero-arrow" aria-label="Précédent">‹</button>
         <button class="hero-arrow" aria-label="Suivant">›</button>
@@ -232,7 +239,8 @@
       <li><span class="check">✓</span><span><strong>Conforme aux allégations EFSA</strong> sur la fonction cognitive normale et le métabolisme énergétique normal.</span></li>
     </ul>
 
-    <div class="img-holder holo-2">
+    <div class="img-holder{% if section.settings.raison04_image == blank %} holo-2{% endif %}"
+         {% if section.settings.raison04_image != blank %}style="background-image:url('{{ section.settings.raison04_image | image_url: width: 800 }}');background-size:cover;background-position:center;"{% endif %}>
       <span class="img-caption">Lot · Testé · Tracé</span>
     </div>
 
@@ -386,7 +394,14 @@
       <div class="pdp-slides">
         <div class="pdp-slide active" data-slide="0">
           <div class="pdp-slide-bg s-product">
-            <image-slot id="pdp-product" shape="rounded" radius="0" placeholder="Déposez la photo produit MYND ici" style="position:absolute;inset:0;width:100%;height:100%;background:transparent;"></image-slot>
+            {%- if section.settings.pdp_image != blank -%}
+              <img src="{{ section.settings.pdp_image | image_url: width: 900 }}"
+                   alt="{{ section.settings.pdp_image.alt | escape }}"
+                   width="{{ section.settings.pdp_image.width }}"
+                   height="{{ section.settings.pdp_image.height }}"
+                   loading="lazy"
+                   style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            {%- endif -%}
           </div>
           <div class="pdp-slide-label">Le produit</div>
         </div>
@@ -1056,6 +1071,26 @@
 {% schema %}
 {
   "name": "MYND Landing",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero — photo produit principale"
+    },
+    {
+      "type": "image_picker",
+      "id": "pdp_image",
+      "label": "Box produit — photo carrousel (slide 1)"
+    },
+    {
+      "type": "image_picker",
+      "id": "raison04_image",
+      "label": "Raison 04 — photo certification / labo"
+    }
+  ]
 }
 {% endschema %}
