@@ -2351,14 +2351,15 @@ body {
 @media (min-width: 1024px){
 
   /* Page expands, sections become proper desktop width */
-  .page { max-width: 1200px; }
+  #mynd-lp .page { max-width: 1200px; }
 
   /* ----- HERO ----- */
-  .hero {
-    padding: 6.4rem 6.4rem 4rem;
+  #mynd-lp .hero {
+    padding: 4rem 6.4rem 3.2rem;
   }
-  .hero-canvas {
-    max-width: 720px;
+  #mynd-lp .hero-canvas {
+    max-width: 560px;
+    max-height: 480px;
     margin: 0 auto;
     aspect-ratio: 5 / 4;
     border-radius: 2rem;
