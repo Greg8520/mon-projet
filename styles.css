@@ -3,6 +3,32 @@
    1rem = 10px via html font-size: 62.5%
 */
 
+/* ── THEME ISOLATION ──────────────────────────────────────────────────────
+   #mynd-lp (ID) beats any class-based rule from the Horizon theme.
+   Forces block layout on all structural sections so the theme cannot
+   override them with its own grid / column / flex rules.
+   ──────────────────────────────────────────────────────────────────────── */
+#mynd-lp,
+#mynd-lp section,
+#mynd-lp .reason,
+#mynd-lp .intro,
+#mynd-lp .hero,
+#mynd-lp .badge-strip,
+#mynd-lp .trusted,
+#mynd-lp .comparison,
+#mynd-lp .reviews,
+#mynd-lp .faq,
+#mynd-lp .howto,
+#mynd-lp .annual,
+#mynd-lp .diet-strip,
+#mynd-lp .buybox,
+#mynd-lp .promo-bar {
+  display: block;
+  grid-template-columns: unset;
+  column-count: unset;
+  columns: unset;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
