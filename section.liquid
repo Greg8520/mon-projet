@@ -20,23 +20,18 @@
     <div class="hero-canvas">
       <span class="hero-tag">Fondé en Allemagne</span>
 
-      {%- assign hero_images = section.settings.hero_image_1 | default: blank -%}
-      {%- assign hero_imgs = '' | split: '' -%}
-      {%- for i in (1..4) -%}
-        {%- assign key = 'hero_image_' | append: i -%}
-        {%- assign img = section.settings[key] -%}
-        {%- if img != blank -%}
-          {%- assign hero_imgs = hero_imgs | push: img -%}
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- for img in hero_imgs -%}
-        <img src="{{ img | image_url: width: 900 }}"
-             alt="{{ img.alt | escape }}"
-             loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-             class="hero-slide-img{% if forloop.first %} active{% endif %}"
-             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{% if forloop.first %}1{% else %}0{% endif %};transition:opacity 0.4s ease;">
-      {%- endfor -%}
+      {%- if section.settings.hero_image_1 != blank -%}
+        <img src="{{ section.settings.hero_image_1 | image_url: width: 900 }}" alt="{{ section.settings.hero_image_1.alt | escape }}" loading="eager" class="hero-slide-img active" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 0.4s ease;">
+      {%- endif -%}
+      {%- if section.settings.hero_image_2 != blank -%}
+        <img src="{{ section.settings.hero_image_2 | image_url: width: 900 }}" alt="{{ section.settings.hero_image_2.alt | escape }}" loading="lazy" class="hero-slide-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s ease;">
+      {%- endif -%}
+      {%- if section.settings.hero_image_3 != blank -%}
+        <img src="{{ section.settings.hero_image_3 | image_url: width: 900 }}" alt="{{ section.settings.hero_image_3.alt | escape }}" loading="lazy" class="hero-slide-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s ease;">
+      {%- endif -%}
+      {%- if section.settings.hero_image_4 != blank -%}
+        <img src="{{ section.settings.hero_image_4 | image_url: width: 900 }}" alt="{{ section.settings.hero_image_4.alt | escape }}" loading="lazy" class="hero-slide-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s ease;">
+      {%- endif -%}
       <div class="hero-arrows" id="hero-arrows">
         <button class="hero-arrow" id="hero-prev" aria-label="Précédent">‹</button>
         <button class="hero-arrow" id="hero-next" aria-label="Suivant">›</button>
@@ -475,12 +470,30 @@
 
     <!-- Image-thumbnail tabs (navigation for carousel) -->
     <div class="pdp-thumbs">
-      <button class="pthumb selected" data-go="0"><span class="th th-product"></span><span class="lbl">Produit</span></button>
-      <button class="pthumb" data-go="1"><span class="th th-results"></span><span class="lbl">Résultats</span></button>
-      <button class="pthumb" data-go="2"><span class="th th-inside"></span><span class="lbl">Dedans</span></button>
-      <button class="pthumb" data-go="3"><span class="th th-comp"></span><span class="lbl">Comparatif</span></button>
-      <button class="pthumb" data-go="4"><span class="th th-lifestyle"></span><span class="lbl">Lifestyle</span></button>
-      <button class="pthumb" data-go="5"><span class="th th-howto"></span><span class="lbl">Rituel</span></button>
+      <button class="pthumb selected" data-go="0">
+        <span class="th th-product" {% if section.settings.pdp_image_1 != blank %}style="background-image:url('{{ section.settings.pdp_image_1 | image_url: width: 120 }}')"{% endif %}></span>
+        <span class="lbl">Produit</span>
+      </button>
+      <button class="pthumb" data-go="1">
+        <span class="th th-results" {% if section.settings.pdp_image_2 != blank %}style="background-image:url('{{ section.settings.pdp_image_2 | image_url: width: 120 }}')"{% endif %}></span>
+        <span class="lbl">Résultats</span>
+      </button>
+      <button class="pthumb" data-go="2">
+        <span class="th th-inside" {% if section.settings.pdp_image_3 != blank %}style="background-image:url('{{ section.settings.pdp_image_3 | image_url: width: 120 }}')"{% endif %}></span>
+        <span class="lbl">Dedans</span>
+      </button>
+      <button class="pthumb" data-go="3">
+        <span class="th th-comp" {% if section.settings.pdp_image_4 != blank %}style="background-image:url('{{ section.settings.pdp_image_4 | image_url: width: 120 }}')"{% endif %}></span>
+        <span class="lbl">Comparatif</span>
+      </button>
+      <button class="pthumb" data-go="4">
+        <span class="th th-lifestyle" {% if section.settings.pdp_image_5 != blank %}style="background-image:url('{{ section.settings.pdp_image_5 | image_url: width: 120 }}')"{% endif %}></span>
+        <span class="lbl">Lifestyle</span>
+      </button>
+      <button class="pthumb" data-go="5">
+        <span class="th th-howto" {% if section.settings.pdp_image_6 != blank %}style="background-image:url('{{ section.settings.pdp_image_6 | image_url: width: 120 }}')"{% endif %}></span>
+        <span class="lbl">Rituel</span>
+      </button>
     </div>
 
     <div class="buybox-stars" style="margin-bottom: 1.2rem;">
