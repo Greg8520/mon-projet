@@ -1187,32 +1187,12 @@ body {
 }
 #mynd-lp .pthumb.selected .th{ border-color: #000; }
 #mynd-lp .pthumb .th.th-product{ background-image: url('assets/holo-2.png'); }
-#mynd-lp .pthumb .th.th-results{ background: var(--holo-rich); display: flex; align-items: center; justify-content: center; }
-#mynd-lp .pthumb .th.th-results::before{
-  content: "+200";
-  font-family: 'Hanken Grotesk', sans-serif;
-  font-weight: 800;
-  color: #000;
-  font-size: 1.5rem;
-  letter-spacing: -0.04em;
-}
-#mynd-lp .pthumb .th.th-inside{ background: #fff; border: 1.5px solid rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
-#mynd-lp .pthumb .th.th-inside::before{ content: ""; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #e85a4f, #7c1212); }
-#mynd-lp .pthumb .th.th-inside::after{ content: ""; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #555, #000); }
+#mynd-lp .pthumb .th.th-results{ background: var(--holo-rich); }
+#mynd-lp .pthumb .th.th-inside{ background: #fff; border: 1.5px solid rgba(0,0,0,0.15); }
 #mynd-lp .pthumb .th.th-comp{ background-image: url('assets/holo-1.png'); }
 #mynd-lp .pthumb .th.th-lifestyle{ background-image: linear-gradient(135deg, rgba(205,184,243,0.3), rgba(185,212,240,0.3)), url('assets/holo-1.png'); }
 #mynd-lp .pthumb .th.th-howto{
   background: var(--holo);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#mynd-lp .pthumb .th.th-howto::before{
-  content: "1·2·3";
-  font-family: 'Archivo Black', sans-serif;
-  color: #000;
-  font-size: 1.4rem;
-  letter-spacing: -0.04em;
 }
 #mynd-lp .pthumb .lbl{
   font-size: 0.9rem;
