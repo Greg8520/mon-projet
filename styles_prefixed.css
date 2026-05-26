@@ -563,8 +563,9 @@ body {
 #mynd-lp .dose-bar .marker.right{ right: 0; }
 
 #mynd-lp /* Image holder (placeholder for product/lifestyle imagery) */
-.img-holder{
+#mynd-lp .img-holder{
   aspect-ratio: 5 / 4;
+  max-height: 360px;
   border-radius: 1.2rem;
   background: linear-gradient(135deg, #cdb8f3 0%, #b9d4f0 50%, #c9e6e8 100%);
   position: relative;
@@ -973,8 +974,9 @@ body {
 #mynd-lp .pdp-carousel{
   position: relative;
   margin: 0 -2rem 0;
-  aspect-ratio: 4 / 5;
-  max-height: 520px;
+  width: calc(100% + 4rem);
+  height: 80vw;
+  max-height: 420px;
   overflow: hidden;
   background: #faf7f1;
 }
@@ -2403,9 +2405,10 @@ body {
   }
   #commander.buybox > .pdp-carousel {
     margin: 0;
-    border-radius: 2rem;
-    aspect-ratio: 4 / 5;
+    width: 100%;
+    height: 520px;
     max-height: 520px;
+    border-radius: 2rem;
     position: sticky;
     top: 3.2rem;
     grid-row: 1;
