@@ -2348,36 +2348,37 @@ body {
   }
 
   /* ----- INTRO ----- */
-  .intro {
+  #mynd-lp .intro {
     max-width: 760px;
     margin: 0 auto;
     padding: 6.4rem 4rem 4.8rem;
   }
-  .intro h1 { font-size: 4.8rem; line-height: 1.02; }
-  .intro p.lead { font-size: 1.7rem; line-height: 1.6; max-width: 64ch; }
+  #mynd-lp .intro h1 { font-size: 4.8rem; line-height: 1.02; }
+  #mynd-lp .intro p.lead { font-size: 1.7rem; line-height: 1.6; max-width: 64ch; }
 
   /* ----- BADGE STRIP ----- */
-  .badge-strip {
+  #mynd-lp .badge-strip {
     max-width: 760px;
     margin: 0 auto;
     justify-content: center;
     gap: 4rem;
   }
-  .badge-strip .badge { font-size: 1.1rem; }
+  #mynd-lp .badge-strip .badge { font-size: 1.1rem; }
 
   /* ----- REASONS (narrow centered column for readability) ----- */
-  .reason {
+  #mynd-lp .reason {
     max-width: 760px;
     margin: 0 auto;
     padding: 8rem 4rem 2rem;
   }
-  .reason h2 { font-size: 3.6rem; line-height: 1.1; }
-  .reason p { font-size: 1.6rem; line-height: 1.65; }
-  .reason-num { font-size: 1.4rem; }
+  #mynd-lp .reason h2 { font-size: 3.6rem; line-height: 1.1; }
+  #mynd-lp .reason p { font-size: 1.6rem; line-height: 1.65; }
+  #mynd-lp .reason-num { font-size: 1.4rem; }
+  #mynd-lp .img-holder { max-width: 560px; max-height: 360px; margin-left: auto; margin-right: auto; }
 
   /* Bigger data-card / dual-card / cards inside reasons */
-  .data-card { padding: 3.6rem 3rem; }
-  .data-card .big-stat { font-size: 8rem; }
+  #mynd-lp .data-card { padding: 3.6rem 3rem; }
+  #mynd-lp .data-card .big-stat { font-size: 8rem; }
 
   /* ----- BUY BOX — 2 COLUMNS ----- */
   #commander.buybox {
@@ -2417,54 +2418,54 @@ body {
   #commander.buybox h2 { font-size: 4.4rem !important; }
 
   /* ----- DIET STRIP centered ----- */
-  .diet-strip {
+  #mynd-lp .diet-strip {
     justify-content: center;
     padding: 2.4rem 4rem;
     gap: 1rem;
   }
 
   /* ----- TRUSTED BY ----- */
-  .trusted {
+  #mynd-lp .trusted {
     padding: 8rem 6.4rem;
   }
-  .trusted h2 { font-size: 3.6rem; }
-  .testimonial-scroll { margin: 0; padding: 0; gap: 2rem; }
-  .tcard { width: 30rem; aspect-ratio: 4/5; }
+  #mynd-lp .trusted h2 { font-size: 3.6rem; }
+  #mynd-lp .testimonial-scroll { margin: 0; padding: 0; gap: 2rem; }
+  #mynd-lp .tcard { width: 30rem; aspect-ratio: 4/5; }
 
   /* ----- COMPARISON ----- */
-  .comparison {
+  #mynd-lp .comparison {
     padding: 8rem 6.4rem;
     max-width: 960px;
     margin: 0 auto;
   }
-  .comparison h2 { font-size: 4rem; }
-  .ctable-head > div, .crow > div { padding: 1.6rem 1.2rem; font-size: 1.3rem; }
+  #mynd-lp .comparison h2 { font-size: 4rem; }
+  #mynd-lp .ctable-head > div, #mynd-lp .crow > div { padding: 1.6rem 1.2rem; font-size: 1.3rem; }
 
   /* ----- REVIEWS — 2-column grid ----- */
-  .reviews {
+  #mynd-lp .reviews {
     padding: 8rem 6.4rem;
     max-width: 1100px;
     margin: 0 auto;
   }
-  .reviews h2 { font-size: 4rem; }
-  .review-grid {
+  #mynd-lp .reviews h2 { font-size: 4rem; }
+  #mynd-lp .review-grid {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
-  .see-more-reviews { max-width: 32rem; margin: 3.2rem auto 0; }
+  #mynd-lp .see-more-reviews { max-width: 32rem; margin: 3.2rem auto 0; }
 
   /* ----- FAQ ----- */
-  .faq {
+  #mynd-lp .faq {
     padding: 8rem 6.4rem 10rem;
     max-width: 880px;
     margin: 0 auto;
   }
-  .faq h2 { font-size: 4.8rem; }
-  .faq .acc-toggle { font-size: 1.6rem; padding: 2rem 0; }
-  .faq .acc-body { font-size: 1.4rem; }
+  #mynd-lp .faq h2 { font-size: 4.8rem; }
+  #mynd-lp .faq .acc-toggle { font-size: 1.6rem; padding: 2rem 0; }
+  #mynd-lp .faq .acc-body { font-size: 1.4rem; }
 
   /* ----- PROMO BAR readable ----- */
-  .promo-bar { font-size: 1.35rem; padding: 1.2rem 1.6rem; }
+  #mynd-lp .promo-bar { font-size: 1.35rem; padding: 1.2rem 1.6rem; }
 }
 
 #mynd-lp /* Extra polish on very wide desktop */
