@@ -970,10 +970,11 @@ body {
 #mynd-lp .guarantee p{ font-size: 1.3rem; color: rgba(0,0,0,0.7); }
 
 #mynd-lp /* ---------- PRODUCT IMAGE CAROUSEL (top of buybox) ---------- */
-.pdp-carousel{
+#mynd-lp .pdp-carousel{
   position: relative;
   margin: 0 -2rem 0;
   aspect-ratio: 4 / 5;
+  max-height: 520px;
   overflow: hidden;
   background: #faf7f1;
 }
@@ -2403,7 +2404,8 @@ body {
   #commander.buybox > .pdp-carousel {
     margin: 0;
     border-radius: 2rem;
-    aspect-ratio: 5 / 6;
+    aspect-ratio: 4 / 5;
+    max-height: 520px;
     position: sticky;
     top: 3.2rem;
     grid-row: 1;
