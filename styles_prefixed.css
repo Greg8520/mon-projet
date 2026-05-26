@@ -974,8 +974,8 @@ body {
 #mynd-lp .pdp-carousel{
   position: relative;
   margin: 0 -2rem 0;
-  width: calc(100% + 4rem);
-  height: 80vw;
+  aspect-ratio: 4 / 5;
+  min-height: 280px;
   max-height: 420px;
   overflow: hidden;
   background: #faf7f1;
