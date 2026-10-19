@@ -139,7 +139,8 @@
         '</div>' +
       '</div>' +
       '<p class="line__price"></p>';
-    $('img', li).src = /^assets\/img\/[\w.-]+$/.test(l.image) ? l.image : 'assets/img/bottle-160.webp';
+    // Root-relative, so a cart started on one page renders the same on every page of the site.
+    $('img', li).src = '/' + (/^\/?assets\/img\/[\w.-]+$/.test(l.image) ? l.image.replace(/^\//, '') : 'assets/img/bottle-160.webp');
     $('.line__title', li).textContent = l.title;
     $('.line__plan', li).textContent = l.planLabel;
     $('output', li).textContent = String(l.qty);
