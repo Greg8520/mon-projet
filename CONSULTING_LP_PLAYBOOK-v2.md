@@ -19,6 +19,8 @@ When the operator tells you to run this playbook, execute the workflow below in 
 
 Rules that hold the whole way through: never invent a number, price, rating, or claim; use only the brand's real material and real design tokens; keep to the compliance rules in Part E; no em dashes anywhere in the page.
 
+Standing inputs, read before Step 1 on every run: everything in `client-assets/copywriting/` (the brand's own copywriting rules), and whatever earlier runs left in the folder (`BRAND-BRIEF.md`, a brand rules file such as `*-REGLES.md`, the `qa/` suite). Reuse what is still true instead of starting over, and update it when the operator brings something new. When a copywriting rule conflicts with compliance (Part E), compliance wins and you flag the conflict.
+
 ## Step 1: Harvest the client's material `[ASK + WAIT]`
 
 Tell the operator, in your own words, to gather these into the folder, and wait until they confirm it is done:
@@ -29,7 +31,8 @@ Tell the operator, in your own words, to gather these into the folder, and wait 
 - **The entire product page as text** pasted into `client-assets/pdp.md` (select-all on the page, copy, paste). This is your source of truth for claims, facts, prices, and reviews, and it works even if the live site blocks you.
 - **The brand's science, blog, and FAQ pages** pasted into `client-assets/education.md`.
 - **The product-page URL**, so you can pull the live design tokens.
-- **(Optional)** a landing page they want to mimic, into `client-assets/reference/`.
+- **(Optional)** one or more landing pages they want to mimic, one folder per page in `client-assets/reference/<brand>/`: a `page.md` with the URL and the full page text, plus full-length mobile screenshots. Best picks are pages behind ads that have run for 30+ days in the Meta Ad Library.
+- **(Optional)** their copywriting material (words to use, words to avoid, tone rules, frameworks, past copy that worked) into `client-assets/copywriting/`.
 
 Do not start scraping or building until they confirm the folder is populated.
 
@@ -41,6 +44,8 @@ Now do the work the operator would otherwise do by hand. Write it all into `BRAN
 - **From `pdp.md`:** the trust constants verbatim (rating, review count, guarantee wording), every product fact, the exact prices and offer, and 6 to 8 real customer reviews.
 - **From `education.md`:** how the brand explains the product, so the page sounds like an insider.
 - **From `ads/`:** the winning ad's angle, exact promise, emotion, and offer, in one line. This becomes the hero.
+- **From `copywriting/`:** the words and phrasings to use, the ones to avoid, tone rules, and frameworks. Record them in the brief's voice section and apply them to every line of copy from Step 4 on.
+- **From `reference/`:** for each reference page, its section order and the job each section does, so Step 3 can adapt the structure without copying its words, images, reviews, or claims.
 - **Deep research:** how real customers describe this problem in their own words, the main competitors and the gap, the strongest buyer objections, and what the evidence actually supports so you never overclaim. Add this as a research section, with sources.
 - **Compliance:** if this is a regulated category (supplement, health, finance, beauty), capture the required disclaimer verbatim and the claim rules (see Part E).
 
@@ -61,7 +66,7 @@ Match the recommendation to the ad you read in Step 2, but let them choose. If t
 
 ## Step 4: Propose structure and hero, get approval `[ASK + WAIT]`
 
-Using the anatomy for the chosen archetype (Part A) and the hero formula (Part B), propose:
+Using the anatomy for the chosen archetype (Part A), the hero formula (Part B), and the brand's copywriting rules from the brief, propose:
 1. The section order, one line each on why each earns its place.
 2. Two hero options (eyebrow, two-line H1, lede, price chip, mini trust line). The H1 pays off the ad's exact promise, and the single strongest specific claim (like a timeframe) goes up here, not buried.
 
@@ -235,7 +240,7 @@ Review the built page for cold, mostly-mobile paid traffic. Score 0-100, weighti
 4. **Mobile and speed:** CTA in the first screen, no sideways scroll, tap targets big enough, no giant images, a sticky buy bar.
 5. **Trust and compliance:** real specific proof, ratings scoped honestly, no reused testimonials, claims correctly qualified, disclaimer present, no invented stats, numbers that all agree.
 
-Also judge the four premium inputs: real brand tokens, the best photography given room to breathe, the brand's own proof used fully, and numbers that agree. Apply every P0/P1, verify in the browser, re-score to 90+ or two rounds. A regulated-category compliance failure (disease claim, missing disclaimer, invented stat) caps the score at 79 until fixed.
+Also judge the four premium inputs: real brand tokens, the best photography given room to breathe, the brand's own proof used fully, and numbers that agree. When `client-assets/copywriting/` exists, check the copy against it: no word from the avoid list, the brand's vocabulary used where it fits naturally. Apply every P0/P1, verify in the browser, re-score to 90+ or two rounds. A regulated-category compliance failure (disease claim, missing disclaimer, invented stat) caps the score at 79 until fixed.
 
 ---
 

@@ -1,0 +1,15 @@
+{
+  "name": "apogee-lp-qa",
+  "private": true,
+  "type": "module",
+  "description": "QA suite for the Apogée Men landing page in ../lp",
+  "scripts": {
+    "test": "node run.mjs",
+    "test:live": "LP_URL=https://apogee-men-lp.vercel.app/ node run.mjs",
+    "shots": "node run.mjs --shots"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.2",
+    "playwright": "1.56.1"
+  }
+}
