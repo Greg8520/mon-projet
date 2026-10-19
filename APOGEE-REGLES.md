@@ -6,9 +6,11 @@
 
 | Élément | Où |
 |---|---|
-| Page en ligne (noindex) | https://apogee-men-lp.vercel.app · projet Vercel `apogee-men-lp` |
-| Code de la page | `lp/` : HTML, CSS et JS statiques, sans étape de build |
-| Tests automatiques | `qa/` : 28 contrôles, en local ou sur la page en ligne |
+| Page « cortisol » (noindex) | https://apogee-men-lp.vercel.app · `lp/index.html` |
+| Page « 5 raisons » (noindex) | https://apogee-men-lp.vercel.app/5-raisons · `lp/5-raisons/index.html`, modelée sur Mars Men `boost-fb` |
+| Code | `lp/` : HTML, CSS et JS statiques, sans étape de build ; `lp/assets/` est partagé par les deux pages, panier compris |
+| Hébergement | projet Vercel `apogee-men-lp` |
+| Tests automatiques | `qa/` : 29 contrôles par page, en local ou sur les pages en ligne |
 | Brief, recherche, questions client | `BRAND-BRIEF.md` (section 10 : 22 points à obtenir du client) |
 
 **Bloquant avant tout trafic payant** : les identifiants Shopify sont factices (section 6). Le test « Real Shopify IDs are set » échoue tant qu'ils ne sont pas posés. C'est voulu.
@@ -18,6 +20,7 @@
 - Hero validé : « Cortisol en hausse, testostérone sous pression. »
 - Structure validée : 17 blocs.
 - Ajustements faits pendant la QC, **à valider** : « 49,00 € la cure d'un mois » (au lieu de « par mois », car l'abonnement est prélevé tous les 30 jours) et le titre de la section mécanisme, « Le stress vide. Et c'est la testostérone qui paie la note. ».
+- Lancement 2 : page **produit directe** modelée sur Mars Men `boost-fb`, en 16 blocs validés. Hero écrit par l'opérateur : « La formule testostérone hors catégorie. » / « 7 ingrédients réunis dans une formule quotidienne dédiée à la vitalité masculine. ». Les deux allégations sous le titre sont obligatoires (voir section 3).
 
 ## 2. Identité visuelle (tokens réels du thème, `client-assets/brand.md`)
 
@@ -49,6 +52,11 @@
 Le « * » renvoie à la note : « *Les allégations de santé portent sur les nutriments concernés (zinc, magnésium, vitamines D3 et B6). Les études citées portent sur les ingrédients, pas sur Apogée Men. »
 Une option est en attente d'accord du client : « Le magnésium et la vitamine B6 contribuent à une fonction psychologique normale » (allégation UE autorisée qui renforcerait l'angle stress).
 
+**Bénéfice général = allégation précise à côté.** « Testostérone », « vitalité », « énergie » employés seuls sont des bénéfices généraux : ils doivent être accompagnés, au même endroit, d'une des 4 allégations ci-dessus (règlement UE 1924/2006, article 10.3). C'est pour cela que le titre « La formule testostérone hors catégorie » est suivi des puces zinc et magnésium + B6.
+
+### Ligne directrice du copywriting
+« Il ne veut pas redevenir jeune. Il veut redevenir lui-même. » Le désir avant le produit ; la testostérone est le mécanisme, pas le désir. Détail, mots à utiliser et conflits signalés : `BRAND-BRIEF.md`, section 12, et le dossier `client-assets/copywriting/`.
+
 ### Constantes de confiance (mot pour mot)
 49,00 € tous les 30 jours (soit 1,63 € par jour) · « 90 jours pour essayer. Ou remboursé. » · « Livraison offerte dès la 1re commande » · « Formule sans caféine ni stimulant » · « Fabriqué en France » · « Testé en laboratoire » · 7 actifs : fenugrec 600 mg, shilajit purifié 500 mg, safran 28 mg, zinc 15 mg (150 % des VNR), magnésium 150 mg, vitamine D3 2000 UI, vitamine B6 1,9 mg (forme P5P).
 
@@ -66,7 +74,9 @@ Une option est en attente d'accord du client : « Le magnésium et la vitamine B
 
 - **Réglementation UE** : guérir, soigner, traiter, prévenir, diagnostiquer ; « booster », « augmente la testostérone », « baisse le cortisol », « réduit le stress », « rééquilibre vos hormones » ; toute allégation sur le fenugrec, le shilajit ou le safran (au-delà de la formulation safran ci-dessus) ; le « +20,45 % » du shilajit ; « cliniquement prouvé » ; la marque « Testofen® ».
 - **Règles Meta** (la page reçoit du trafic Meta) : jamais de « vous » associé à un état de santé (« Vous êtes stressé ? », « Votre testostérone est basse ? ») ; pas d'âge implicite ; aucun angle libido ou sexualité ; pas d'avant/après ; ciblage des pubs 18+.
-- **Vérité** : aucune note, aucun avis, aucun prix barré, aucun code promo, aucun chiffre, aucun logo presse qui n'existe pas ; pas de fausse rareté.
+- **Vérité** : aucune note, aucun avis, aucun prix barré, aucun code promo, aucun chiffre, aucun logo presse qui n'existe pas ; pas de fausse rareté, pas de compte à rebours.
+- **Même quand ce sera vrai** : pas de résultats d'analyses de testostérone dans les avis, pas d'avant/après physiques, pas de comparaison avec un traitement hormonal (le complément serait présenté comme une alternative à un médicament).
+- **Âges** : aucun âge explicite dans les textes (« après 35 ans », « à 40 ans »). Le test « No explicit age targeting » le vérifie.
 - **Typographie** : aucun tiret cadratin (—) ni demi-cadratin (–) sur la page. Le texte de la marque en contient : les remplacer par « : », un point ou « · ».
 - **Images interdites** : `imgi_12` et `imgi_26` (pictos « Soutient la performance », « Aide à préserver vos gains »), `imgi_28` (allégations sur les plantes).
 
@@ -74,9 +84,10 @@ Une option est en attente d'accord du client : « Le magnésium et la vitamine B
 
 **Automatique**
 ```
-cd qa && npm install && npm test     # la page locale (lp/)
-npm run test:live                    # la page en ligne, après déploiement
+cd qa && npm install && npm test     # toutes les pages locales (lp/)
+npm run test:live                    # les pages en ligne, après déploiement
 npm run shots                        # + captures dans qa/out/
+LP_PAGES=/5-raisons/ npm test        # une seule page
 ```
 Hors de l'environnement cloud Claude, installer une fois le navigateur : `npx playwright install chromium`.
 
@@ -92,15 +103,17 @@ Hors de l'environnement cloud Claude, installer une fois le navigateur : `npx pl
 
 ## 6. Opérations courantes
 
-**Poser les identifiants Shopify**
-- Dans `lp/index.html` : sur le formulaire `#buyform`, remplacer `data-product-id="PRODUCT_ID"` et `data-variant-id="VARIANT_ID"` ; dans les champs cachés, `name="id" value="VARIANT_ID"` et `name="selling_plan" value="SELLING_PLAN_ID"` ; sur le bloc `.plan`, `data-selling-plan="SELLING_PLAN_ID"`.
+**Poser les identifiants Shopify** (sur **les deux pages** : `lp/index.html` et `lp/5-raisons/index.html`)
+- Dans chaque page : sur le formulaire `#buyform`, remplacer `data-product-id="PRODUCT_ID"` et `data-variant-id="VARIANT_ID"` ; dans les champs cachés, `name="id" value="VARIANT_ID"` et `name="selling_plan" value="SELLING_PLAN_ID"` ; sur le bloc `.plan`, `data-selling-plan="SELLING_PLAN_ID"`.
 - Dans `lp/assets/app.js` : vérifier `CONFIG.shopDomain` (actuellement `apogeemen.com`).
 - Incrémenter le `?v=` de `styles.css` et `app.js` dans `index.html` à chaque modification.
 - Lancer `npm test`, qui doit alors afficher 28/28, puis tester un vrai passage en caisse : le panier Shopify doit montrer Apogée Men en abonnement tous les 30 jours, à 49,00 €.
 
 **Ajouter l'achat unique** (si le client confirme son prix) : dupliquer le bloc `.plan` dans le `radiogroup` avec `data-selling-plan=""`, son prix dans `data-price` (en centimes) et son libellé. Le JavaScript gère déjà le clavier, les prix et le lien de paiement.
 
-**Afficher les avis** : remplir la section `#avis` de `lp/index.html`, puis retirer son attribut `hidden`.
+**Afficher les avis** : remplir la section `#avis` de chaque page, puis retirer son attribut `hidden`.
+
+**Ajouter une page** : créer `lp/<nom>/index.html` en partant d'une page existante, avec des chemins **absolus** vers les fichiers partagés (`/assets/...`), puis ajouter `/<nom>/` à la liste `LP_PAGES` par défaut de `qa/run.mjs`.
 
 **Déployer** (session avec accès réseau à `vercel.com`, `api.vercel.com` et `*.vercel.app`)
 ```
@@ -123,3 +136,6 @@ Plus simple sur la durée : relier le dépôt GitHub au projet Vercel `apogee-me
 - **Captures d'éléments** : l'en-tête et le bouton collants les recouvrent. Masquer `.hdr`, `.sticky` et `.promo` avant de capturer.
 - **`vercel link`** crée `lp/.env.local`, qui contient un jeton. Il est exclu par `lp/.gitignore` et `lp/.vercelignore` : ne jamais l'enregistrer dans Git.
 - **Contraste du texte posé sur une photo** : axe ne sait pas le mesurer. `qa/run.mjs` le calcule pixel par pixel.
+- **Pages dans un sous-dossier** : un chemin relatif (`assets/...`) casse selon que l'adresse finit ou non par `/`. Utiliser `/assets/...`. Les miniatures du panier sont stockées en chemin racine pour s'afficher sur toutes les pages.
+- **Références exportées en `.md`** : un export peut contenir les images encodées dans le texte (24 Mo pour `listicle.md`). Retirer les blocs `data:image/...;base64` avant de lire.
+- **Captures « page entière » faites par extension** : elles recollent parfois les éléments collants en double. Le texte (`page.md`) fait foi.
