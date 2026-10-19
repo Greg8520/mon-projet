@@ -333,3 +333,60 @@ Le droit français impose une information claire sur la reconduction et, pour un
 - Pub 1 (« Cortisol drains you ») = le produit → **page de conversion**.
 
 Recommandation : **B) Listicle**, « 8 signes que le stress vous vide ». Il reprend la pub 3 point par point et le cadre de la pub 2. Le format pédagogique permet de dire des choses fortes et sourcées (le mécanisme stress-cortisol-testostérone, tiré du blog de la marque) sans jamais en faire une promesse produit. Le produit arrive ensuite avec ses allégations autorisées et le Pacte. Pour du trafic froid sur une catégorie réglementée et sceptique, c'est le format qui convertit sans surpromettre.
+
+---
+
+# Lancement 2 (19/10/2026) : page modelée sur Mars Men « boost-fb »
+
+## 12. Règles de copywriting (`client-assets/copywriting/`)
+
+Source : « MARS MEN — Collection des insights stratégiques ».
+
+**La North Star retenue pour Apogée** : « Il ne veut pas redevenir jeune. Il veut redevenir lui-même. » Le vrai problème n'est pas la perte d'énergie, c'est la perte d'identité : l'homme ne se reconnaît plus et refuse d'en faire sa nouvelle normalité.
+
+**Les 4 manifestations** (à relier chacune à une preuve autorisée, jamais à une promesse) :
+- Énergie : avoir encore des ressources après le travail. Preuve : magnésium et B6, fatigue*.
+- Force : rester capable de s'entraîner. Preuve : magnésium et vitamine D, fonction musculaire normale*.
+- Motivation : retrouver l'envie de faire des choses. Pas d'allégation autorisée : rester sur le terrain émotionnel.
+- Confiance : se reconnaître à nouveau. Pas d'allégation autorisée : rester sur le terrain émotionnel.
+
+**Architecture** : le désir précède le produit ; la testostérone est le mécanisme, pas le désir final ; une seule transformation, plusieurs portes d'entrée selon le niveau de conscience.
+
+**Mots et formulations à utiliser** : redevenir soi-même, se reconnaître, l'élan, le répondant, garder de l'énergie pour ce qui compte, « Vos meilleures années ne sont pas derrière vous », « Vous avez encore beaucoup à donner », « Vos ambitions n'ont pas d'âge ».
+
+**Conflits signalés (non utilisables tels quels)** :
+- Règles Meta : « vous » + un état (« votre corps ne suit plus », « finir sur les rotules ») et les âges explicites (« après 35 ans », « à 40 ans »). Reformuler de façon générale.
+- Règles UE : « Libérez votre testostérone », la progression Jour 7 / 30 / 90 présentée comme des résultats.
+- Positionnement Apogée : « fuel your masculine edge with boost » (dernière ligne du document). Apogée se pose contre les « boosters ».
+
+## 13. Référence : Mars Men `/pages/boost-fb`
+
+Fichiers : `client-assets/reference/listicle.md` (texte, 117 images intégrées) et la capture pleine page. C'est la page de vente longue de Mars Men pour le trafic Facebook, probablement celle où mènent leurs pubs « cortisol ». Ce n'est pas un listicle éditorial : c'est une page produit directe, bâtie autour d'une section « 5 raisons ».
+
+| # | Section Mars Men | Son rôle | Équivalent Apogée | Statut |
+|---|---|---|---|---|
+| 1 | Bandeau « -50 % + cadeaux » et compte à rebours | Urgence | Livraison offerte · 90 jours pour essayer | Remplacé : aucune remise, et un faux compte à rebours est une pratique trompeuse |
+| 2 | « 4,77/5 · 3M+ flacons vendus » | Preuve sociale immédiate | Fabriqué en France · Testé en laboratoire · Le Pacte 90 jours | Remplacé tant qu'il n'y a pas d'avis |
+| 3 | Titre produit direct + 3 puces + bouton | Dire tout de suite ce que c'est | Titre direct, territoire « redevenir soi-même », 3 puces vraies | À écrire (étape 4) |
+| 4 | Bandeau défilant de bénéfices (« Boost T », « Build muscle »…) | Rythme, mots-clés | Faits défilants : 7 actifs · Sans stimulant · Doses affichées · Fabriqué en France | Remplacé : les bénéfices Mars sont des allégations interdites |
+| 5 | **« 5 raisons »** en carrousel | Le cœur persuasif | 5 raisons vraies, en liste verticale (un carrousel cache 4 raisons sur 5 sur mobile) | À adapter (détail ci-dessous) |
+| 6 | « 11 ingrédients, 4 façons d'agir » + « The Stack » + « The Feeling » + badges | Mécanisme et formule | Les 4 axes de la marque, les doses phares, « Le temps » (8 à 12 semaines) | Disponible ; « The Feeling » est une promesse : remplacé |
+| 7 | Logos presse (GQ, Men's Health, Forbes) | Autorité | Aucun | Absent : jamais inventé |
+| 8 | Experts et athlètes | Autorité | Aucun | Absent |
+| 9 | « 503 128 hommes », 5 117 avis, résultats d'analyses | Preuve sociale | Bloc avis masqué | Absent, et des taux de testostérone sur des avis seraient des allégations interdites, même vrais |
+| 10 | Avant/après physiques | Preuve visuelle | Aucun | Interdit (Meta et UE), définitivement |
+| 11 | Témoignages chiffrés (« I feel 25 again ») | Preuve | Avis réels plus tard, sans chiffre de santé | Absent |
+| 12 | Carrousel des 11 ingrédients (dose + bénéfice) | Transparence | Les 7 actifs, dose + allégation autorisée (nutriments) ou description neutre (plantes) | Disponible |
+| 13 | Comparatif Mars / traitement hormonal / boosters génériques | Se distinguer | Comparatif Apogée / catégorie | Disponible ; la comparaison avec un traitement hormonal est écartée (présenterait le complément comme une alternative à un médicament) |
+| 14 | « Pas de mélange propriétaire / pas de dose cachée / ne coupe pas votre T » + médecins | Réassurance | « Pas de mélange propriétaire / Pas de dose cachée / Pas d'hormone ni de stimulant » | Disponible, sans médecins |
+| 15 | FAQ (11 questions) | Objections | FAQ Apogée | Disponible ; réponses officielles de la marque toujours à fournir |
+| 16 | Bouton + garantie après chaque section | Faire avancer | Bouton + « 90 jours pour essayer. Ou remboursé. » | À reprendre : bon motif |
+
+**Les 5 raisons adaptées à Apogée** (vraies et conformes) :
+1. Mars : « Don't take T. Make T. » → **Pas d'hormone. Des nutriments.** Aucune hormone ni stimulant ; le zinc contribue au maintien d'un taux normal de testostérone dans le sang*.
+2. Mars : « Lose the fat. Keep your muscle. » → **Gardez l'élan à l'entraînement.** Magnésium et vitamine D, fonction musculaire normale*. Aucune promesse de perte de poids ou de muscle.
+3. Mars : « Don't let cortisol steal your T. » → **Le stress use. La formule en tient compte.** Le mécanisme (pédagogie du blog) et le safran, avec la formulation de la marque.
+4. Mars : « Everything listed on the label. » → **Tout est sur l'étiquette.** 7 actifs, chaque dose affichée. C'est l'avantage le plus solide d'Apogée.
+5. Mars : « Start today. Give it 90 days. » → **90 jours pour juger. Ou remboursé.** Le Pacte.
+
+**Ce qu'on améliore par rapport à la référence** : pas de fausse urgence, pas de chiffre invérifiable, les 5 raisons visibles d'un coup sur mobile, une allégation autorisée par raison au lieu d'une promesse.
