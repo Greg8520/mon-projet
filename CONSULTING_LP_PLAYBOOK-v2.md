@@ -31,7 +31,7 @@ Tell the operator, in your own words, to gather these into the folder, and wait 
 - **The entire product page as text** pasted into `client-assets/pdp.md` (select-all on the page, copy, paste). This is your source of truth for claims, facts, prices, and reviews, and it works even if the live site blocks you.
 - **The brand's science, blog, and FAQ pages** pasted into `client-assets/education.md`.
 - **The product-page URL**, so you can pull the live design tokens.
-- **(Optional)** one or more landing pages they want to mimic, one folder per page in `client-assets/reference/<brand>/`: a `page.md` with the URL and the full page text, plus full-length mobile screenshots. Best picks are pages behind ads that have run for 30+ days in the Meta Ad Library.
+- **(Optional)** one or more landing pages they want to mimic, one folder per page in `client-assets/reference/<brand>-<type>/` (type: pdp, lp, advertorial, quiz): a `page.md` with the URL, the page type, what the operator likes in it, and the full page text, plus full-length mobile screenshots and, when available, the ad that sends traffic to it. Best picks are pages behind ads that have run for 30+ days in the Meta Ad Library.
 - **(Optional)** their copywriting material (words to use, words to avoid, tone rules, frameworks, past copy that worked) into `client-assets/copywriting/`.
 
 Do not start scraping or building until they confirm the folder is populated.
