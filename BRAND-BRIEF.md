@@ -318,6 +318,12 @@ Le droit français impose une information claire sur la reconduction et, pour un
 17. **Fondateur ou mission** : rien dans le matériel. La bande marque utilisera la signature « Votre vitalité, au sommet » et le positionnement contre la catégorie.
 18. **Mentions légales** : raison sociale et contact pour le pied de page.
 
+### Ajouts après la construction de la page (`lp/`)
+19. **Texte exact de la pub Apogée** qui enverra le trafic : la page reprend l'angle des pubs Mars Men. Phrase de pub proposée, alignée sur le hero : « Stress chronique = cortisol en hausse. Et c'est la testostérone qui paie la note. »
+20. **Relecture juridique** de trois formulations : le titre « testostérone sous pression » (allégation implicite, appuyée par l'allégation zinc et la question 1 de la FAQ), le graphique « délai de résultat » (repris du tableau du blog) et la ligne « Présents dans certaines formules « boost » » du comparatif.
+21. **URL des pages légales** : la page utilise les chemins Shopify standards (`/policies/terms-of-service`, `/policies/privacy-policy`, `/policies/legal-notice`, `/pages/contact`). À confirmer.
+22. **Tester le vrai paiement** une fois les identifiants Shopify posés : le lien panier est construit et testé (`/cart/{variante}:{quantité}?selling_plan={plan}`), mais le domaine de la boutique est inaccessible depuis l'environnement de construction.
+
 ---
 
 ## 11. Recommandation de type de page (pour l'étape 3)
